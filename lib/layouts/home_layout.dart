@@ -5,6 +5,7 @@ import 'package:flutter_marketplace/pages/cart_page.dart';
 import 'package:flutter_marketplace/pages/catalog_page.dart';
 import 'package:flutter_marketplace/pages/favorite_page.dart';
 import 'package:flutter_marketplace/pages/home_page.dart';
+import 'package:get/get.dart';
 
 class HomeLayout extends StatefulWidget {
   HomeLayout({Key key, this.title}) : super(key: key);
@@ -17,71 +18,92 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
+
   int _curentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        titleSpacing: 0,
+        backgroundColor: HexColor("#102030"),
         title: Container(
           height: 42,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6.0),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[400],
-                  offset: Offset(0.0, 2.0),
-                  blurRadius: 6.0,
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                IconButton(
-                  onPressed: () => {},
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.black45,
-                  ),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: 'Поиск',
-                      isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 5),
-                      fillColor: Colors.white30,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide.none,
-                      ),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                margin: EdgeInsets.only(left: 7, right: 8),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(50),
+                  onTap: () => {
+                    // Get.toNamed("/search")
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                    child: Text(
+                      "anti virys".toUpperCase(),
+                      style: TextStyle(color: Colors.white, fontSize: 9),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      softWrap: false,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () => {},
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  icon: Icon(
-                    Icons.mic,
-                    color: Colors.black54,
+              ),
+              Expanded(
+                child: InkWell(
+                  onTap: () => {Get.toNamed("/search")},
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6.0),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () => {Get.toNamed("/search")},
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          icon: Icon(Icons.search, color: Colors.black45),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Искать...",
+                            style: TextStyle(color: Colors.black45),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 35,
+                          child: IconButton(
+                            padding: EdgeInsets.all(0),
+                            onPressed: () => {},
+                            icon: Icon(
+                              Icons.mic_none_outlined,
+                              color: HexColor("#102030"),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 35,
+                          child: IconButton(
+                            padding: EdgeInsets.all(0),
+                            onPressed: () => {},
+                            icon: Icon(
+                              Icons.camera_alt_outlined,
+                              color: HexColor("#102030"),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10)
+                      ],
+                    ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () => {},
-                  padding: EdgeInsets.only(right: 10),
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.black54,
-                  ),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(width: 16)
+            ],
           ),
         ),
       ),
@@ -89,37 +111,50 @@ class _HomeLayoutState extends State<HomeLayout> {
         key: _navigatorKey,
         initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
-          WidgetBuilder builder;
           switch (settings.name) {
             case '/':
-              builder = (BuildContext context) => HomePage();
-              break;
+              return MaterialPageRoute(
+                builder: (BuildContext context) => HomePage(),
+                settings: settings,
+              );
             case '/catalog':
-              builder = (BuildContext context) => CatalogPage();
-              break;
+              return MaterialPageRoute(
+                builder: (BuildContext context) => CatalogPage(),
+                settings: settings,
+              );
             case '/cart':
-              builder = (BuildContext context) => CartPage();
-              break;
+              return MaterialPageRoute(
+                builder: (BuildContext context) => CartPage(),
+                settings: settings,
+              );
             case '/fovarite':
-              builder = (BuildContext context) => FavoritePage();
-              break;
+              return MaterialPageRoute(
+                builder: (BuildContext context) => FavoritePage(),
+                settings: settings,
+              );
             case '/cabinet':
-              builder = (BuildContext context) => CabinetPage();
-              break;
+              return MaterialPageRoute(
+                builder: (BuildContext context) => CabinetPage(),
+                settings: settings,
+              );
             default:
-              builder = (BuildContext context) => HomePage();
+              return null;
           }
-          return MaterialPageRoute(
-            builder: builder,
-            settings: settings,
-          );
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: HexColor("#12185C"),
+        selectedItemColor: HexColor("#154BB7"),
         selectedIconTheme: IconThemeData(size: 26),
         unselectedItemColor: HexColor("#999999"),
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
         currentIndex: _curentIndex,
         onTap: (index) {
           if (index == _curentIndex) return;
@@ -149,7 +184,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: "Главная",
           ),
           BottomNavigationBarItem(
