@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:share/share.dart';
 
 class ProductPage extends StatefulWidget {
   ProductPage({Key key}) : super(key: key);
@@ -20,7 +21,7 @@ class _ProductPageState extends State<ProductPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         automaticallyImplyLeading: false,
         titleSpacing: 0,
@@ -39,13 +40,16 @@ class _ProductPageState extends State<ProductPage> {
             ),
             Expanded(child: Text("")),
             Row(children: [
-              _getAppBarButton(Icons.share, () => {}),
+              _getAppBarButton(Icons.share, () {
+                var url = 'Hallo from marketplace!';
+                Share.share(url);
+              }),
               _getAppBarButton(
                 isFavorite ? Icons.favorite : Icons.favorite_outline,
-                () => {
+                () {
                   setState(() {
                     isFavorite = !isFavorite;
-                  })
+                  });
                 },
                 color: HexColor(isFavorite ? "#F61255" : "#000000"),
               ),
@@ -315,18 +319,219 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(left: 18, top: 3),
-            child: Row(
-              children: [
-                Icon(Icons.notifications_outlined),
-                Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text("fdf"),
-                )
-              ],
+          InkWell(
+            onTap: () => {},
+            child: Container(
+              padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.notifications_outlined,
+                    color: HexColor("#1B57B9"),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "Узнать о снижении цены",
+                      style: TextStyle(color: HexColor("#061721")),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
+          SizedBox(height: 5),
+          InkWell(
+            onTap: () => {},
+            child: Container(
+              padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.check_circle_outline,
+                    color: HexColor("#00080F"),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "В наличии",
+                      style: TextStyle(color: HexColor("#00080F")),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 50),
+            child: Divider(height: 5, color: HexColor("#D9D9D9")),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 18),
+            width: double.infinity,
+            child: RaisedButton(
+              highlightElevation: 1,
+              elevation: 0,
+              color: HexColor("#F2F3F5"),
+              onPressed: () => {},
+              child: Text(
+                "Купить в 1 клик",
+                style: TextStyle(
+                  color: HexColor("#1856C5"),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => {},
+            child: Container(
+              padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
+              child: Row(
+                children: [
+                  Icon(Icons.score_outlined),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text.rich(
+                      TextSpan(
+                        text: "135 баллов (5%) при оплате c ",
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Ozon Card',
+                            style: TextStyle(color: HexColor("#3B4F94")),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 18, right: 18, top: 18),
+            width: double.infinity,
+            child: Text(
+              "Доставит OZON",
+              style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
+            ),
+          ),
+          InkWell(
+            onTap: () => {},
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Icon(
+                          Icons.location_on_outlined,
+                          color: HexColor("#0C1E28"),
+                          size: 28,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Москва",
+                          style: TextStyle(color: HexColor("#071216")),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          softWrap: false,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(right: 10),
+                        child: Icon(
+                          Icons.chevron_right,
+                          color: HexColor("#849199"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 53, top: 8),
+                    child: Divider(
+                      height: 0,
+                      color: HexColor("#DADADA"),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => {},
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Icon(
+                          Icons.directions_car_outlined,
+                          color: HexColor("#0C1E28"),
+                          size: 28,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Курьером, завтра, 7 января",
+                          style: TextStyle(color: HexColor("#071216")),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 53, top: 8),
+                    child: Divider(
+                      height: 0,
+                      color: HexColor("#DADADA"),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => {},
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 5),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Icon(
+                          Icons.storefront_outlined,
+                          color: HexColor("#0C1E28"),
+                          size: 28,
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Самовывоз, завтра, 7 января бесплато",
+                          style: TextStyle(color: HexColor("#071216")),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 53, top: 8),
+                    child: Divider(
+                      height: 0,
+                      color: HexColor("#DADADA"),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Padding(padding: EdgeInsets.all(15))
         ],
       ),
     );

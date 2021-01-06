@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
-import 'package:flutter_marketplace_service/flutter_marketplace_service.dart';
+
 import 'package:flutter_marketplace_service/models/users.model.dart';
 import 'package:get/get.dart';
 
@@ -29,31 +29,32 @@ class _HomePageState extends State<HomePage> {
 
   List<UserModel> users = [];
 
-  _getUsers() {
-    Api.getUsers().then((_users) {
-      setState(() {
-        users = _users;
-      });
-    });
-  }
+  // _getUsers() {
+  //   .getUsers().then((_users) {
+  //     setState(() {
+  //       users = _users;
+  //     });
+  //   });
+  // }
 
   initState() {
     super.initState();
-    _getUsers();
+    // _getUsers();
   }
 
   dispose() {
     super.dispose();
   }
 
-  historyTabToggle({String tab = "history"}) {
+  historyTabToggle({String tab = "history"}) async {
     setState(() {
       historyTab = tab;
     });
   }
 
   Future<Null> _refresh() {
-    return Api.getUsers().then((_user) {});
+    return null;
+    // return Api.getUsers().then((_user) {});
   }
 
   @override

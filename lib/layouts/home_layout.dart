@@ -20,12 +20,14 @@ class _HomeLayoutState extends State<HomeLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   int _curentIndex = 0;
+  bool _isHideAppBar = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: _isHideAppBar ? 0 : 56,
         titleSpacing: 0,
         backgroundColor: HexColor("#102030"),
         title: Container(
@@ -43,7 +45,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
                     child: Text(
-                      "anti virys".toUpperCase(),
+                      "anti virus".toUpperCase(),
                       style: TextStyle(color: Colors.white, fontSize: 9),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
@@ -160,12 +162,14 @@ class _HomeLayoutState extends State<HomeLayout> {
           if (index == _curentIndex) return;
 
           String page = '';
+          bool hideAppBar = false;
 
           switch (index) {
             case 1:
               page = 'catalog';
               break;
             case 2:
+              hideAppBar = true;
               page = 'cart';
               break;
             case 3:
@@ -179,6 +183,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           _navigatorKey.currentState.pushNamed("/$page");
 
           setState(() {
+            _isHideAppBar = hideAppBar;
             _curentIndex = index;
           });
         },

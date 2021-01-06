@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/layouts/home_layout.dart';
 import 'package:flutter_marketplace/pages/product_page.dart';
 import 'package:flutter_marketplace/pages/search_page.dart';
+
 import 'package:get/get.dart';
 
 void main() {
