@@ -5,7 +5,9 @@ import 'package:flutter_marketplace/pages/cart_page.dart';
 import 'package:flutter_marketplace/pages/catalog_page.dart';
 import 'package:flutter_marketplace/pages/favorite_page.dart';
 import 'package:flutter_marketplace/pages/home_page.dart';
+import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class HomeLayout extends StatefulWidget {
   HomeLayout({Key key, this.title}) : super(key: key);
@@ -126,7 +128,9 @@ class _HomeLayoutState extends State<HomeLayout> {
               );
             case '/cart':
               return MaterialPageRoute(
-                builder: (BuildContext context) => CartPage(),
+                builder: (BuildContext context) => ChangeNotifierProvider(
+                    create: (context) => CartProvider(),
+                    child: CartPage()),
                 settings: settings,
               );
             case '/fovarite':
