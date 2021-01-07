@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
+import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:share/share.dart';
 
@@ -10,59 +12,86 @@ class ProductPage extends StatefulWidget {
   _ProductPageState createState() => _ProductPageState();
 }
 
-class _ProductPageState extends State<ProductPage> {
+class _ProductPageState extends State<ProductPage>
+    with SingleTickerProviderStateMixin {
   final controller = PageController(viewportFraction: 1);
 
   bool isFavorite = false;
   int isSize = 0;
 
+  TabController _tabController;
+  int _tabIndex = 0;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _tabIndex = _tabController.index;
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        title: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 5, right: 7),
-              child: InkWell(
-                onTap: () => {Navigator.pop(context)},
-                borderRadius: BorderRadius.circular(50),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Icon(Icons.arrow_back, color: Colors.black),
-                ),
-              ),
-            ),
-            Expanded(child: Text("")),
-            Row(children: [
-              _getAppBarButton(Icons.share, () {
-                var url = 'Hallo from marketplace!';
-                Share.share(url);
-              }),
-              _getAppBarButton(
-                isFavorite ? Icons.favorite : Icons.favorite_outline,
-                () {
-                  setState(() {
-                    isFavorite = !isFavorite;
-                  });
-                },
-                color: HexColor(isFavorite ? "#F61255" : "#000000"),
-              ),
-              _getAppBarButton(Icons.shopping_bag_outlined, () => {})
-            ])
-          ],
-        ),
-      ),
-      body: _getCategory(),
+      appBar: _getAppBar(),
+      body: _getBody(),
+      bottomNavigationBar: _getFooter(),
     );
   }
 
-  Widget _getCategory() {
+  Widget _getAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      automaticallyImplyLeading: false,
+      titleSpacing: 0,
+      title: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 5, right: 7),
+            child: InkWell(
+              onTap: () => {Navigator.pop(context)},
+              borderRadius: BorderRadius.circular(50),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(Icons.arrow_back, color: Colors.black),
+              ),
+            ),
+          ),
+          Expanded(child: Text("")),
+          Row(children: [
+            __getAppBarButton(Icons.share, () {
+              var url = 'Hallo from marketplace!';
+              Share.share(url);
+            }),
+            __getAppBarButton(
+              isFavorite ? Icons.favorite : Icons.favorite_outline,
+              () {
+                setState(() {
+                  isFavorite = !isFavorite;
+                });
+              },
+              color: HexColor(isFavorite ? "#F61255" : "#000000"),
+            ),
+            __getAppBarButton(Icons.shopping_bag_outlined, () {})
+          ])
+        ],
+      ),
+    );
+  }
+
+  Widget _getBody() {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -409,7 +438,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 18, right: 18, top: 18),
+            padding: EdgeInsets.only(left: 18, right: 18, top: 18, bottom: 10),
             width: double.infinity,
             child: Text(
               "Доставит OZON",
@@ -531,13 +560,102 @@ class _ProductPageState extends State<ProductPage> {
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.all(15))
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            height: 45,
+            child: TabBar(
+              controller: _tabController,
+              labelStyle: TextStyle(fontWeight: FontWeight.bold),
+              unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w400),
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                Tab(text: 'Описание'.toUpperCase()),
+                Tab(text: 'Характеристики'.toUpperCase()),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+            child: [
+              Container(
+                child: RichText(
+                  // overflow: TextOverflow.ellipsis,
+                  // maxLines: 8,
+                  // softWrap: false,
+                  text: TextSpan(
+                    text:
+                        "Lorem Ipsum is simply dummy text of the printing and  has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+                    style: TextStyle(color: Colors.black, fontSize: 18),
+                    children: [
+                      TextSpan(
+                        text: ' Ещё',
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontSize: 18,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            // navigate to desired screen
+                          },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Column(children: [Text('second tab')]),
+            ][_tabIndex],
+          ),
+          Padding(padding: EdgeInsets.only(top: 10)),
+          ProductCardsWidget(
+            title: "Рекомендуемые промо-товары",
+            count: 3,
+            named: true,
+            list: true,
+          ),
+          ProductCardsWidget(
+            title: "Рекомендуем также",
+            count: 3,
+            named: true,
+            list: true,
+          ),
+          Container(
+            decoration: BoxDecoration(color: HexColor("#F2F4F3")),
+            padding: EdgeInsets.all(15),
+          )
         ],
       ),
     );
   }
 
-  Widget _getAppBarButton(IconData icon, Function onTap,
+  Widget _getFooter() {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: HexColor("#DED7DF"), width: 1)),
+      ),
+      child: Container(
+        height: 60,
+        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+        child: RaisedButton(
+          color: HexColor("#005BFE"),
+          textColor: Colors.white,
+          onPressed: () => {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "В корзину",
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              Text("599 P"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget __getAppBarButton(IconData icon, Function onTap,
       {color = Colors.black}) {
     return InkWell(
       onTap: onTap,
