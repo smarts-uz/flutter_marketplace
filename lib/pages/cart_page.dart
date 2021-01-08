@@ -19,14 +19,15 @@ class _CartPageState extends State<CartPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 8.0, 0, 0),
+          padding: EdgeInsets.fromLTRB(16.0, 8.0, 0, 0),
           child: Container(
             child: Text(
               "Корзина",
               style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
           ),
         ),
@@ -73,7 +74,7 @@ class _CartPageState extends State<CartPage> {
         ),
         Expanded(
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(), // child: Container(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: <Widget>[
                 Container(
@@ -81,7 +82,7 @@ class _CartPageState extends State<CartPage> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
+                        padding: EdgeInsets.fromLTRB(16.0, 0, 16.0, 0),
                         child: InkWell(
                           onTap: () {
                             myProvider.openSearchScreen(context);
@@ -265,17 +266,19 @@ class _CartPageState extends State<CartPage> {
                           width: double.infinity,
                           height: 50.0,
                           child: FlatButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            color: Colors.blue,
+                            onPressed: () => null,
+                            child: Text(
+                              "Перейти к оформлению",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
                               ),
-                              color: Colors.blue,
-                              onPressed: () => null,
-                              child: Text(
-                                "Перейти к оформлению",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              )),
+                            ),
+                          ),
                         ),
                         SizedBox(height: 8.0),
                         Align(
@@ -294,7 +297,6 @@ class _CartPageState extends State<CartPage> {
                 ),
               ],
             ),
-            //   ),
           ),
         ),
       ],

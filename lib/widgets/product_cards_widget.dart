@@ -9,12 +9,14 @@ class ProductCardsWidget extends StatefulWidget {
     this.count,
     this.named,
     this.list,
+    this.perCol,
   }) : super(key: key);
 
   final String title;
   final int count;
   final bool named;
   final bool list;
+  final double perCol;
 
   @override
   _ProductCardsWidgetState createState() => _ProductCardsWidgetState();
@@ -52,7 +54,10 @@ class _ProductCardsWidgetState extends State<ProductCardsWidget> {
               alignment: WrapAlignment.spaceBetween,
               children: List.generate(
                 widget.count,
-                (index) => ProductCardWidget(named: widget.named),
+                (index) => Container(
+                  width: MediaQuery.of(context).size.width / widget.perCol,
+                  child: ProductCardWidget(named: widget.named),
+                ),
               ),
             )
     ]);

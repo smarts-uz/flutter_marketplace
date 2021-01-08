@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
             count: 6,
             named: false,
             list: false,
+            perCol: 3,
           ),
           _getProfitable("Это выгодно! Успей купить!"),
           ProductCardsWidget(
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
             count: 3,
             named: false,
             list: false,
+            perCol: 3,
           ),
           _getBanner(),
           ProductCardsWidget(
@@ -49,12 +51,15 @@ class _HomePageState extends State<HomePage> {
             count: 3,
             named: false,
             list: false,
+            perCol: 3,
           ),
           _getProfitable("Покупки сезона", isName: true),
           ProductCardsWidget(
             title: "Бесплатная доставка по всему миру",
             count: 6,
             named: true,
+            list: false,
+            perCol: 3,
           ),
           Padding(padding: EdgeInsets.all(10)),
         ],
