@@ -30,6 +30,7 @@ dependencies:
   smooth_page_indicator: ^0.2.0
   http: ^0.12.2
   get: ^3.24.0
+  flutter_statusbarcolor: ^0.2.3
 
   flutter_marketplace_service:
      path: ../flutter_marketplace_service

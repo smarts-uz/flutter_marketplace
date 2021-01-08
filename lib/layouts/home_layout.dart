@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/pages/cabinet_page.dart';
 import 'package:flutter_marketplace/pages/cart_page.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class HomeLayout extends StatefulWidget {
   HomeLayout({Key key, this.title}) : super(key: key);
@@ -22,16 +25,17 @@ class _HomeLayoutState extends State<HomeLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   int _curentIndex = 0;
-  bool _isHideAppBar = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: _isHideAppBar ? 0 : 56,
+        toolbarHeight: _curentIndex > 1 ? 0 : 56,
         titleSpacing: 0,
-        backgroundColor: HexColor("#102030"),
+        elevation: _curentIndex > 2 ? 0 : 1,
+        backgroundColor: _curentIndex > 1 ? Colors.white : HexColor("#102030"),
+        systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.red),
         title: Container(
           height: 42,
           child: Row(
@@ -129,8 +133,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             case '/cart':
               return MaterialPageRoute(
                 builder: (BuildContext context) => ChangeNotifierProvider(
-                    create: (context) => CartProvider(),
-                    child: CartPage()),
+                    create: (context) => CartProvider(), child: CartPage()),
                 settings: settings,
               );
             case '/fovarite':
@@ -166,14 +169,12 @@ class _HomeLayoutState extends State<HomeLayout> {
           if (index == _curentIndex) return;
 
           String page = '';
-          bool hideAppBar = false;
 
           switch (index) {
             case 1:
               page = 'catalog';
               break;
             case 2:
-              hideAppBar = true;
               page = 'cart';
               break;
             case 3:
@@ -186,8 +187,16 @@ class _HomeLayoutState extends State<HomeLayout> {
 
           _navigatorKey.currentState.pushNamed("/$page");
 
+          Color color = index > 1 ? Colors.white : HexColor("#102030");
+
+          FlutterStatusbarcolor.setStatusBarColor(color).then(
+            (value) {
+              bool isWhite = useWhiteForeground(color);
+              FlutterStatusbarcolor.setStatusBarWhiteForeground(isWhite);
+            },
+          );
+
           setState(() {
-            _isHideAppBar = hideAppBar;
             _curentIndex = index;
           });
         },
