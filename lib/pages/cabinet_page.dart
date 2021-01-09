@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 
@@ -20,7 +21,7 @@ class _CabinetPageState extends State<CabinetPage> {
         isAuth
             ? Container(
                 padding: EdgeInsets.symmetric(horizontal: 18, vertical: 50),
-                decoration: BoxDecoration(color: HexColor("#005BFE")),
+                decoration: BoxDecoration(color: MyColors.blue),
                 child: InkWell(
                   onTap: () => {},
                   child: Row(
@@ -31,20 +32,20 @@ class _CabinetPageState extends State<CabinetPage> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: HexColor("#F2F3F5"),
+                                color: MyColors.athensGray,
                                 borderRadius: BorderRadius.circular(50),
                               ),
                               child: Icon(
                                 Icons.account_circle_outlined,
                                 size: 100,
-                                color: HexColor("#005BFE"),
+                                color: MyColors.blue,
                               ),
                             ),
                             Container(
                               padding: EdgeInsets.only(left: 20, bottom: 25),
                               child: Text(
                                 "Мои данные",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(color: MyColors.white),
                               ),
                             )
                           ],
@@ -52,7 +53,7 @@ class _CabinetPageState extends State<CabinetPage> {
                       ),
                       Icon(
                         Icons.chevron_right_outlined,
-                        color: Colors.white,
+                        color: MyColors.white,
                         size: 30,
                       )
                     ],
@@ -61,7 +62,7 @@ class _CabinetPageState extends State<CabinetPage> {
               )
             : Container(
                 padding: EdgeInsets.symmetric(horizontal: 18, vertical: 34),
-                decoration: BoxDecoration(color: HexColor("#E6EFFF")),
+                decoration: BoxDecoration(color: MyColors.zumthor),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -91,7 +92,7 @@ class _CabinetPageState extends State<CabinetPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: RaisedButton(
-                          color: HexColor("#005BFE"),
+                          color: MyColors.blue,
                           elevation: 0,
                           onPressed: () => {
                             setState(() => {isAuth = !isAuth})
@@ -100,7 +101,7 @@ class _CabinetPageState extends State<CabinetPage> {
                             "Войти или зарегистрироватся",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                              color: MyColors.white,
                             ),
                           ),
                         ),
@@ -111,7 +112,7 @@ class _CabinetPageState extends State<CabinetPage> {
                 ),
               ),
         Container(
-          decoration: BoxDecoration(color: HexColor("#F2F3F5")),
+          decoration: BoxDecoration(color: MyColors.athensGray),
           height: 30,
         ),
         _listItem(
@@ -123,7 +124,7 @@ class _CabinetPageState extends State<CabinetPage> {
         _listItem(() => {}, "Пункты выдачи на карте"),
         _listItem(() => {}, "Стоимость доставки", divider: false),
         Container(
-          decoration: BoxDecoration(color: HexColor("#F2F3F5")),
+          decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
           margin: EdgeInsets.only(top: 5, bottom: 5),
           child: Text(
@@ -134,7 +135,7 @@ class _CabinetPageState extends State<CabinetPage> {
         _listItem(() => {}, "Заказы"),
         _listItem(() => {}, "Купленные товары", divider: false),
         Container(
-          decoration: BoxDecoration(color: HexColor("#F2F3F5")),
+          decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
           margin: EdgeInsets.only(top: 5, bottom: 5),
           child: Text(
@@ -146,7 +147,7 @@ class _CabinetPageState extends State<CabinetPage> {
         _listItem(() => {}, "Способы оплаты"),
         _listItem(() => {}, "Помощь", divider: false),
         Container(
-          decoration: BoxDecoration(color: HexColor("#F2F3F5")),
+          decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
           margin: EdgeInsets.only(top: 5, bottom: 5),
           child: Text(
@@ -157,7 +158,7 @@ class _CabinetPageState extends State<CabinetPage> {
         _listItem(() => {}, "Аккоунт и безопасность"),
         _listItem(() => {}, "О приложении", divider: false),
         Container(
-          decoration: BoxDecoration(color: HexColor("#F2F3F5")),
+          decoration: BoxDecoration(color: MyColors.athensGray),
           height: 30,
         ),
         ProductCardsWidget(
@@ -193,8 +194,9 @@ class _CabinetPageState extends State<CabinetPage> {
                               padding: EdgeInsets.only(top: 5),
                               child: Icon(
                                 icon,
-                                color:
-                                    HexColor(primary ? "#205FC0" : "#040D0A"),
+                                color: primary
+                                    ? MyColors.mariner
+                                    : MyColors.blackBean,
                                 size: 34,
                               ),
                             )
@@ -204,7 +206,8 @@ class _CabinetPageState extends State<CabinetPage> {
                         child: Text(
                           text,
                           style: TextStyle(
-                            color: HexColor(primary ? "#205FC0" : "#040D0A"),
+                            color:
+                                primary ? MyColors.mariner : MyColors.blackBean,
                           ),
                         ),
                       ),
@@ -212,7 +215,7 @@ class _CabinetPageState extends State<CabinetPage> {
                   ),
                   Icon(
                     Icons.chevron_right_outlined,
-                    color: HexColor("#D0D4D3"),
+                    color: MyColors.tiara,
                     size: 30,
                   )
                 ],

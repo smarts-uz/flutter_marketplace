@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +37,7 @@ class _CartPageState extends State<CartPage> {
         Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
           child: Container(
-            color: Colors.white,
+            color: MyColors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -51,7 +52,7 @@ class _CartPageState extends State<CartPage> {
                             ? Icon(
                                 Icons.check,
                                 size: 15.0,
-                                color: Colors.white,
+                                color: MyColors.white,
                               )
                             : Icon(
                                 Icons.check_box_outline_blank,
@@ -66,7 +67,7 @@ class _CartPageState extends State<CartPage> {
                 ),
                 Text(
                   "Удалить выбранные",
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: MyColors.red),
                 )
               ],
             ),
@@ -129,7 +130,7 @@ class _CartPageState extends State<CartPage> {
                               "Доставка Ozon",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.red),
+                                  color: MyColors.red),
                             ),
                           ),
                         ),
@@ -219,7 +220,7 @@ class _CartPageState extends State<CartPage> {
                             Text(
                               "-11 321 P",
                               style: TextStyle(
-                                  color: Colors.red,
+                                  color: MyColors.red,
                                   fontWeight: FontWeight.bold),
                             )
                           ],
@@ -274,7 +275,7 @@ class _CartPageState extends State<CartPage> {
                             child: Text(
                               "Перейти к оформлению",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: MyColors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -325,7 +326,7 @@ class _CartPageState extends State<CartPage> {
                                 ? Icon(
                                     Icons.check,
                                     size: 15.0,
-                                    color: Colors.white,
+                                    color: MyColors.white,
                                   )
                                 : Icon(
                                     Icons.check_box_outline_blank,
@@ -353,7 +354,7 @@ class _CartPageState extends State<CartPage> {
                       children: [
                         Text(
                           "599 P",
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: MyColors.red),
                         ),
                         Text("199 P")
                       ],

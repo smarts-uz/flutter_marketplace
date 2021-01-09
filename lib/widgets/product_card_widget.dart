@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 
 import 'package:get/get.dart';
@@ -13,7 +14,8 @@ class ProductCardWidget extends StatefulWidget {
 }
 
 class _ProductCardWidgetState extends State<ProductCardWidget> {
-  int _itemCount = 0;
+  int _count = 0;
+  bool _selected = false;
   bool _isFavorite = false;
 
   @override
@@ -45,13 +47,13 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                             width: MediaQuery.of(context).size.width / 4.3,
                             padding: EdgeInsets.symmetric(vertical: 5),
                             decoration: BoxDecoration(
-                              color: HexColor("#7D38A5"),
+                              color: MyColors.royalPurple,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Text(
                               "Часто покупаете?",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: MyColors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
@@ -74,13 +76,13 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                             child: _isFavorite
                                 ? Icon(
                                     Icons.favorite,
-                                    color: HexColor("#FB0F5A"),
+                                    color: MyColors.red,
                                     size: 35.0,
                                   )
                                 : Stack(children: [
                                     Icon(
                                       Icons.favorite,
-                                      color: Colors.white,
+                                      color: MyColors.white,
                                       size: 35.0,
                                     ),
                                     Positioned(
@@ -88,7 +90,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       right: 0,
                                       child: Icon(
                                         Icons.favorite_border,
-                                        color: HexColor("#FB0F5A"),
+                                        color: MyColors.red,
                                         size: 35.0,
                                       ),
                                     ),
@@ -104,13 +106,13 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                               vertical: 5,
                             ),
                             decoration: BoxDecoration(
-                              color: HexColor("#FB0F5A"),
+                              color: MyColors.red,
                               borderRadius: BorderRadius.circular(5),
                             ),
                             child: Text(
                               "—40%",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: MyColors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
                               ),
@@ -127,7 +129,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                         child: Text(
                           "Бестселлер",
                           style: TextStyle(
-                            color: HexColor("#CAAE81"),
+                            color: MyColors.sorrellBrown,
                             fontSize: 12,
                           ),
                         ),
@@ -139,7 +141,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                             Text(
                               "14 990 P",
                               style: TextStyle(
-                                color: HexColor("#BC3061"),
+                                color: MyColors.hibiscus,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -148,10 +150,10 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                               child: Text(
                                 "14 990 P",
                                 style: TextStyle(
-                                  color: HexColor("#2A1C28"),
+                                  color: MyColors.thunder,
                                   fontSize: 11,
                                   decoration: TextDecoration.lineThrough,
-                                  decorationColor: HexColor("#BC3061"),
+                                  decorationColor: MyColors.hibiscus,
                                 ),
                               ),
                             )
@@ -187,25 +189,42 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
   }
 
   Widget _getCounterBtn() {
-    return _itemCount > 0
+    // return Container(
+    //   padding: EdgeInsets.only(top: 4),
+    //   width: double.infinity,
+    //   child: RaisedButton(
+    //     onPressed: () => setState(() => _selected = !_selected),
+    //     color: _selected ? MyColors.green : MyColors.blue,
+    //     shape: RoundedRectangleBorder(
+    //       borderRadius: BorderRadius.circular(5),
+    //     ),
+    //     child: Text(
+    //       "В корзину",
+    //       style: TextStyle(color: MyColors.white),
+    //       overflow: TextOverflow.ellipsis,
+    //       textAlign: TextAlign.center,
+    //       maxLines: 1,
+    //       softWrap: false,
+    //     ),
+    //   ),
+    // );
+
+    return _count > 0
         ? Container(
             padding: EdgeInsets.only(top: 10, bottom: 6),
             child: Row(children: [
               _createIncrementDicrementButton(
-                Icons.remove,
-                () => setState(() => _itemCount--),
-                HexColor("#FB0F5A"),
-              ),
+                  Icons.remove, () => setState(() => _count--), MyColors.red),
               Expanded(
                 child: Text(
-                  _itemCount.toString(),
+                  _count.toString(),
                   textAlign: TextAlign.center,
                 ),
               ),
               _createIncrementDicrementButton(
                 Icons.add,
-                () => setState(() => _itemCount++),
-                HexColor("#005AFC"),
+                () => setState(() => _count++),
+                MyColors.blue,
               )
             ]),
           )
@@ -213,16 +232,16 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
             padding: EdgeInsets.only(top: 4),
             width: double.infinity,
             child: RaisedButton(
-              onPressed: () => setState(() => _itemCount++),
+              onPressed: () => setState(() => _count++),
               child: Text(
                 "В корзину",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: MyColors.white),
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 softWrap: false,
               ),
-              color: HexColor("#005AFC"),
+              color: MyColors.blue,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -238,7 +257,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
       onPressed: onPressed,
       elevation: 2.0,
       fillColor: color,
-      child: Icon(icon, color: Colors.white, size: 18),
+      child: Icon(icon, color: MyColors.white, size: 18),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),

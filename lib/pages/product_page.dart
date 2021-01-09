@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -43,7 +44,7 @@ class _ProductPageState extends State<ProductPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MyColors.white,
       appBar: _getAppBar(),
       body: _getBody(),
       bottomNavigationBar: _getFooter(),
@@ -82,7 +83,7 @@ class _ProductPageState extends State<ProductPage>
                   isFavorite = !isFavorite;
                 });
               },
-              color: HexColor(isFavorite ? "#F61255" : "#000000"),
+              color: isFavorite ? MyColors.redRibbon : MyColors.black,
             ),
             __getAppBarButton(Icons.shopping_bag_outlined, () {})
           ])
@@ -131,13 +132,13 @@ class _ProductPageState extends State<ProductPage>
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: HexColor("#FB0F5A"),
+                    color: MyColors.red,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
                     "—40%",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: MyColors.white,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.8,
                       fontSize: 12,
@@ -151,13 +152,13 @@ class _ProductPageState extends State<ProductPage>
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: HexColor("#7D38A5"),
+                    color: MyColors.royalPurple,
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
                     "Часто покупаете?",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: MyColors.white,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.8,
                       fontSize: 12,
@@ -173,23 +174,23 @@ class _ProductPageState extends State<ProductPage>
             effect: SlideEffect(
               dotWidth: 10,
               dotHeight: 10,
-              dotColor: HexColor("#D0D4D3"),
-              activeDotColor: HexColor("#051320"),
+              dotColor: MyColors.tiara,
+              activeDotColor: MyColors.blackPearl,
             ),
           ),
           Container(
             margin: EdgeInsets.only(top: 20),
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-            decoration: BoxDecoration(color: HexColor("#F2F3F7")),
+            decoration: BoxDecoration(color: MyColors.athensGray),
             child: Row(
               children: [
-                Icon(Icons.train_outlined, color: HexColor("#7D8087")),
+                Icon(Icons.train_outlined, color: MyColors.raven),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
                     "Доступно 2 варианта доставки",
                     style: TextStyle(
-                      color: HexColor("#7D8087"),
+                      color: MyColors.raven,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -203,7 +204,7 @@ class _ProductPageState extends State<ProductPage>
             child: Text(
               "Бестселлер",
               style: TextStyle(
-                color: HexColor("#CAAE81"),
+                color: MyColors.sorrellBrown,
                 fontSize: 12,
               ),
             ),
@@ -222,7 +223,7 @@ class _ProductPageState extends State<ProductPage>
                 Text(
                   "14 990 P",
                   style: TextStyle(
-                    color: HexColor("#BC3061"),
+                    color: MyColors.hibiscus,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -232,11 +233,11 @@ class _ProductPageState extends State<ProductPage>
                   child: Text(
                     "14 990 P",
                     style: TextStyle(
-                      color: HexColor("#2A1C28"),
+                      color: MyColors.thunder,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       decoration: TextDecoration.lineThrough,
-                      decorationColor: HexColor("#BC3061"),
+                      decorationColor: MyColors.hibiscus,
                     ),
                   ),
                 )
@@ -251,7 +252,7 @@ class _ProductPageState extends State<ProductPage>
                 padding: EdgeInsets.only(left: 18),
                 child: Column(
                   children: [
-                    Divider(height: 5, color: HexColor("#D7D7D7")),
+                    Divider(height: 5, color: MyColors.alto),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
@@ -259,7 +260,7 @@ class _ProductPageState extends State<ProductPage>
                           Expanded(
                             child: Text(
                               "Нашли дешевле?",
-                              style: TextStyle(color: HexColor("#000307")),
+                              style: TextStyle(color: MyColors.blueCharcoal),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               softWrap: false,
@@ -269,13 +270,13 @@ class _ProductPageState extends State<ProductPage>
                             padding: EdgeInsets.only(right: 10),
                             child: Icon(
                               Icons.chevron_right,
-                              color: HexColor("#D2D6D5"),
+                              color: MyColors.tiara,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Divider(height: 5, color: HexColor("#D7D7D7")),
+                    Divider(height: 5, color: MyColors.alto),
                   ],
                 ),
               ),
@@ -286,7 +287,7 @@ class _ProductPageState extends State<ProductPage>
             padding: EdgeInsets.only(top: 10, bottom: 2, left: 18, right: 18),
             child: Text(
               "Pampers",
-              style: TextStyle(color: HexColor("#255387")),
+              style: TextStyle(color: MyColors.stTropaz),
             ),
           ),
           Container(
@@ -296,7 +297,7 @@ class _ProductPageState extends State<ProductPage>
               "Подгузники-трусики Pampers Premium Core 9-15 кг, размер 4, 76 шт",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                color: HexColor("#061721"),
+                color: MyColors.blackPearl,
               ),
             ),
           ),
@@ -325,9 +326,9 @@ class _ProductPageState extends State<ProductPage>
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: HexColor(
-                          isSize == index ? "#104EB1" : "#F4F4F4",
-                        ),
+                        color: isSize == index
+                            ? MyColors.toryBlue
+                            : MyColors.wildSand,
                         width: 2,
                       ),
                     ),
@@ -338,7 +339,7 @@ class _ProductPageState extends State<ProductPage>
                         Text(
                           "${index + 1} месяц",
                           style: TextStyle(
-                            color: HexColor("#010409"),
+                            color: MyColors.blackPearl,
                           ),
                         )
                       ],
@@ -356,13 +357,13 @@ class _ProductPageState extends State<ProductPage>
                 children: [
                   Icon(
                     Icons.notifications_outlined,
-                    color: HexColor("#1B57B9"),
+                    color: MyColors.denim,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       "Узнать о снижении цены",
-                      style: TextStyle(color: HexColor("#061721")),
+                      style: TextStyle(color: MyColors.blackPearl),
                     ),
                   )
                 ],
@@ -378,13 +379,13 @@ class _ProductPageState extends State<ProductPage>
                 children: [
                   Icon(
                     Icons.check_circle_outline,
-                    color: HexColor("#00080F"),
+                    color: MyColors.blueCharcoal,
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
                       "В наличии",
-                      style: TextStyle(color: HexColor("#00080F")),
+                      style: TextStyle(color: MyColors.blueCharcoal),
                     ),
                   )
                 ],
@@ -393,7 +394,7 @@ class _ProductPageState extends State<ProductPage>
           ),
           Container(
             padding: EdgeInsets.only(left: 50),
-            child: Divider(height: 5, color: HexColor("#D9D9D9")),
+            child: Divider(height: 5, color: MyColors.alto),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 18),
@@ -401,12 +402,12 @@ class _ProductPageState extends State<ProductPage>
             child: RaisedButton(
               highlightElevation: 1,
               elevation: 0,
-              color: HexColor("#F2F3F5"),
+              color: MyColors.athensGray,
               onPressed: () => {},
               child: Text(
                 "Купить в 1 клик",
                 style: TextStyle(
-                  color: HexColor("#1856C5"),
+                  color: MyColors.denim,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -427,7 +428,7 @@ class _ProductPageState extends State<ProductPage>
                         children: <TextSpan>[
                           TextSpan(
                             text: 'Ozon Card',
-                            style: TextStyle(color: HexColor("#3B4F94")),
+                            style: TextStyle(color: MyColors.chambray),
                           ),
                         ],
                       ),
@@ -457,14 +458,14 @@ class _ProductPageState extends State<ProductPage>
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Icon(
                           Icons.location_on_outlined,
-                          color: HexColor("#0C1E28"),
+                          color: MyColors.firefly,
                           size: 28,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "Москва",
-                          style: TextStyle(color: HexColor("#071216")),
+                          style: TextStyle(color: MyColors.firefly),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           softWrap: false,
@@ -474,7 +475,7 @@ class _ProductPageState extends State<ProductPage>
                         padding: EdgeInsets.only(right: 10),
                         child: Icon(
                           Icons.chevron_right,
-                          color: HexColor("#849199"),
+                          color: MyColors.regentGray,
                         ),
                       ),
                     ],
@@ -483,7 +484,7 @@ class _ProductPageState extends State<ProductPage>
                     padding: EdgeInsets.only(left: 53, top: 8),
                     child: Divider(
                       height: 0,
-                      color: HexColor("#DADADA"),
+                      color: MyColors.alto,
                     ),
                   )
                 ],
@@ -502,14 +503,14 @@ class _ProductPageState extends State<ProductPage>
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Icon(
                           Icons.directions_car_outlined,
-                          color: HexColor("#0C1E28"),
+                          color: MyColors.firefly,
                           size: 28,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "Курьером, завтра, 7 января",
-                          style: TextStyle(color: HexColor("#071216")),
+                          style: TextStyle(color: MyColors.firefly),
                         ),
                       ),
                     ],
@@ -518,7 +519,7 @@ class _ProductPageState extends State<ProductPage>
                     padding: EdgeInsets.only(left: 53, top: 8),
                     child: Divider(
                       height: 0,
-                      color: HexColor("#DADADA"),
+                      color: MyColors.alto,
                     ),
                   )
                 ],
@@ -537,14 +538,14 @@ class _ProductPageState extends State<ProductPage>
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Icon(
                           Icons.storefront_outlined,
-                          color: HexColor("#0C1E28"),
+                          color: MyColors.firefly,
                           size: 28,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           "Самовывоз, завтра, 7 января бесплато",
-                          style: TextStyle(color: HexColor("#071216")),
+                          style: TextStyle(color: MyColors.firefly),
                         ),
                       ),
                     ],
@@ -553,7 +554,7 @@ class _ProductPageState extends State<ProductPage>
                     padding: EdgeInsets.only(left: 53, top: 8),
                     child: Divider(
                       height: 0,
-                      color: HexColor("#DADADA"),
+                      color: MyColors.alto,
                     ),
                   )
                 ],
@@ -622,7 +623,7 @@ class _ProductPageState extends State<ProductPage>
             perCol: 3,
           ),
           Container(
-            decoration: BoxDecoration(color: HexColor("#F2F4F3")),
+            decoration: BoxDecoration(color: MyColors.blackHaze),
             padding: EdgeInsets.all(15),
           )
         ],
@@ -633,14 +634,14 @@ class _ProductPageState extends State<ProductPage>
   Widget _getFooter() {
     return Container(
       decoration: BoxDecoration(
-        border: Border(top: BorderSide(color: HexColor("#DED7DF"), width: 1)),
+        border: Border(top: BorderSide(color: MyColors.mischka, width: 1)),
       ),
       child: Container(
         height: 60,
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
         child: RaisedButton(
-          color: HexColor("#005BFE"),
-          textColor: Colors.white,
+          color: MyColors.blue,
+          textColor: MyColors.white,
           onPressed: () => {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

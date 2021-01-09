@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/widgets/product_card_widget.dart';
 
@@ -34,7 +35,7 @@ class _ProductCardsWidgetState extends State<ProductCardsWidget> {
           style: TextStyle(
             fontWeight: FontWeight.w900,
             fontSize: 16,
-            color: HexColor("#16202F"),
+            color: MyColors.mirage,
           ),
         ),
       ),

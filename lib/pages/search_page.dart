@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 
 class SearchPage extends StatefulWidget {
@@ -12,12 +13,12 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MyColors.white,
       appBar: AppBar(
         elevation: 5,
         automaticallyImplyLeading: false,
         titleSpacing: 0,
-        backgroundColor: HexColor("#ffffff"),
+        backgroundColor: MyColors.white,
         title: Row(
           children: [
             Padding(
@@ -96,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: Text(
                     index == 0 ? "История" : "Популярные",
                     style: TextStyle(
-                      color: HexColor("#000919"),
+                      color: MyColors.blueCharcoal,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -113,14 +114,14 @@ class _SearchPageState extends State<SearchPage> {
                               padding: EdgeInsets.symmetric(horizontal: 15),
                               child: Icon(
                                 Icons.search,
-                                color: HexColor("#849199"),
+                                color: MyColors.regentGray,
                                 size: 28,
                               ),
                             ),
                             Expanded(
                               child: Text(
                                 "Пазл",
-                                style: TextStyle(color: HexColor("#071216")),
+                                style: TextStyle(color: MyColors.firefly),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 softWrap: false,
@@ -130,7 +131,7 @@ class _SearchPageState extends State<SearchPage> {
                               padding: EdgeInsets.only(right: 10),
                               child: Icon(
                                 Icons.chevron_right,
-                                color: HexColor("#849199"),
+                                color: MyColors.regentGray,
                               ),
                             ),
                           ],
@@ -139,7 +140,7 @@ class _SearchPageState extends State<SearchPage> {
                           padding: EdgeInsets.only(left: 53, top: 8),
                           child: Divider(
                             height: 0,
-                            color: HexColor("#DADADA"),
+                            color: MyColors.alto,
                           ),
                         )
                       ],

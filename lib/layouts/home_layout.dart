@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/pages/cabinet_page.dart';
 import 'package:flutter_marketplace/pages/cart_page.dart';
 import 'package:flutter_marketplace/pages/catalog_page.dart';
@@ -39,7 +39,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   }
 
   void _changeSysBar() {
-    Color color = _curentIndex > 1 ? Colors.white : HexColor("#102030");
+    Color color = _curentIndex > 1 ? MyColors.white : MyColors.bigStone;
 
     FlutterStatusbarcolor.setStatusBarColor(color).then(
       (value) {
@@ -52,13 +52,13 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MyColors.white,
       appBar: AppBar(
         toolbarHeight: _curentIndex > 1 ? 0 : 56,
         titleSpacing: 0,
         elevation: _curentIndex > 2 ? 0 : 1,
-        backgroundColor: _curentIndex > 1 ? Colors.white : HexColor("#102030"),
-        systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.red),
+        backgroundColor: _curentIndex > 1 ? MyColors.white : MyColors.bigStone,
+        systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: MyColors.red),
         title: Container(
           height: 42,
           child: Row(
@@ -75,7 +75,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                     padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
                     child: Text(
                       "anti virus".toUpperCase(),
-                      style: TextStyle(color: Colors.white, fontSize: 9),
+                      style: TextStyle(color: MyColors.white, fontSize: 9),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       softWrap: false,
@@ -90,7 +90,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6.0),
-                      color: Colors.white,
+                      color: MyColors.white,
                     ),
                     child: Row(
                       children: [
@@ -112,7 +112,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                             onPressed: () => {},
                             icon: Icon(
                               Icons.mic_none_outlined,
-                              color: HexColor("#102030"),
+                              color: MyColors.bigStone,
                             ),
                           ),
                         ),
@@ -123,7 +123,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                             onPressed: () => {},
                             icon: Icon(
                               Icons.camera_alt_outlined,
-                              color: HexColor("#102030"),
+                              color: MyColors.bigStone,
                             ),
                           ),
                         ),
@@ -176,9 +176,9 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: HexColor("#154BB7"),
+        selectedItemColor: MyColors.toryBlue,
         selectedIconTheme: IconThemeData(size: 26),
-        unselectedItemColor: HexColor("#999999"),
+        unselectedItemColor: MyColors.dustyGray,
         selectedLabelStyle: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 12,

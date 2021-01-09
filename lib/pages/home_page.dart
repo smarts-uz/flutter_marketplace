@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 
@@ -118,8 +119,8 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentBanner == index
-                          ? Colors.white
-                          : HexColor("#D6D9DE"),
+                          ? MyColors.white
+                          : MyColors.iron,
                     ),
                   ),
                 ),
@@ -205,9 +206,9 @@ class _HomePageState extends State<HomePage> {
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: HexColor(
-                      _currentCategory == index ? "#031835" : "#D6D9DE",
-                    ),
+                    color: _currentCategory == index
+                        ? MyColors.tangaroa
+                        : MyColors.iron,
                   ),
                 ),
               ),
@@ -228,7 +229,7 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(
             fontWeight: FontWeight.w900,
             fontSize: 16,
-            color: HexColor("#16202F"),
+            color: MyColors.mirage,
           ),
         ),
       ),
@@ -328,8 +329,8 @@ class _HomePageState extends State<HomePage> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentBanner == index
-                          ? Colors.white
-                          : HexColor("#D6D9DE"),
+                          ? MyColors.white
+                          : MyColors.iron,
                     ),
                   ),
                 ),

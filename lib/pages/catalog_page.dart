@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -49,7 +50,7 @@ class _CatalogPageState extends State<CatalogPage> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: HexColor("#131C19"),
+                        color: MyColors.racingGreen,
                       ),
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
