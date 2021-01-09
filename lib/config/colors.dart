@@ -4,7 +4,7 @@ import 'package:flutter_marketplace/extensions/hex_color.dart';
 class MyColors {
   MyColors._();
 
-  static Color white = MyColors.white;
+  static const Color white = Colors.white;
   static Color blue = HexColor("#005AFC");
   static Color green = HexColor("#41C270");
   static Color red = HexColor("#FB0F5A");
