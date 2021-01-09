@@ -612,12 +612,14 @@ class _ProductPageState extends State<ProductPage>
             count: 3,
             named: true,
             list: true,
+            perCol: 3,
           ),
           ProductCardsWidget(
             title: "Рекомендуем также",
             count: 3,
             named: true,
             list: true,
+            perCol: 3,
           ),
           Container(
             decoration: BoxDecoration(color: HexColor("#F2F4F3")),

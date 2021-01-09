@@ -27,6 +27,29 @@ class _HomeLayoutState extends State<HomeLayout> {
   int _curentIndex = 0;
 
   @override
+  void initState() {
+    _changeSysBar();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void _changeSysBar() {
+    Color color = _curentIndex > 1 ? Colors.white : HexColor("#102030");
+
+    FlutterStatusbarcolor.setStatusBarColor(color).then(
+      (value) {
+        bool isWhite = useWhiteForeground(color);
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(isWhite);
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -187,17 +210,12 @@ class _HomeLayoutState extends State<HomeLayout> {
 
           _navigatorKey.currentState.pushNamed("/$page");
 
-          Color color = index > 1 ? Colors.white : HexColor("#102030");
-
-          FlutterStatusbarcolor.setStatusBarColor(color).then(
-            (value) {
-              bool isWhite = useWhiteForeground(color);
-              FlutterStatusbarcolor.setStatusBarWhiteForeground(isWhite);
-            },
-          );
-
           setState(() {
             _curentIndex = index;
+
+            Future.delayed(Duration(milliseconds: 200), () {
+              _changeSysBar();
+            });
           });
         },
         items: [

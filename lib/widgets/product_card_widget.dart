@@ -19,19 +19,17 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 3,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 9),
-        width: MediaQuery.of(context).size.width / 3.5,
-        child: Column(
-          children: [
-            InkWell(
-              onTap: () => {Get.toNamed("/product")},
+      padding: EdgeInsets.symmetric(vertical: 9),
+      child: Column(
+        children: [
+          InkWell(
+            onTap: () => {Get.toNamed("/product")},
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
                   Container(
                     padding: EdgeInsets.only(bottom: 3, top: 6),
-                    height: MediaQuery.of(context).size.width / 3.3,
                     child: Stack(
                       children: [
                         InkWell(
@@ -125,7 +123,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                   Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
                         width: double.infinity,
                         child: Text(
                           "Бестселлер",
@@ -137,7 +134,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                       ),
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 15),
                         child: Wrap(
                           children: [
                             Text(
@@ -165,9 +161,8 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                       widget.named
                           ? Container(
                               width: double.infinity,
-                              padding: EdgeInsets.symmetric(horizontal: 15),
                               child: Text(
-                                "Redmia Note 9 Pro Max / Redmi Note 9 Pro",
+                                "Redmi Note 9 Pro Max / Redmi Note 9 Pro",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 textAlign: TextAlign.center,
                                 overflow: TextOverflow.ellipsis,
@@ -181,12 +176,12 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 17),
-              child: _getCounterBtn(),
-            )
-          ],
-        ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: _getCounterBtn(),
+          )
+        ],
       ),
     );
   }
