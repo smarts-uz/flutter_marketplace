@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,7 @@ class _CartPageState extends State<CartPage> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.blue),
+                          shape: BoxShape.circle, color: HexColor("#0757F6")),
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: true
@@ -57,7 +58,8 @@ class _CartPageState extends State<CartPage> {
                             : Icon(
                                 Icons.check_box_outline_blank,
                                 size: 20.0,
-                                color: Colors.blue,
+                                // color: Colors.blue,
+                                color: HexColor("#0757F6"),
                               ),
                       ),
                     ),
@@ -89,7 +91,7 @@ class _CartPageState extends State<CartPage> {
                             myProvider.openSearchScreen(context);
                           },
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,15 +102,24 @@ class _CartPageState extends State<CartPage> {
                                     style: TextStyle(
                                         color: Colors.black45, fontSize: 12.0),
                                   ),
-                                  Text(
-                                    "Москва",
-                                    style: TextStyle(
-                                        color: Colors.blue, fontSize: 14.0),
-                                  ),
-                                  SizedBox(height: 4.0),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Москва",
+                                        style: TextStyle(
+                                            color: HexColor("#0757F6"),
+                                            fontSize: 14.0),
+                                      ),
+                                      SizedBox(width: 125),
+                                      Icon(
+                                        Icons.unfold_more,
+                                        size: 16.0,
+                                        color: Colors.black,
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
-                              Icon(Icons.arrow_drop_down_sharp),
                             ],
                           ),
                         ),
@@ -130,7 +141,7 @@ class _CartPageState extends State<CartPage> {
                               "Доставка Ozon",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: MyColors.red),
+                                  color: MyColors.black),
                             ),
                           ),
                         ),
@@ -234,7 +245,7 @@ class _CartPageState extends State<CartPage> {
                             width: double.infinity,
                             child: Text(
                               "Подробнее",
-                              style: TextStyle(color: Colors.blue),
+                              style: TextStyle(color: HexColor("#0757F6")),
                             ),
                           ),
                         ),
@@ -270,7 +281,7 @@ class _CartPageState extends State<CartPage> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            color: Colors.blue,
+                            color: HexColor("#0757F6"),
                             onPressed: () => null,
                             child: Text(
                               "Перейти к оформлению",
@@ -319,7 +330,8 @@ class _CartPageState extends State<CartPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.blue),
+                              shape: BoxShape.circle,
+                              color: HexColor("#0757F6")),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: true
@@ -331,7 +343,7 @@ class _CartPageState extends State<CartPage> {
                                 : Icon(
                                     Icons.check_box_outline_blank,
                                     size: 20.0,
-                                    color: Colors.blue,
+                                    color: HexColor("#0757F6"),
                                   ),
                           ),
                         ),
@@ -353,10 +365,19 @@ class _CartPageState extends State<CartPage> {
                     Row(
                       children: [
                         Text(
-                          "599 P",
-                          style: TextStyle(color: MyColors.red),
+                          "599 ₽",
+                          style: TextStyle(color: HexColor("#FF193C")),
                         ),
-                        Text("199 P")
+                        SizedBox(width: 5),
+                        Text(
+                          "199 ₽",
+                          style: TextStyle(
+                            color: HexColor("#4c4c4c"),
+                            fontSize: 11,
+                            decoration: TextDecoration.lineThrough,
+                            decorationColor: HexColor("#FF4170"),
+                          ),
+                        )
                       ],
                     ),
                     Text("Набор кухонных\nNabora")
@@ -392,7 +413,7 @@ class _CartPageState extends State<CartPage> {
                       SizedBox(
                         width: 8.0,
                       ),
-                      Icon(Icons.arrow_drop_down_outlined)
+                      Icon(Icons.unfold_more)
                     ],
                   )
                 ],
