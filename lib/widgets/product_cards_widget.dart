@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
+
 import 'package:flutter_marketplace/widgets/product_card_widget.dart';
 
 class ProductCardsWidget extends StatefulWidget {
@@ -41,13 +41,16 @@ class _ProductCardsWidgetState extends State<ProductCardsWidget> {
       ),
       widget.list
           ? Container(
-              height: 275,
+              height: 335,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(),
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return ProductCardWidget(named: widget.named);
+                  return Container(
+                    width: 180,
+                    child: ProductCardWidget(named: widget.named),
+                  );
                 },
               ),
             )

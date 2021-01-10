@@ -38,4 +38,6 @@ class MyColors {
   static Color redRibbon = HexColor("#F61255");
   static Color black = HexColor("#000000");
   static Color wildSand = HexColor("#000000");
+  static Color gunsmoke = HexColor("#7D8381");
+  static Color ripeLemon = HexColor("#F7CF21");
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);

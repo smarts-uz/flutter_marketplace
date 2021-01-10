@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
 
 class CatalogPage extends StatefulWidget {
   CatalogPage({Key key}) : super(key: key);
@@ -22,7 +21,7 @@ class _CatalogPageState extends State<CatalogPage> {
         children: List.generate(
           20,
           (index) => InkWell(
-            onTap: () => {},
+            onTap: () => {Navigator.pushNamed(context, "/in_catalog")},
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 20),
               width: MediaQuery.of(context).size.width / 3,

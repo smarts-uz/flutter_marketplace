@@ -5,16 +5,15 @@ import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+class InCatalogPage extends StatefulWidget {
+  InCatalogPage({Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _InCatalogPageState createState() => _InCatalogPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _InCatalogPageState extends State<InCatalogPage> {
   int _currentBanner = 0;
-  int _currentCategory = 0;
 
   final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
@@ -30,18 +29,47 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(top: 20, left: 18),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        child: Text(
+                          "Товары в рассрочку",
+                          style: TextStyle(
+                            color: MyColors.blueCharcoal,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        child: Text(
+                          "10 497 товаров",
+                          style: TextStyle(
+                            color: MyColors.gunsmoke,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () => {},
+                icon: Icon(Icons.share_outlined),
+              )
+            ],
+          ),
           Padding(padding: EdgeInsets.all(10)),
           ShopBannersWidget(),
-          Padding(padding: EdgeInsets.all(10)),
-          _getCategory(),
-          ProductCardsWidget(
-            title: "Лучшее предложение",
-            count: 6,
-            named: false,
-            list: false,
-            perCol: 3,
-          ),
-          _getProfitable("Это выгодно! Успей купить!"),
+          _getProfitable("", isName: true),
           ProductCardsWidget(
             title: "Скидки до 80%",
             count: 3,
@@ -57,7 +85,6 @@ class _HomePageState extends State<HomePage> {
             list: false,
             perCol: 3,
           ),
-          _getProfitable("Покупки сезона", isName: true),
           ProductCardsWidget(
             title: "Бесплатная доставка по всему миру",
             count: 6,
@@ -68,93 +95,6 @@ class _HomePageState extends State<HomePage> {
           Padding(padding: EdgeInsets.all(10)),
         ],
       ),
-    );
-  }
-
-  Widget _getCategory() {
-    return Stack(
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(
-            viewportFraction: 1,
-            enlargeCenterPage: false,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentCategory = index;
-              });
-            },
-          ),
-          items: List.generate(
-            2,
-            (_) => Wrap(
-              runSpacing: 15,
-              children: List.generate(
-                10,
-                (index) => Container(
-                  width: MediaQuery.of(context).size.width / 5.6,
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(bottom: 6),
-                        height: 55,
-                        width: 55,
-                        child: InkWell(
-                          child: Image.asset(
-                            'assets/catalog.png',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        width: double.infinity,
-                        child: Text(
-                          "Каталог46545sda asda dsfsdf sfsdfsd sdfsdfsfs sdfsdf",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          softWrap: false,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          width: MediaQuery.of(context).size.width,
-          bottom: 0,
-          left: 0,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 2,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                2,
-                (index) => Container(
-                  width: 8.0,
-                  height: 8.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentCategory == index
-                        ? MyColors.tangaroa
-                        : MyColors.iron,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        )
-      ],
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
+import 'package:flutter_marketplace/widgets/cart_item_widget.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
@@ -58,7 +59,6 @@ class _CartPageState extends State<CartPage> {
                             : Icon(
                                 Icons.check_box_outline_blank,
                                 size: 20.0,
-                                // color: Colors.blue,
                                 color: HexColor("#0757F6"),
                               ),
                       ),
@@ -91,7 +91,6 @@ class _CartPageState extends State<CartPage> {
                             myProvider.openSearchScreen(context);
                           },
                           child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,16 +124,14 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Divider(
-                          height: 1.0,
-                        ),
+                        padding: EdgeInsets.only(left: 16.0),
+                        child: Divider(height: 1),
                       ),
                       SizedBox(height: 30.0),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 16.0),
+                          padding: EdgeInsets.only(left: 16.0),
                           child: Container(
                             width: double.infinity,
                             child: Text(
@@ -148,7 +145,7 @@ class _CartPageState extends State<CartPage> {
                       ),
                       SizedBox(height: 10.0),
                       Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
+                        padding: EdgeInsets.only(left: 16.0),
                         child: Container(
                           child: Row(
                             children: [
@@ -180,12 +177,12 @@ class _CartPageState extends State<CartPage> {
                     color: Color.fromRGBO(242, 243, 245, 1),
                     height: 8.0,
                   ),
-                  itemBuilder: (context, index) => itemView(),
+                  itemBuilder: (context, index) => CartItemWidget(),
                 ),
                 Container(
                   color: Color.fromRGBO(242, 243, 245, 1),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16.0, 0, 0, 16.0),
+                    padding: EdgeInsets.fromLTRB(16, 0, 0, 16),
                     child: Column(
                       children: [
                         SizedBox(height: 30.0),
@@ -314,112 +311,4 @@ class _CartPageState extends State<CartPage> {
       ],
     );
   }
-
-  Padding itemView() => Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: HexColor("#0757F6")),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: true
-                                ? Icon(
-                                    Icons.check,
-                                    size: 15.0,
-                                    color: MyColors.white,
-                                  )
-                                : Icon(
-                                    Icons.check_box_outline_blank,
-                                    size: 20.0,
-                                    color: HexColor("#0757F6"),
-                                  ),
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Image.asset(
-                          "assets/banner.jpg",
-                          height: 100.0,
-                          width: 100,
-                        ),
-                      ],
-                    ),
-                    Container(
-                        color: Color.fromRGBO(247, 207, 33, 1),
-                        child: Text("Частями по 32 руб.мес")),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "599 ₽",
-                          style: TextStyle(color: HexColor("#FF193C")),
-                        ),
-                        SizedBox(width: 5),
-                        Text(
-                          "199 ₽",
-                          style: TextStyle(
-                            color: HexColor("#4c4c4c"),
-                            fontSize: 11,
-                            decoration: TextDecoration.lineThrough,
-                            decorationColor: HexColor("#FF4170"),
-                          ),
-                        )
-                      ],
-                    ),
-                    Text("Набор кухонных\nNabora")
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: 8.0),
-            Divider(height: 1.0),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.favorite_border_outlined),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Text("В избранное"),
-                      SizedBox(width: 16.0),
-                      Icon(Icons.delete_outline),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Text("Удалить")
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text("1 шт"),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Icon(Icons.unfold_more)
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      );
 }

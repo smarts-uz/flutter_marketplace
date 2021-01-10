@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
+
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:share/share.dart';

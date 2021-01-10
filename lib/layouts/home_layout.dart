@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/pages/cabinet_page.dart';
 import 'package:flutter_marketplace/pages/cart_page.dart';
 import 'package:flutter_marketplace/pages/catalog_page.dart';
 import 'package:flutter_marketplace/pages/favorite_page.dart';
 import 'package:flutter_marketplace/pages/home_page.dart';
+import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +58,6 @@ class _HomeLayoutState extends State<HomeLayout> {
         titleSpacing: 0,
         elevation: _curentIndex > 2 ? 0 : 1,
         backgroundColor: _curentIndex > 1 ? MyColors.white : MyColors.bigStone,
-        systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: MyColors.red),
         title: Container(
           height: 42,
           child: Row(
@@ -167,6 +166,11 @@ class _HomeLayoutState extends State<HomeLayout> {
             case '/cabinet':
               return MaterialPageRoute(
                 builder: (BuildContext context) => CabinetPage(),
+                settings: settings,
+              );
+            case '/in_catalog':
+              return MaterialPageRoute(
+                builder: (BuildContext context) => InCatalogPage(),
                 settings: settings,
               );
             default:

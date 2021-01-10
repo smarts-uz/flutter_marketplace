@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
 
 import 'package:get/get.dart';
 
@@ -14,7 +13,7 @@ class ProductCardWidget extends StatefulWidget {
 }
 
 class _ProductCardWidgetState extends State<ProductCardWidget> {
-  int _count = 0;
+  // int _count = 0;
   bool _selected = false;
   bool _isFavorite = false;
 
@@ -90,7 +89,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                       right: 0,
                                       child: Icon(
                                         Icons.favorite_border,
-                                        color: MyColors.red,
+                                        color: MyColors.black,
                                         size: 35.0,
                                       ),
                                     ),
@@ -189,78 +188,78 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
   }
 
   Widget _getCounterBtn() {
-    // return Container(
-    //   padding: EdgeInsets.only(top: 4),
-    //   width: double.infinity,
-    //   child: RaisedButton(
-    //     onPressed: () => setState(() => _selected = !_selected),
-    //     color: _selected ? MyColors.green : MyColors.blue,
-    //     shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.circular(5),
-    //     ),
-    //     child: Text(
-    //       "В корзину",
-    //       style: TextStyle(color: MyColors.white),
-    //       overflow: TextOverflow.ellipsis,
-    //       textAlign: TextAlign.center,
-    //       maxLines: 1,
-    //       softWrap: false,
-    //     ),
-    //   ),
-    // );
-
-    return _count > 0
-        ? Container(
-            padding: EdgeInsets.only(top: 10, bottom: 6),
-            child: Row(children: [
-              _createIncrementDicrementButton(
-                  Icons.remove, () => setState(() => _count--), MyColors.red),
-              Expanded(
-                child: Text(
-                  _count.toString(),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              _createIncrementDicrementButton(
-                Icons.add,
-                () => setState(() => _count++),
-                MyColors.blue,
-              )
-            ]),
-          )
-        : Container(
-            padding: EdgeInsets.only(top: 4),
-            width: double.infinity,
-            child: RaisedButton(
-              onPressed: () => setState(() => _count++),
-              child: Text(
-                "В корзину",
-                style: TextStyle(color: MyColors.white),
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                softWrap: false,
-              ),
-              color: MyColors.blue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-          );
-  }
-
-  Widget _createIncrementDicrementButton(
-      IconData icon, Function onPressed, Color color) {
-    return RawMaterialButton(
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      constraints: BoxConstraints(minWidth: 36.0, minHeight: 36.0),
-      onPressed: onPressed,
-      elevation: 2.0,
-      fillColor: color,
-      child: Icon(icon, color: MyColors.white, size: 18),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
+    return Container(
+      padding: EdgeInsets.only(top: 4),
+      width: double.infinity,
+      child: RaisedButton(
+        onPressed: () => setState(() => _selected = !_selected),
+        color: _selected ? MyColors.green : MyColors.blue,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Text(
+          "В корзину",
+          style: TextStyle(color: MyColors.white),
+          overflow: TextOverflow.ellipsis,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          softWrap: false,
+        ),
       ),
     );
+
+    // return _count > 0
+    //     ? Container(
+    //         padding: EdgeInsets.only(top: 10, bottom: 6),
+    //         child: Row(children: [
+    //           _createIncrementDicrementButton(
+    //               Icons.remove, () => setState(() => _count--), MyColors.red),
+    //           Expanded(
+    //             child: Text(
+    //               _count.toString(),
+    //               textAlign: TextAlign.center,
+    //             ),
+    //           ),
+    //           _createIncrementDicrementButton(
+    //             Icons.add,
+    //             () => setState(() => _count++),
+    //             MyColors.blue,
+    //           )
+    //         ]),
+    //       )
+    //     : Container(
+    //         padding: EdgeInsets.only(top: 4),
+    //         width: double.infinity,
+    //         child: RaisedButton(
+    //           onPressed: () => setState(() => _count++),
+    //           child: Text(
+    //             "В корзину",
+    //             style: TextStyle(color: MyColors.white),
+    //             overflow: TextOverflow.ellipsis,
+    //             textAlign: TextAlign.center,
+    //             maxLines: 1,
+    //             softWrap: false,
+    //           ),
+    //           color: MyColors.blue,
+    //           shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(5),
+    //           ),
+    //         ),
+    //       );
   }
+
+  // Widget _createIncrementDicrementButton(
+  //     IconData icon, Function onPressed, Color color) {
+  //   return RawMaterialButton(
+  //     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  //     constraints: BoxConstraints(minWidth: 36.0, minHeight: 36.0),
+  //     onPressed: onPressed,
+  //     elevation: 2.0,
+  //     fillColor: color,
+  //     child: Icon(icon, color: MyColors.white, size: 18),
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(5),
+  //     ),
+  //   );
+  // }
 }
