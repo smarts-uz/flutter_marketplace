@@ -10,8 +10,11 @@ class CartItemWidget extends StatefulWidget {
 }
 
 class _CartItemWidgetState extends State<CartItemWidget> {
+  TextEditingController controller = new TextEditingController();
   bool isChecked = false;
   bool _isFavorite = false;
+  bool _istextnumber = false;
+  bool _iconvisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -203,17 +206,213 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text("1 шт."),
-                    SizedBox(width: 5),
-                    Icon(Icons.unfold_more)
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                  child: InkWell(
+                    onTap: () => {
+                      showBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.white,
+                        builder: (context) => StatefulBuilder(
+                          builder: (context, setState) => Container(
+                            // height: 600,
+                            child: SingleChildScrollView(
+                              physics: BouncingScrollPhysics(),
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          "Выберите количество",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(width: 170),
+                                        InkWell(
+                                          onTap: () => {},
+                                          child: Text(
+                                            "Закрыть",
+                                            style: TextStyle(
+                                                color: HexColor("#467FD2")),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "1"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "2"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "3"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "4"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "5"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "6"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "7"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "8"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = false,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "9"),
+                                  _listItemnumber(
+                                      () => {
+                                            _istextnumber = true,
+                                            _iconvisible = true,
+                                            setState(() {})
+                                          },
+                                      "10+",
+                                      divider: false),
+                                  Visibility(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          labelText: "Количество товаров",
+                                          fillColor: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    visible: _istextnumber,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    },
+                    child: Row(
+                      children: [
+                        Text("1 шт."),
+                        SizedBox(width: 5),
+                        Icon(Icons.unfold_more)
+                      ],
+                    ),
+                  ),
                 )
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _listItemnumber(Function onTap, String text,
+      {IconData icon, primary = false, divider = true}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.only(left: 18),
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 8, bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      icon != null
+                          ? Container(
+                              padding: EdgeInsets.only(top: 5),
+                              child: Icon(
+                                icon,
+                                color: primary
+                                    ? MyColors.mariner
+                                    : MyColors.blackBean,
+                                size: 34,
+                              ),
+                            )
+                          : Container(),
+                      Container(
+                        padding: EdgeInsets.only(left: icon != null ? 12 : 0),
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                            color:
+                                primary ? MyColors.mariner : MyColors.blackBean,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Visibility(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Icon(
+                        Icons.check,
+                        color: HexColor("#467FD2"),
+                        size: 18,
+                      ),
+                    ),
+                    visible: _iconvisible,
+                  )
+                ],
+              ),
+            ),
+            divider ? Divider(height: 1) : Container()
+          ],
+        ),
       ),
     );
   }

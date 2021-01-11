@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:get/get.dart';
-
 import '../extensions/hex_color.dart';
 
 class FavoriteCardWidget extends StatefulWidget {
@@ -99,6 +97,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
                         //     fit: BoxFit.cover,
                         //   ),
                         // ),
+
                         Positioned(
                           top: 0,
                           left: 8,

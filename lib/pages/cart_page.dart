@@ -14,6 +14,7 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   CartProvider myProvider;
+  bool isChecked = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,33 +44,52 @@ class _CartPageState extends State<CartPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: HexColor("#0757F6")),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: true
-                            ? Icon(
-                                Icons.check,
-                                size: 15.0,
-                                color: MyColors.white,
-                              )
-                            : Icon(
-                                Icons.check_box_outline_blank,
-                                size: 20.0,
-                                color: HexColor("#0757F6"),
-                              ),
+                InkWell(
+                  onTap: () => {print("pressed")},
+                  child: Row(
+                    children: [
+                      InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          setState(() {
+                            isChecked = !isChecked;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isChecked
+                                ? HexColor("#0757F6")
+                                : MyColors.white,
+                            border: Border.all(
+                              color: isChecked
+                                  ? HexColor("#0757F6")
+                                  : MyColors.zumthor,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(4),
+                            child: Icon(
+                              isChecked
+                                  ? Icons.check
+                                  : Icons.check_box_outline_blank,
+                              size: 15,
+                              color: MyColors.white,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    Text("Выбрать все"),
-                  ],
+                      SizedBox(width: 10),
+                      Text("Выбрать все"),
+                    ],
+                  ),
                 ),
-                Text(
-                  "Удалить выбранные",
-                  style: TextStyle(color: MyColors.red),
+                InkWell(
+                  onTap: () => {},
+                  child: Text(
+                    "Удалить выбранные",
+                    style: TextStyle(color: MyColors.red),
+                  ),
                 )
               ],
             ),
@@ -109,7 +129,7 @@ class _CartPageState extends State<CartPage> {
                                             color: HexColor("#0757F6"),
                                             fontSize: 14.0),
                                       ),
-                                      SizedBox(width: 125),
+                                      SizedBox(width: 310),
                                       Icon(
                                         Icons.unfold_more,
                                         size: 16.0,
@@ -301,6 +321,19 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15.0, 8.0, 0, 0),
+                  child: Container(
+                    child: Text(
+                      "Вы смотрели",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
