@@ -30,9 +30,9 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-          Padding(padding: EdgeInsets.all(10)),
+          // Padding(padding: EdgeInsets.all(10)),
           ShopBannersWidget(),
-          Padding(padding: EdgeInsets.all(10)),
+          // Padding(padding: EdgeInsets.all(10)),
           _getCategory(),
           ProductCardsWidget(
             title: "Лучшее предложение",

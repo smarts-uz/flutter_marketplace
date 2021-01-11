@@ -15,7 +15,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   bool _isFavorite = false;
   bool _istextnumber = false;
   bool _iconvisible = false;
-  String number = "a";
+  String _icostalocnumber = "21";
+  String number = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +130,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: MyColors.ripeLemon,
+                    color: HexColor("#6E3692"),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   margin: EdgeInsets.only(left: 10, top: 8),
@@ -137,7 +138,10 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     horizontal: 8,
                     vertical: 4,
                   ),
-                  child: Text("Частями"),
+                  child: Text(
+                    "Частями",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -342,6 +346,16 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       ),
                                     ),
                                     visible: _istextnumber,
+                                  ),
+                                  Container(
+                                    child: Row(
+                                      children: [
+                                        SizedBox(width: 150),
+                                        Text("Осталось" +
+                                            _icostalocnumber +
+                                            "шт")
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -352,6 +366,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     },
                     child: Row(
                       children: [
+                        // number == "0" ? Text("1 шт.") : Text(number + "шт."),
                         Text("1 шт."),
                         SizedBox(width: 5),
                         Icon(Icons.unfold_more)
