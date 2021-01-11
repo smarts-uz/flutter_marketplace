@@ -15,6 +15,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   bool _isFavorite = false;
   bool _istextnumber = false;
   bool _iconvisible = false;
+  String number = "a";
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +215,10 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                         context: context,
                         backgroundColor: Colors.white,
                         builder: (context) => StatefulBuilder(
-                          builder: (context, setState) => Container(
-                            // height: 600,
-                            child: SingleChildScrollView(
-                              physics: BouncingScrollPhysics(),
+                          builder: (context, setState) => SingleChildScrollView(
+                            physics: BouncingScrollPhysics(),
+                            child: Container(
+                              // height: 600,
                               child: Column(
                                 children: [
                                   Padding(
@@ -249,6 +250,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "1",
                                             setState(() {})
                                           },
                                       "1"),
@@ -256,6 +258,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "2",
                                             setState(() {})
                                           },
                                       "2"),
@@ -263,6 +266,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "3",
                                             setState(() {})
                                           },
                                       "3"),
@@ -270,6 +274,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "4",
                                             setState(() {})
                                           },
                                       "4"),
@@ -277,6 +282,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "5",
                                             setState(() {})
                                           },
                                       "5"),
@@ -284,6 +290,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "6",
                                             setState(() {})
                                           },
                                       "6"),
@@ -291,6 +298,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "7",
                                             setState(() {})
                                           },
                                       "7"),
@@ -298,6 +306,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "8",
                                             setState(() {})
                                           },
                                       "8"),
@@ -305,6 +314,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            number = "9",
                                             setState(() {})
                                           },
                                       "9"),
@@ -312,6 +322,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = true,
                                             _iconvisible = true,
+                                            number = "10+",
                                             setState(() {})
                                           },
                                       "10+",
