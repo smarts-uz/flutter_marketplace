@@ -284,29 +284,28 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
     return _itemCount > 0
         ? Container(
             padding: EdgeInsets.only(top: 10, bottom: 6),
-            child: Expanded(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _createIncrementDicrementButton(
-                      Icons.remove,
-                      () => setState(() => _itemCount--),
-                      // HexColor("#FB0F5A"),
-                      HexColor("#F0F4F4"),
-                    ),
-                    Expanded(
-                      child: Text(
-                        _itemCount.toString(),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    _createIncrementDicrementButton(
-                      Icons.add,
-                      () => setState(() => _itemCount++),
-                      // HexColor("#005AFC"),
-                      HexColor("#F0F4F4"),
-                    )
-                  ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _createIncrementDicrementButton(
+                  Icons.remove,
+                  () => setState(() => _itemCount--),
+                  // HexColor("#FB0F5A"),
+                  HexColor("#F0F4F4"),
+                ),
+                Expanded(
+                  child: Text(
+                    _itemCount.toString(),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                _createIncrementDicrementButton(
+                  Icons.add,
+                  () => setState(() => _itemCount++),
+                  // HexColor("#005AFC"),
+                  HexColor("#F0F4F4"),
+                )
+              ],
             ),
           )
         : Container(
@@ -314,7 +313,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                new Row(
+                Row(
                   children: [
                     // padding: EdgeInsets.only(top: 4),
                     // width: double.infinity,
@@ -431,10 +430,11 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
                     );
                   },
                   child: Container(
-                      child: _createIncrementDicrementButtonmm(
-                    Icons.more_vert,
-                    HexColor("#F0F4F4"),
-                  )),
+                    child: _createIncrementDicrementButtonmm(
+                      Icons.more_vert,
+                      HexColor("#F0F4F4"),
+                    ),
+                  ),
                 ),
                 // child: new Icon(
                 //   Icons.more_vert,
