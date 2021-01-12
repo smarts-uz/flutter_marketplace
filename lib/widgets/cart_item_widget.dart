@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
+import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 
 class CartItemWidget extends StatefulWidget {
   CartItemWidget({Key key}) : super(key: key);
@@ -17,6 +18,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   bool _iconvisible = false;
   String _icostalocnumber = "21";
   String number = "0";
+  bool _isostaosnumbervisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +196,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     ),
                     SizedBox(width: 10),
                     InkWell(
-                      onTap: () => {},
+                      onTap: () => {showAlertDialog(context)},
                       child: Container(
                         padding: EdgeInsets.symmetric(
                           vertical: 3,
@@ -254,6 +256,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "1",
                                             setState(() {})
                                           },
@@ -262,6 +265,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "2",
                                             setState(() {})
                                           },
@@ -270,6 +274,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "3",
                                             setState(() {})
                                           },
@@ -278,6 +283,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "4",
                                             setState(() {})
                                           },
@@ -286,6 +292,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "5",
                                             setState(() {})
                                           },
@@ -294,6 +301,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "6",
                                             setState(() {})
                                           },
@@ -302,6 +310,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "7",
                                             setState(() {})
                                           },
@@ -310,6 +319,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "8",
                                             setState(() {})
                                           },
@@ -318,6 +328,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = false,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "9",
                                             setState(() {})
                                           },
@@ -326,6 +337,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       () => {
                                             _istextnumber = true,
                                             _iconvisible = true,
+                                            _isostaosnumbervisible = true,
                                             number = "10+",
                                             setState(() {})
                                           },
@@ -347,15 +359,18 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                     ),
                                     visible: _istextnumber,
                                   ),
-                                  Container(
-                                    child: Row(
-                                      children: [
-                                        SizedBox(width: 150),
-                                        Text("Осталось" +
-                                            _icostalocnumber +
-                                            "шт")
-                                      ],
+                                  Visibility(
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          SizedBox(width: 150),
+                                          Text("Осталось" +
+                                              _icostalocnumber +
+                                              "шт")
+                                        ],
+                                      ),
                                     ),
+                                    visible: _isostaosnumbervisible,
                                   )
                                 ],
                               ),
@@ -440,6 +455,37 @@ class _CartItemWidgetState extends State<CartItemWidget> {
           ],
         ),
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Отмена"),
+      onPressed: () {},
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Удалить"),
+      onPressed: () {},
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Удаление товара"),
+      content: Text(
+          "Вы точно хотите удалить новар? Отменить действие будет невозможною"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

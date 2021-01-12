@@ -257,8 +257,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               });
                             });
                       },
-                      child: new Expanded(
-                          child: new Row(
+                      child: new Row(
                         children: <Widget>[
                           new Text("Cначала новые"),
                           new Icon(
@@ -267,7 +266,7 @@ class _FavoritePageState extends State<FavoritePage> {
                             size: 36.0,
                           ),
                         ],
-                      )),
+                      ),
                     ),
                   ],
                 ),
@@ -285,16 +284,18 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
           ),
         ),
-        Expanded(
-            child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Wrap(
-                  children: List.generate(
-                      7,
-                      (index) => Container(
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: FavoriteCardWidget())),
-                )))
+        Container(
+          height: 610,
+          child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Wrap(
+                children: List.generate(
+                    7,
+                    (index) => Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: FavoriteCardWidget())),
+              )),
+        ),
       ],
     );
   }
