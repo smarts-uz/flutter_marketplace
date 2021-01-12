@@ -100,6 +100,7 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
 
   @override
   void initState() {
+    initBanners();
     super.initState();
   }
 
@@ -108,7 +109,9 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
     super.dispose();
   }
 
-  initBanners() {}
+  initBanners() async {
+    // var banners = await ShopBannerService.getBanners();
+  }
 
   @override
   Widget build(BuildContext context) {
