@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:get/get.dart';
+
 import '../extensions/hex_color.dart';
 
 class FavoriteCardWidget extends StatefulWidget {
@@ -12,7 +12,7 @@ class FavoriteCardWidget extends StatefulWidget {
 
 class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
   int _currentBanner = 0;
-  int _currentCategory = 0;
+  // int _currentCategory = 0;
   int _itemCount = 0;
   bool _isFavorite = true;
 
@@ -465,6 +465,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
 
   Widget _createIncrementDicrementButtonmm(IconData icon, Color color) {
     return RawMaterialButton(
+      onPressed: () => {},
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       constraints: BoxConstraints(minWidth: 50.0, minHeight: 35.0),
       elevation: 2.0,

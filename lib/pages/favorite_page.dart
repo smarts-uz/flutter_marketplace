@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/widgets/favorite_card_widget.dart';
@@ -61,8 +60,9 @@ class _FavoritePageState extends State<FavoritePage> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              selected == "1";
-                                              setState(() {});
+                                              setState(() {
+                                                selected = "1";
+                                              });
                                             },
                                             child: Container(
                                               child: Row(
@@ -83,7 +83,11 @@ class _FavoritePageState extends State<FavoritePage> {
                                                   Padding(
                                                     padding:
                                                         EdgeInsets.fromLTRB(
-                                                            10, 10, 10, 10),
+                                                      10,
+                                                      10,
+                                                      10,
+                                                      10,
+                                                    ),
                                                     child: Visibility(
                                                       child: new Icon(
                                                         Icons.check,

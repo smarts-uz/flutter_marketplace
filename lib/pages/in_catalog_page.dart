@@ -102,7 +102,7 @@ class _InCatalogPageState extends State<InCatalogPage> {
     return Column(children: [
       Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child: Text(
           title,
           style: TextStyle(

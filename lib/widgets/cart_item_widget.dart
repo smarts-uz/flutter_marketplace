@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
-import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 
 class CartItemWidget extends StatefulWidget {
   CartItemWidget({Key key}) : super(key: key);
