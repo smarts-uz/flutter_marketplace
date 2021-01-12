@@ -363,9 +363,11 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       child: Row(
                                         children: [
                                           SizedBox(width: 150),
-                                          Text("Осталось" +
-                                              _icostalocnumber +
-                                              "шт")
+                                          Text(
+                                            "Осталось" +
+                                                _icostalocnumber +
+                                                "шт",
+                                          )
                                         ],
                                       ),
                                     ),
