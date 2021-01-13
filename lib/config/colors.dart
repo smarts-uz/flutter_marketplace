@@ -40,4 +40,6 @@ class MyColors {
   static Color wildSand = HexColor("#000000");
   static Color gunsmoke = HexColor("#7D8381");
   static Color ripeLemon = HexColor("#F7CF21");
+  static Color shimmerBaseColor = Colors.grey[300];
+  static Color shimmerHighlightColor = Colors.grey[100];
 }
