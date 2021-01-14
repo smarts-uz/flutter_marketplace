@@ -59,16 +59,20 @@ class _FavoritePageState extends State<FavoritePage> {
                   ),
                 ],
               ),
-              SizedBox(width: 140),
-              Icon(
-                Icons.filter_alt,
-                color: Colors.black,
-                size: 20.0,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.filter_alt,
+                    color: Colors.black,
+                    size: 20.0,
+                  ),
+                  Text(
+                    "Фильтры",
+                    style: TextStyle(color: Colors.black),
+                  )
+                ],
               ),
-              Text(
-                "Фильтры",
-                style: TextStyle(color: Colors.black),
-              )
             ],
           ),
         ),
@@ -94,7 +98,7 @@ class _FavoritePageState extends State<FavoritePage> {
   }
 
   Widget _dialog() {
-    StatefulBuilder(
+    return StatefulBuilder(
       builder: (context, setState) {
         return Dialog(
           child: Container(
@@ -111,180 +115,36 @@ class _FavoritePageState extends State<FavoritePage> {
                         selected = "1";
                       });
                     },
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                "Сначала новые",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Visibility(
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                              visible: selected == "1",
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    child: _dialog_item("Сначала новые", "1"),
                   ),
                   InkWell(
-                    onTap: () {
-                      setState(() {
-                        selected = "2";
-                      });
-                    },
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                "Сначала стары",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Visibility(
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                              visible: selected == "2",
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          selected = "2";
+                        });
+                      },
+                      child: _dialog_item("Сначала стары", "2")),
                   InkWell(
-                    onTap: () {
-                      //peremeniyni o'zgartirganda setstate qilinadi.
-
-                      setState(() {
-                        selected = "3";
-                      });
-                    },
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                "Сначала дешёвые",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Visibility(
-                              child: new Icon(
-                                Icons.check,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                              visible: selected == "3",
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          selected = "3";
+                        });
+                      },
+                      child: _dialog_item("Сначала дешёвые", "3")),
                   InkWell(
-                    onTap: () {
-                      setState(() {
-                        selected = "4";
-                      });
-                    },
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                "Сначала дорогие",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Visibility(
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                              visible: selected == "4",
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                      onTap: () {
+                        setState(() {
+                          selected = "4";
+                        });
+                      },
+                      child: _dialog_item("Сначала дорогие", "4")),
                   InkWell(
                     onTap: () {
                       setState(() {
                         selected = "5";
                       });
                     },
-                    child: Container(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                "По размеру скидки",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Visibility(
-                              child: Icon(
-                                // new/const larni yozish shart emas. Oldin shart edi.
-                                Icons.check,
-                                color: Colors.black,
-                                size: 20.0,
-                              ),
-                              visible: selected == "5",
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                    child: _dialog_item("По размеру скидки", "5"),
                   ),
                 ],
               ),
@@ -292,6 +152,38 @@ class _FavoritePageState extends State<FavoritePage> {
           ),
         );
       },
+    );
+  }
+
+  Widget _dialog_item(String name, String number) {
+    return Container(
+      child: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                name,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: Visibility(
+              child: Icon(
+                Icons.check,
+                color: Colors.black,
+                size: 20.0,
+              ),
+              visible: selected == number,
+            ),
+          )
+        ],
+      ),
     );
   }
 }

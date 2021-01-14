@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CartItemWidget extends StatefulWidget {
   CartItemWidget({Key key}) : super(key: key);
@@ -231,7 +232,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Выберите количество",

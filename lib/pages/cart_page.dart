@@ -4,6 +4,7 @@ import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:flutter_marketplace/widgets/cart_item_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CartPage extends StatefulWidget {
   CartPage({Key key}) : super(key: key);
@@ -120,7 +121,8 @@ class _CartPageState extends State<CartPage> {
                                     color: Colors.black45, fontSize: 12.0),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "Москва",
@@ -184,16 +186,20 @@ class _CartPageState extends State<CartPage> {
                     ],
                   ),
                 ),
-                ListView.separated(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Container(
-                    color: Color.fromRGBO(242, 243, 245, 1),
-                    height: 8.0,
+                Shimmer.fromColors(
+                  baseColor: MyColors.shimmerBaseColor,
+                  highlightColor: MyColors.shimmerHighlightColor,
+                  child: ListView.separated(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Container(
+                      color: Color.fromRGBO(242, 243, 245, 1),
+                      height: 8.0,
+                    ),
+                    itemBuilder: (context, index) => CartItemWidget(),
                   ),
-                  itemBuilder: (context, index) => CartItemWidget(),
                 ),
                 Container(
                   color: Color.fromRGBO(242, 243, 245, 1),
