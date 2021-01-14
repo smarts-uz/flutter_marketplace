@@ -231,6 +231,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           "Выберите количество",
@@ -239,7 +240,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        SizedBox(width: 170),
                                         InkWell(
                                           onTap: () => {},
                                           child: Text(

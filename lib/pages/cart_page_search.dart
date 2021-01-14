@@ -71,47 +71,40 @@ class _CartSearchState extends State<CartSearch> {
     );
   }
 
-  Row itemView() => Row(
-        children: [
-          InkWell(
-            onTap: () => {},
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 4.0),
-                      Text(
-                        "Москва",
-                        style: TextStyle(color: HexColor("#558CD0")),
-                      ),
-                      Text(
-                        "г. Москва, Россия",
-                        style: TextStyle(color: HexColor("#A9AEB1")),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 200,
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Visibility(
-                    child: new Icon(
-                      Icons.check,
-                      color: HexColor("#467FD2"),
-                      size: 20.0,
-                    ),
-                    // visible: index,
-                  ),
-                )
-              ],
+  InkWell itemView() => InkWell(
+    onTap: () => {},
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 4.0),
+              Text(
+                "Москва",
+                style: TextStyle(color: HexColor("#558CD0")),
+              ),
+              Text(
+                "г. Москва, Россия",
+                style: TextStyle(color: HexColor("#A9AEB1")),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: Visibility(
+            child: new Icon(
+              Icons.check,
+              color: HexColor("#467FD2"),
+              size: 20.0,
             ),
-          )
-        ],
-      );
+            // visible: index,
+          ),
+        )
+      ],
+    ),
+  );
 }

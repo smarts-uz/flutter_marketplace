@@ -110,35 +110,31 @@ class _CartPageState extends State<CartPage> {
                           onTap: () {
                             myProvider.openSearchScreen(context);
                           },
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 8.0),
-                                  Text(
-                                    "Населенний пункт",
-                                    style: TextStyle(
-                                        color: Colors.black45, fontSize: 12.0),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Москва",
-                                        style: TextStyle(
-                                            color: HexColor("#0757F6"),
-                                            fontSize: 14.0),
-                                      ),
-                                      SizedBox(width: 310),
-                                      Icon(
-                                        Icons.unfold_more,
-                                        size: 16.0,
-                                        color: Colors.black,
-                                      ),
-                                    ],
-                                  )
-                                ],
+                              SizedBox(height: 8.0),
+                              Text(
+                                "Населенний пункт",
+                                style: TextStyle(
+                                    color: Colors.black45, fontSize: 12.0),
                               ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Москва",
+                                    style: TextStyle(
+                                        color: HexColor("#0757F6"),
+                                        fontSize: 14.0),
+                                  ),
+                                  Icon(
+                                    Icons.unfold_more,
+                                    size: 16.0,
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),

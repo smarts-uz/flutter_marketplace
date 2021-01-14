@@ -313,26 +313,20 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    // padding: EdgeInsets.only(top: 4),
-                    // width: double.infinity,
-                    RaisedButton(
-                      onPressed: () => setState(() => _itemCount++),
-                      child: Text(
-                        "В корзину",
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        softWrap: false,
-                      ),
-                      color: HexColor("#005AFC"),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                  ],
+                RaisedButton(
+                  onPressed: () => setState(() => _itemCount++),
+                  child: Text(
+                    "В корзину",
+                    style: TextStyle(color: Colors.white),
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    softWrap: false,
+                  ),
+                  color: HexColor("#005AFC"),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
                 ),
                 InkWell(
                   onTap: () {
