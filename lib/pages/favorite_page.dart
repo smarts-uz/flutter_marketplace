@@ -42,7 +42,7 @@ class _FavoritePageState extends State<FavoritePage> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return showFunction();
+                          return _dialog();
                         },
                       );
                     },
@@ -59,20 +59,16 @@ class _FavoritePageState extends State<FavoritePage> {
                   ),
                 ],
               ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.filter_alt,
-                    color: Colors.black,
-                    size: 20.0,
-                  ),
-                  Text(
-                    "Фильтры",
-                    style: TextStyle(color: Colors.black),
-                  )
-                ],
+              SizedBox(width: 140),
+              Icon(
+                Icons.filter_alt,
+                color: Colors.black,
+                size: 20.0,
               ),
-
+              Text(
+                "Фильтры",
+                style: TextStyle(color: Colors.black),
+              )
             ],
           ),
         ),
@@ -97,208 +93,205 @@ class _FavoritePageState extends State<FavoritePage> {
     );
   }
 
-  StatefulBuilder showFunction() {
-    return StatefulBuilder(
-                          builder: (context, setState) {
-                            return Dialog(
-                              child: Container(
-                                height: 250,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selected = "1";
-                                          });
-                                        },
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Text(
-                                                    "Сначала новые",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Visibility(
-                                                  child: Icon(
-                                                    Icons.check,
-                                                    color: Colors.black,
-                                                    size: 20.0,
-                                                  ),
-                                                  visible: selected == "1",
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selected = "2";
-                                          });
-                                        },
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Text(
-                                                    "Сначала стары",
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 18),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Visibility(
-                                                  child: Icon(
-                                                    Icons.check,
-                                                    color: Colors.black,
-                                                    size: 20.0,
-                                                  ),
-                                                  visible: selected == "2",
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          //peremeniyni o'zgartirganda setstate qilinadi.
-
-                                          setState(() {
-                                            selected = "3";
-                                          });
-                                        },
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Text(
-                                                    "Сначала дешёвые",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Visibility(
-                                                  child: new Icon(
-                                                    Icons.check,
-                                                    color: Colors.black,
-                                                    size: 20.0,
-                                                  ),
-                                                  visible: selected == "3",
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selected = "4";
-                                          });
-                                        },
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Text(
-                                                    "Сначала дорогие",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Visibility(
-                                                  child: Icon(
-                                                    Icons.check,
-                                                    color: Colors.black,
-                                                    size: 20.0,
-                                                  ),
-                                                  visible: selected == "4",
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            selected = "5";
-                                          });
-                                        },
-                                        child: Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(10),
-                                                  child: Text(
-                                                    "По размеру скидки",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 18,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.all(10),
-                                                child: Visibility(
-                                                  child: Icon(
-                                                    // new/const larni yozish shart emas. Oldin shart edi.
-                                                    Icons.check,
-                                                    color: Colors.black,
-                                                    size: 20.0,
-                                                  ),
-                                                  visible: selected == "5",
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+  Widget _dialog() {
+    StatefulBuilder(
+      builder: (context, setState) {
+        return Dialog(
+          child: Container(
+            height: 250,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selected = "1";
+                      });
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "Сначала новые",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
                                 ),
                               ),
-                            );
-                          },
-                        );
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Visibility(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.black,
+                                size: 20.0,
+                              ),
+                              visible: selected == "1",
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selected = "2";
+                      });
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "Сначала стары",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 18),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Visibility(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.black,
+                                size: 20.0,
+                              ),
+                              visible: selected == "2",
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      //peremeniyni o'zgartirganda setstate qilinadi.
+
+                      setState(() {
+                        selected = "3";
+                      });
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "Сначала дешёвые",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Visibility(
+                              child: new Icon(
+                                Icons.check,
+                                color: Colors.black,
+                                size: 20.0,
+                              ),
+                              visible: selected == "3",
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selected = "4";
+                      });
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "Сначала дорогие",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Visibility(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.black,
+                                size: 20.0,
+                              ),
+                              visible: selected == "4",
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selected = "5";
+                      });
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "По размеру скидки",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Visibility(
+                              child: Icon(
+                                // new/const larni yozish shart emas. Oldin shart edi.
+                                Icons.check,
+                                color: Colors.black,
+                                size: 20.0,
+                              ),
+                              visible: selected == "5",
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }
