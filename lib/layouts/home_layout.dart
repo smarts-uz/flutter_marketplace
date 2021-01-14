@@ -8,9 +8,11 @@ import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:speech_recognition/speech_recognition.dart';
 
 class HomeLayout extends StatefulWidget {
   HomeLayout({Key key, this.title}) : super(key: key);
@@ -23,15 +25,60 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
+  SpeechRecognition _speechRecognition = SpeechRecognition();
+  bool _isAvailable = false;
+  bool _isListening = false;
+
+  String resultText = "";
+  PermissionStatus _status;
 
   int _curentIndex = 0;
 
   @override
   void initState() {
     _changeSysBar();
-
     super.initState();
+    _askPermission();
+    _speechRecognition.setAvailabilityHandler(
+          (bool result) => setState(() => _isAvailable = result),
+    );
+
+    _speechRecognition.setRecognitionStartedHandler(
+          () => setState(() => _isListening = true),
+    );
+
+    _speechRecognition.setRecognitionResultHandler(
+          (String speech) => setState(() => resultText = speech),
+    );
+
+    _speechRecognition.setRecognitionCompleteHandler(
+          () => setState(() => _isListening = false),
+    );
+
+    _speechRecognition.activate().then(
+          (result) => setState(() => _isAvailable = result),
+    );
   }
+
+  void _updateStatus(PermissionStatus status){
+    if(status != _status){
+      setState(() {
+        _status = status;
+      });
+    }
+  }
+
+  void _askPermission(){
+    PermissionHandler().requestPermissions([PermissionGroup.microphone])
+        .then(_onStatusRequested);
+  }
+  void _onStatusRequested(Map<PermissionGroup, PermissionStatus> statues){
+    final status = statues[PermissionGroup.microphone];
+    _updateStatus(status);
+  }
+
+
+
 
   @override
   void dispose() {
@@ -48,7 +95,30 @@ class _HomeLayoutState extends State<HomeLayout> {
       },
     );
   }
+  _speechTotext(){
+    print(_isAvailable.toString() + ' ' + _isListening.toString());
+    if (_isListening)
+      _speechRecognition.stop().then(
+            (result) => setState(() {
+          _isListening = result;
+          resultText = "";
+        }),
+      );
+    if (_isAvailable && !_isListening) {
+      _speechRecognition
+          .listen(locale: "ru_RU")
+          .then((result){
+        setState(() {
+          resultText = result;
+          print(resultText + " ok Google");
+        });
+      }
+      );
+    }
+    else{
 
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +178,9 @@ class _HomeLayoutState extends State<HomeLayout> {
                           width: 35,
                           child: IconButton(
                             padding: EdgeInsets.all(0),
-                            onPressed: () => {},
+                            onPressed: () => {
+                                _speechTotext(),
+                            },
                             icon: Icon(
                               Icons.mic_none_outlined,
                               color: MyColors.bigStone,
