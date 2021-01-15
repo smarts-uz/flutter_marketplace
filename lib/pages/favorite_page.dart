@@ -35,18 +35,18 @@ class _FavoritePageState extends State<FavoritePage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return _dialog();
-                        },
-                      );
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return _dialog();
                     },
-                    child: Row(
+                  );
+                },
+                child: Row(
+                  children: [
+                    Row(
                       children: <Widget>[
                         Text("Cначала новые"),
                         Icon(
@@ -56,22 +56,39 @@ class _FavoritePageState extends State<FavoritePage> {
                         ),
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Icon(
-                    Icons.filter_alt,
-                    color: Colors.black,
-                    size: 20.0,
-                  ),
-                  Text(
-                    "Фильтры",
-                    style: TextStyle(color: Colors.black),
-                  )
-                ],
+              InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    isDismissible: true,
+                    builder: (BuildContext context) {
+                      return _buildBottomsheet(context);
+                    },
+                  );
+                },
+
+                //   showModalBottomSheet(
+                //     builder: (context) => _buildBottomsheet(context),
+                //     context: context);
+                // },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.filter_alt,
+                      color: Colors.black,
+                      size: 20.0,
+                    ),
+                    Text(
+                      "Фильтры",
+                      style: TextStyle(color: Colors.black),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -183,6 +200,31 @@ class _FavoritePageState extends State<FavoritePage> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Container _buildBottomsheet(BuildContext context) {
+    return Container(
+      child: Container(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Фильтры",
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
+                Text(
+                  "Закрыть",
+                  style: TextStyle(color: Colors.blue, fontSize: 18),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
