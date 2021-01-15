@@ -209,18 +209,36 @@ class _FavoritePageState extends State<FavoritePage> {
       child: Container(
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 55,
+                  ),
+                  Text(
+                    "Фильтры",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                  Text(
+                    "Закрыть",
+                    style: TextStyle(color: Colors.blue, fontSize: 18),
+                  )
+                ],
+              ),
+            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Фильтры",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text("Детские товары"),
                 ),
-                Text(
-                  "Закрыть",
-                  style: TextStyle(color: Colors.blue, fontSize: 18),
-                )
+                Radio()
               ],
             )
           ],
