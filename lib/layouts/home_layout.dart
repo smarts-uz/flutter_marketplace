@@ -6,6 +6,7 @@ import 'package:flutter_marketplace/pages/catalog_page.dart';
 import 'package:flutter_marketplace/pages/favorite_page.dart';
 import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/pages/in_catalog_page.dart';
+import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -170,7 +171,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                         ),
                         Expanded(
                           child: Text(
-                            "Искать...",
+                            resultText == "" ? "Искать..." : resultText,
                             style: TextStyle(color: Colors.black45),
                           ),
                         ),
@@ -237,7 +238,9 @@ class _HomeLayoutState extends State<HomeLayout> {
               );
             case '/cabinet':
               return MaterialPageRoute(
-                builder: (BuildContext context) => CabinetPage(),
+                builder: (BuildContext context) => ChangeNotifierProvider(
+                  create: (context) => CabinetProvider(),
+                    child: CabinetPage()),
                 settings: settings,
               );
             case '/in_catalog':

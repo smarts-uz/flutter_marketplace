@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
+import 'package:provider/provider.dart';
 
 class CabinetPage extends StatefulWidget {
   CabinetPage({Key key}) : super(key: key);
@@ -12,9 +14,11 @@ class CabinetPage extends StatefulWidget {
 
 class _CabinetPageState extends State<CabinetPage> {
   bool isAuth = false;
+  CabinetProvider myProvider;
 
   @override
   Widget build(BuildContext context) {
+    myProvider = Provider.of<CabinetProvider>(context);
     return ListView(
       physics: BouncingScrollPhysics(),
       children: [
@@ -95,7 +99,11 @@ class _CabinetPageState extends State<CabinetPage> {
                           color: MyColors.blue,
                           elevation: 0,
                           onPressed: () => {
-                            setState(() => {isAuth = !isAuth})
+                            setState(() => {
+                     //         isAuth = !isAuth,
+                             myProvider.openRegistrationScreen(context),
+                            }
+                            )
                           },
                           child: Text(
                             "Войти или зарегистрироватся",
