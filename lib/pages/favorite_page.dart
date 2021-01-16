@@ -11,7 +11,8 @@ class FavoritePage extends StatefulWidget {
 
 class _FavoritePageState extends State<FavoritePage> {
   String selected = "a";
-
+  int _radioVal = 0;
+  bool status = false;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -207,42 +208,123 @@ class _FavoritePageState extends State<FavoritePage> {
   Container _buildBottomsheet(BuildContext context) {
     return Container(
       child: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
+        child: Stack(children: [
+          Column(
+            children: [
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 55,
+                      ),
+                      Text(
+                        "Фильтры",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
+                      ),
+                      Text(
+                        "Закрыть",
+                        style: TextStyle(color: Colors.blue, fontSize: 18),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 55,
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text("Детские товары"),
                   ),
-                  Text(
-                    "Фильтры",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                  Text(
-                    "Закрыть",
-                    style: TextStyle(color: Colors.blue, fontSize: 18),
+                  Row(
+                    children: [0]
+                        .map((int index) => Radio<int>(
+                              activeColor: Colors.green,
+                              value: index,
+                              groupValue: this._radioVal,
+                              onChanged: (int value) {
+                                setState(() => this._radioVal = 1);
+                              },
+                            ))
+                        .toList(),
                   )
                 ],
               ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text("Детские товары"),
+              SizedBox(height: 10.0),
+              Divider(height: 2.0),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Все категории",
+                      style: TextStyle(color: Colors.blue, fontSize: 15),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      size: 15,
+                    )
+                  ],
                 ),
-                Radio()
-              ],
-            )
-          ],
-        ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Толко в наличии"),
+                    Switch(
+                      activeColor: Colors.pinkAccent,
+                      value: status,
+                      onChanged: (value) {
+                        print("VALUE : $value");
+                        setState(() {
+                          status = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Container(
+                  color: Colors.blue,
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Посмотреть",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          "1 товар",
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        ]),
       ),
     );
   }
