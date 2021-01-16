@@ -186,21 +186,22 @@ class _CartPageState extends State<CartPage> {
                     ],
                   ),
                 ),
-                Shimmer.fromColors(
-                  baseColor: MyColors.shimmerBaseColor,
-                  highlightColor: MyColors.shimmerHighlightColor,
-                  child: ListView.separated(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Container(
-                      color: Color.fromRGBO(242, 243, 245, 1),
-                      height: 8.0,
-                    ),
-                    itemBuilder: (context, index) => CartItemWidget(),
+                // Shimmer.fromColors(
+                // baseColor: MyColors.shimmerBaseColor,
+                // highlightColor: MyColors.shimmerHighlightColor,
+                // child:
+                ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 5,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      Container(
+                    color: Color.fromRGBO(242, 243, 245, 1),
+                    height: 8.0,
                   ),
+                  itemBuilder: (context, index) => CartItemWidget(),
                 ),
+                // ),
                 Container(
                   color: Color.fromRGBO(242, 243, 245, 1),
                   child: Padding(

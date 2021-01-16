@@ -73,86 +73,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getCategory() {
-    return Shimmer.fromColors(
-      baseColor: MyColors.shimmerBaseColor,
-      highlightColor: MyColors.shimmerHighlightColor,
-      child: Stack(
-        children: [
-          CarouselSlider(
-            options: CarouselOptions(
-              viewportFraction: 1,
-              enlargeCenterPage: false,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentCategory = index;
-                });
-              },
-            ),
-            items: List.generate(
-              2,
-              (_) => Wrap(
-                runSpacing: 15,
-                children: List.generate(
-                  10,
-                  (index) => Container(
-                    width: MediaQuery.of(context).size.width / 5.6,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(bottom: 6),
-                          height: 55,
-                          width: 55,
-                          decoration: BoxDecoration(
-                            color: MyColors.white,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 2, right: 2, top: 2),
-                          width: double.infinity,
-                          height: 10,
-                          color: MyColors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            width: MediaQuery.of(context).size.width,
-            bottom: 0,
-            left: 0,
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 2,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  2,
-                  (index) => Container(
-                    width: 8.0,
-                    height: 8.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _currentCategory == index
-                          ? MyColors.tangaroa
-                          : MyColors.iron,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-    // return Stack(
+    // return
+    //      Shimmer.fromColors(
+    //     baseColor: MyColors.shimmerBaseColor,
+    //     highlightColor: MyColors.shimmerHighlightColor,
+    //     child:
+    //     Stack(
     //   children: [
     //     CarouselSlider(
     //       options: CarouselOptions(
@@ -178,26 +104,16 @@ class _HomePageState extends State<HomePage> {
     //                     padding: EdgeInsets.only(bottom: 6),
     //                     height: 55,
     //                     width: 55,
-    //                     child: InkWell(
-    //                       child: Image.asset(
-    //                         'assets/catalog.png',
-    //                       ),
+    //                     decoration: BoxDecoration(
+    //                       color: MyColors.white,
+    //                       borderRadius: BorderRadius.circular(8),
     //                     ),
     //                   ),
     //                   Container(
-    //                     padding: EdgeInsets.symmetric(horizontal: 2),
+    //                     margin: EdgeInsets.only(left: 2, right: 2, top: 2),
     //                     width: double.infinity,
-    //                     child: Text(
-    //                       "Каталог46545sda asda dsfsdf sfsdfsd sdfsdfsfs sdfsdf",
-    //                       style: TextStyle(
-    //                         fontSize: 12,
-    //                         fontWeight: FontWeight.w600,
-    //                       ),
-    //                       overflow: TextOverflow.ellipsis,
-    //                       textAlign: TextAlign.center,
-    //                       maxLines: 2,
-    //                       softWrap: false,
-    //                     ),
+    //                     height: 10,
+    //                     color: MyColors.white,
     //                   ),
     //                 ],
     //               ),
@@ -235,7 +151,92 @@ class _HomePageState extends State<HomePage> {
     //       ),
     //     )
     //   ],
+    //   ),
     // );
+    return Stack(
+      children: [
+        CarouselSlider(
+          options: CarouselOptions(
+            viewportFraction: 1,
+            enlargeCenterPage: false,
+            onPageChanged: (index, reason) {
+              setState(() {
+                _currentCategory = index;
+              });
+            },
+          ),
+          items: List.generate(
+            2,
+            (_) => Wrap(
+              runSpacing: 15,
+              children: List.generate(
+                10,
+                (index) => Container(
+                  width: MediaQuery.of(context).size.width / 5.6,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(bottom: 6),
+                        height: 55,
+                        width: 55,
+                        child: InkWell(
+                          child: Image.asset(
+                            'assets/catalog.png',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        width: double.infinity,
+                        child: Text(
+                          "Каталог46545sda asda dsfsdf sfsdfsd sdfsdfsfs sdfsdf",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          softWrap: false,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          width: MediaQuery.of(context).size.width,
+          bottom: 0,
+          left: 0,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 8,
+              vertical: 2,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                2,
+                (index) => Container(
+                  width: 8.0,
+                  height: 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentCategory == index
+                        ? MyColors.tangaroa
+                        : MyColors.iron,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 
   Widget _getProfitable(String title, {isName: false}) {
