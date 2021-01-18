@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
+import 'package:flutter_marketplace/pages/cabine_regis_email_page.dart';
 
 class CabinetPageRegistration extends StatefulWidget {
   @override
@@ -13,80 +14,103 @@ class _CabinetPageRegistrationState extends State<CabinetPageRegistration> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Column(
-            children: [
-              Align(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: IconButton(icon: Icon(Icons.close),
-                    onPressed: (){Navigator.pop(context);},
-                  ),
-                ),
-                alignment: Alignment.centerLeft,
+          Align(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(icon: Icon(Icons.close),
+                onPressed: (){Navigator.pop(context);},
               ),
-              Center(child: Text("Вход или регистрация"),),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(242,243,245, 1),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text("Телефон", style: TextStyle(color: !chech_phone_number ? Colors.black26 : Colors.red),)),
+            ),
+            alignment: Alignment.centerLeft,
+          ),
+          Center(child: Text("Вход или регистрация"),),
+          Padding(
+            padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
+            child: Container(
+               height: 50,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(242,243,245, 1),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+                          child: Text(
+                            "Телефон",
+                            style: TextStyle(
+                              color: !chech_phone_number
+                                  ? Colors.black38
+                                  : Colors.red,
+                            ),
+                          ),
                         ),
-                        TextField(
+                      alignment: Alignment.centerLeft,
+                    ),
+                    Container(
+                      height: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                        child: TextField(
                           controller: _userPhoneNumber,
                           keyboardType: TextInputType.number,
                           onChanged: (string){
                           },
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: chech_phone_number ? Text("Некорректный формат телефона", style: TextStyle(color: Colors.red),) : SizedBox(height: 1.0,)),
-                        ),
-                      ],
-                    )),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-                child: SizedBox(
-                  width:  double.infinity,
-                  height: 50.0,
-                  child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
                       ),
-                      color: Color.fromRGBO(0,91,254, 1), onPressed:() {
-                       setState(() {
-                           if(_userPhoneNumber.text == ""){
-                             chech_phone_number = true;
-                           }
-                       });
-                      },
-                      child: Text( "Получить код", style: TextStyle(color: Colors.white,
-                          fontWeight: FontWeight.bold),)),
-                ),
-              ),
-
-            ],
-          ),
-          Positioned( child: Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Text("Войти по почте", style: TextStyle(color: Colors.blue),),
+                    ),
+                  ],
+                )
             ),
-          ),)
+
+          ),
+         
+          Padding(
+            padding: EdgeInsets.fromLTRB(24.0, 0, 16.0, 0),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: chech_phone_number ? Text("Некорректный формат телефона", style: TextStyle(color: Colors.red),) : SizedBox(height: 1.0,)),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24.0, 20.0, 16.0, 20.0),
+            child: SizedBox(
+              width:  double.infinity,
+              height: 50.0,
+              child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  color: Color.fromRGBO(0,91,254, 1), onPressed:() {
+                setState(() {
+                  if(_userPhoneNumber.text == ""){
+                    chech_phone_number = true;
+                  }
+                });
+              },
+                  child: Text( "Получить код", style: TextStyle(color: Colors.white,
+                      fontWeight: FontWeight.bold),)),
+            ),
+          ),
+          Expanded(child: SizedBox()),
+          Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CabinetPageRegistrationEmail()),
+                    );
+                  },
+                  child: Text("Войти по почте", style: TextStyle(color: Colors.blue),)),
+          ),
+          ),
+          
         ]
       ),
     );
