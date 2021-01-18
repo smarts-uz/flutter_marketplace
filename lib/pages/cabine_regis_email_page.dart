@@ -64,7 +64,7 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                           padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                           child: TextField(
                             controller: _userPhoneNumber,
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.emailAddress,
                             onChanged: (string) {},
                           ),
                         ),
