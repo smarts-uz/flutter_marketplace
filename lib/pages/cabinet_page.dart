@@ -124,7 +124,9 @@ class _CabinetPageState extends State<CabinetPage> {
           height: 30,
         ),
         _listItem(
-          () => {},
+          () => {
+            myProvider.listItemLocation(context)
+          },
           "Ташкент",
           icon: Icons.location_on_outlined,
           primary: true,
@@ -163,8 +165,12 @@ class _CabinetPageState extends State<CabinetPage> {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
           ),
         ),
-        _listItem(() => {}, "Аккоунт и безопасность"),
-        _listItem(() => {}, "О приложении", divider: false),
+        _listItem(() => {
+          myProvider.accountSecurity(context)
+        }, "Аккоунт и безопасность"),
+        _listItem(() => {
+          myProvider.aboutApp(context)
+        }, "О приложении", divider: false),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           height: 30,
