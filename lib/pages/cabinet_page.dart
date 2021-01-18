@@ -155,7 +155,9 @@ class _CabinetPageState extends State<CabinetPage> {
         ),
         _listItem(() => {}, "Способы доставки"),
         _listItem(() => {}, "Способы оплаты"),
-        _listItem(() => {}, "Помощь", divider: false),
+        _listItem(() => {
+          myProvider.helpPage(context),
+        }, "Помощь", divider: false),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
