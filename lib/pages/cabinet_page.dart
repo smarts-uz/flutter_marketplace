@@ -142,7 +142,9 @@ class _CabinetPageState extends State<CabinetPage> {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
           ),
         ),
-        _listItem(() => {}, "Заказы"),
+        _listItem(() => {
+          myProvider.orderPages(context),
+        }, "Заказы"),
         _listItem(() => {
           myProvider.purchasedGoods(context),
         }, "Купленные товары", divider: false),
