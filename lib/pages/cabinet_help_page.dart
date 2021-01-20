@@ -24,33 +24,48 @@ class CabinetHelpPage extends StatelessWidget {
                   title: Text('Доставка'),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),
                   onTap: (){
-                    myProvider.cabinetHelpDriver(context);
+                    myProvider.cabinetHelpOpenScreen(context, 0);
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.note, color: Colors.blue,),
                   title: Text('Редактирование заказа'),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),
+                  onTap: (){
+                    myProvider.cabinetHelpOpenScreen(context, 1);
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.monetization_on, color: Colors.blue,),
-                  title: Text('оплата'),
+                  title: Text('Оплата'),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),
+                  onTap: (){
+                    myProvider.cabinetHelpOpenScreen(context, 2);
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.cancel, color: Colors.blue,),
                   title: Text('Что-то не так с товаром'),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),
+                  onTap: (){
+                    myProvider.cabinetHelpOpenScreen(context, 3);
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.create, color: Colors.blue,),
                   title: Text('Неполучается сделать заказ'),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),
+                  onTap: (){
+                    myProvider.cabinetHelpOpenScreen(context, 4);
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.cloud_queue_sharp, color: Colors.blue,),
                   title: Text('Рассрочка Ashop'),
                   trailing: Icon(Icons.arrow_forward_ios_outlined),
+                  onTap: (){
+                    myProvider.cabinetHelpOpenScreen(context, 5);
+                  },
                 ),
 
 

@@ -143,7 +143,9 @@ class _CabinetPageState extends State<CabinetPage> {
           ),
         ),
         _listItem(() => {}, "Заказы"),
-        _listItem(() => {}, "Купленные товары", divider: false),
+        _listItem(() => {
+          myProvider.purchasedGoods(context),
+        }, "Купленные товары", divider: false),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -153,8 +155,12 @@ class _CabinetPageState extends State<CabinetPage> {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
           ),
         ),
-        _listItem(() => {}, "Способы доставки"),
-        _listItem(() => {}, "Способы оплаты"),
+        _listItem(() => {
+         myProvider.diliveryMethod(context),
+        }, "Способы доставки"),
+        _listItem(() => {
+          myProvider.paymentMethod(context),
+        }, "Способы оплаты"),
         _listItem(() => {
           myProvider.helpPage(context),
         }, "Помощь", divider: false),
