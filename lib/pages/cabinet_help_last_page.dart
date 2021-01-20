@@ -67,11 +67,6 @@ class _CabinetHelpLastPageState extends State<CabinetHelpLastPage> {
                          fontWeight: FontWeight.bold),)),
                ),
              ),
-         Container(
-           color: Color.fromRGBO(242,243,245, 1),
-           height: 20,
-           width: double.infinity,
-         )
            ],
          ),
        ),
