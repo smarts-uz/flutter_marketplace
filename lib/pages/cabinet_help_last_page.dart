@@ -9,7 +9,7 @@ class _CabinetHelpLastPageState extends State<CabinetHelpLastPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(242,243,245, 1),
        appBar: AppBar(
          backgroundColor: Colors.white,
          leading: IconButton(icon: Icon(Icons.arrow_back_rounded), color: Colors.black, onPressed: (){
@@ -19,19 +19,27 @@ class _CabinetHelpLastPageState extends State<CabinetHelpLastPage> {
        body: SingleChildScrollView(
          child: Column(
            children: [
-             Text("Нет информации"),
-             SizedBox(height: 20),
-             Text('Была ли статья полезной?', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
-             SizedBox(height: 20),
-             Row(
-                 mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
-               children: [
-                Container(color: Color.fromRGBO(242,243,245, 1),child: FlatButton(child: Text('Да', style: TextStyle(color: Colors.blue),))),
-                SizedBox(width: 40),
-                 Container(color: Color.fromRGBO(242,243,245, 1),child: FlatButton(child: Text('Нет', style: TextStyle(color: Colors.blue),))),
-               ],
+             Container(
+               color: Colors.white,
+               child: Column(
+                 children: [
+                   Text("Нет информации"),
+                   SizedBox(height: 20),
+                   Text('Была ли статья полезной?', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                   SizedBox(height: 20),
+                   Row(
+                     mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
+                     children: [
+                       Container(color: Color.fromRGBO(242,243,245, 1),child: FlatButton(child: Text('Да', style: TextStyle(color: Colors.blue),))),
+                       SizedBox(width: 40),
+                       Container(color: Color.fromRGBO(242,243,245, 1),child: FlatButton(child: Text('Нет', style: TextStyle(color: Colors.blue),))),
+                     ],
+                   ),
+                   SizedBox(height: 20),
+                 ],
+               ),
              ),
-             SizedBox(height: 20),
+
              Container(
                width: double.infinity,
                color: Color.fromRGBO(242,243,245, 1),

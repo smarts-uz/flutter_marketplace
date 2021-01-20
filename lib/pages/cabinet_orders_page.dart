@@ -27,25 +27,47 @@ class _CabinetOrderPageState extends State<CabinetOrderPage> {
         leading: IconButton(icon: Icon(Icons.arrow_back), color: Colors.black, onPressed: (){Navigator.pop(context);},),
         title: Text("Заказы", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            InkWell(
-              onTap: (){
-                bottomSheetDialog();
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Все"),
-                  Icon(Icons.unfold_more),
-                ],
+      body: Column(
+        children: [
+          InkWell(
+            onTap: (){
+              bottomSheetDialog();
+            },
+            child: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Все", style: TextStyle(color: Colors.blue),),
+                    Icon(Icons.unfold_more),
+                  ],
+                ),
               ),
             ),
-            Divider(height: 1),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            child: Divider(height: 1),
+          ),
+          Container(color: Colors.white, height: 10),
+          Expanded(
+              child: Container(
+                color: Color.fromRGBO(242,243,245, 1),
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('У вас нет заказов', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                    SizedBox(height: 10),
+                    Text('Начните с главной - может, найдется\nчто-то вам по вкусу :)'),
+                    SizedBox(height: 10),
+                     FlatButton(child: Text('Начать покупки', style: TextStyle(color: Colors.blue),)),
+                  ],
+                ),
+              ))
+        ],
       ),
     );
   }

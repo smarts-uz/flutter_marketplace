@@ -21,10 +21,16 @@ import 'package:flutter/material.dart';
            children: [
              Align(
                  alignment: Alignment.centerLeft,
-                 child: Container(child: Text("Купленный товары", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 24),))),
+                 child: Padding(
+                   padding: const EdgeInsets.only(left: 8.0),
+                   child: Container(child: Text("Купленный товары", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 24),)),
+                 )),
              Align(
                  alignment: Alignment.centerLeft,
-                 child: Container(child: Text('0 товаров'))),
+                 child: Padding(
+                   padding: const EdgeInsets.only(left: 8.0),
+                   child: Container(child: Text('0 товаров')),
+                 )),
              Expanded(
                  child: SizedBox(
                    width: double.infinity,
