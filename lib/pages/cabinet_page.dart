@@ -132,7 +132,9 @@ class _CabinetPageState extends State<CabinetPage> {
           primary: true,
         ),
         _listItem(() => {}, "Пункты выдачи на карте"),
-        _listItem(() => {}, "Стоимость доставки", divider: false),
+        _listItem(() => {
+          myProvider.costofDeliry(context),
+        }, "Стоимость доставки", divider: false),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),

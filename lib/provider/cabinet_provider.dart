@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/const/consts.dart';
 import 'package:flutter_marketplace/pages/cabinet_about_app_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_account_security_page.dart';
+import 'package:flutter_marketplace/pages/cabinet_costofdelivery.dart';
 import 'package:flutter_marketplace/pages/cabinet_help_inside_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_help_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_orders_page.dart';
@@ -87,6 +88,13 @@ class CabinetProvider extends ChangeNotifier{
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CabinetOrderPage()),
+    );
+  }
+
+  costofDeliry(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CabinetCostOfDelivery()),
     );
   }
 }
