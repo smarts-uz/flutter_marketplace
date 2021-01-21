@@ -41,45 +41,42 @@ class _HomeLayoutState extends State<HomeLayout> {
     super.initState();
     _askPermission();
     _speechRecognition.setAvailabilityHandler(
-          (bool result) => setState(() => _isAvailable = result),
+      (bool result) => setState(() => _isAvailable = result),
     );
 
     _speechRecognition.setRecognitionStartedHandler(
-          () => setState(() => _isListening = true),
+      () => setState(() => _isListening = true),
     );
 
     _speechRecognition.setRecognitionResultHandler(
-          (String speech) => setState(() => resultText = speech),
+      (String speech) => setState(() => resultText = speech),
     );
 
     _speechRecognition.setRecognitionCompleteHandler(
-          () => setState(() => _isListening = false),
+      () => setState(() => _isListening = false),
     );
 
     _speechRecognition.activate().then(
           (result) => setState(() => _isAvailable = result),
-    );
+        );
   }
 
-  void _updateStatus(PermissionStatus status){
-    if(status != _status){
+  void _updateStatus(PermissionStatus status) {
+    if (status != _status) {
       setState(() {
         _status = status;
       });
     }
   }
 
-  void _askPermission(){
-    PermissionHandler().requestPermissions([PermissionGroup.microphone])
-        .then(_onStatusRequested);
+  void _askPermission() {
+    // PermissionHandler().requestPermissions([PermissionGroup.microphone])
+    //     .then(_onStatusRequested);
   }
-  void _onStatusRequested(Map<PermissionGroup, PermissionStatus> statues){
-    final status = statues[PermissionGroup.microphone];
-    _updateStatus(status);
-  }
-
-
-
+  // void _onStatusRequested(Map<PermissionGroup, PermissionStatus> statues){
+  //   final status = statues[PermissionGroup.microphone];
+  //   _updateStatus(status);
+  // }
 
   @override
   void dispose() {
@@ -96,30 +93,26 @@ class _HomeLayoutState extends State<HomeLayout> {
       },
     );
   }
-  _speechTotext(){
+
+  _speechTotext() {
     print(_isAvailable.toString() + ' ' + _isListening.toString());
     if (_isListening)
       _speechRecognition.stop().then(
             (result) => setState(() {
-          _isListening = result;
-          resultText = "";
-        }),
-      );
+              _isListening = result;
+              resultText = "";
+            }),
+          );
     if (_isAvailable && !_isListening) {
-      _speechRecognition
-          .listen(locale: "ru_RU")
-          .then((result){
+      _speechRecognition.listen(locale: "ru_RU").then((result) {
         setState(() {
           resultText = result;
           print(resultText + " ok Google");
         });
-      }
-      );
-    }
-    else{
-
-    }
+      });
+    } else {}
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +173,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           child: IconButton(
                             padding: EdgeInsets.all(0),
                             onPressed: () => {
-                                _speechTotext(),
+                              _speechTotext(),
                             },
                             icon: Icon(
                               Icons.mic_none_outlined,
@@ -239,7 +232,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             case '/cabinet':
               return MaterialPageRoute(
                 builder: (BuildContext context) => ChangeNotifierProvider(
-                  create: (context) => CabinetProvider(),
+                    create: (context) => CabinetProvider(),
                     child: CabinetPage()),
                 settings: settings,
               );
