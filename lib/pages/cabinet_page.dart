@@ -131,7 +131,9 @@ class _CabinetPageState extends State<CabinetPage> {
           icon: Icons.location_on_outlined,
           primary: true,
         ),
-        _listItem(() => {}, "Пункты выдачи на карте"),
+        _listItem(() => {
+          myProvider.openPointMap(context),
+        }, "Пункты выдачи на карте"),
         _listItem(() => {
           myProvider.costofDeliry(context),
         }, "Стоимость доставки", divider: false),

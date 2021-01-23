@@ -12,6 +12,7 @@ import 'package:flutter_marketplace/pages/cabinet_orders_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_purchased_goods_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_registration_page.dart';
 import 'package:flutter_marketplace/pages/cart_page_search.dart';
+import 'package:flutter_marketplace/pages/point_map.dart';
 import 'package:flutter_marketplace/provider/cabinet_help_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -97,4 +98,12 @@ class CabinetProvider extends ChangeNotifier{
       MaterialPageRoute(builder: (context) => CabinetCostOfDelivery()),
     );
   }
+
+  openPointMap(BuildContext context){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PointMap()),
+    );
+  }
+
 }
