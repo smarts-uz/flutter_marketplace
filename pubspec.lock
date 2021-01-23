@@ -154,9 +154,11 @@ packages:
   flutter_marketplace_service:
     dependency: "direct main"
     description:
-      path: "../flutter_marketplace_service"
-      relative: true
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: a87f590f58b3a79b962dbd231d3ce7c845651cb9
+      url: "git://github.com/ZetsoftLLC/flutter_marketplace_service.git"
+    source: git
     version: "0.0.1"
   flutter_statusbarcolor:
     dependency: "direct main"

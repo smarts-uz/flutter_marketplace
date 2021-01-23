@@ -86,48 +86,8 @@ class _PointMapState extends State<PointMap> {
                height: 200,
                child: TabBarView(
                  children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Container(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 20),
-                           Row(
-                            children: [
-                            Icon(Icons.home_outlined, color: Colors.black),
-                            SizedBox(width: 20),
-                            Text("Пункты выдачи и постаматы"),
-                            ],
-                            ),
-                            SizedBox(height: 15),
-                            Text("Для заказов с предоплатой и постоплатой", style: TextStyle(color: Color.fromRGBO(157,160,160, 1))),
-                           SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Icon(Icons.whatshot),
-                                Text("стоимость доставки 0 P")
-                              ],
-                            ),
-                            SizedBox(height: 40),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.archive),
-                                  Text("Почта Узбекистана")
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 30),
-                            Text("Для предоплаченных заказов", style: TextStyle(color: Color.fromRGBO(157,160,160, 1)))
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                   Icon(Icons.music_video),
+                  tabitem(),
+                 tabitem()
                  ],
                ),
              ),
@@ -141,5 +101,54 @@ class _PointMapState extends State<PointMap> {
       );
     }
     );
+  }
+
+  Padding tabitem() {
+    return Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30),
+                  child: Container(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 20),
+                         Row(
+                          children: [
+                          Icon(Icons.home_outlined, color: Colors.black),
+                          SizedBox(width: 20),
+                          Text("Пункты выдачи и постаматы"),
+                          ],
+                          ),
+                          SizedBox(height: 15),
+                          Text("Для заказов с предоплатой и постоплатой", style: TextStyle(color: Color.fromRGBO(157,160,160, 1))),
+                         SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Text('●'),
+                              SizedBox(width: 10),
+                              Text("стоимость доставки 0 P")
+                            ],
+                          ),
+                          SizedBox(height: 40),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.archive),
+                                Text("Почта Узбекистана")
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Text("Для предоплаченных заказов", style: TextStyle(color: Color.fromRGBO(157,160,160, 1))),
+                          SizedBox(height: 10),
+                          Text('● минимальная сумма заказа от 999 р-\nстоимость доставки рассчитывается по тарифам Почты Тошкент'),
+                          SizedBox(height: 10),
+                          Text('● доставка Почтой Ташкент доступна только по предоплате'),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
   }
 }
