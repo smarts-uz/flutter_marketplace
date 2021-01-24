@@ -38,6 +38,7 @@ class _PointMapState extends State<PointMap> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
+          onPressed: (){Navigator.pop(context);},
           icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
         title: Text("Пункты выдачи на карте", style: TextStyle(color: Colors.black),),
