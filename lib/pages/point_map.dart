@@ -73,8 +73,7 @@ class _PointMapState extends State<PointMap> {
     );
   }
 
-  void _settingModalBottomSheet(BuildContext context) async{
-    await Future.delayed(Duration.zero);
+  void _settingModalBottomSheet(BuildContext context){
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
