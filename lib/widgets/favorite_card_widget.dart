@@ -353,6 +353,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
 
   Widget _createIncrementDicrementButtonmm(IconData icon, Color color) {
     return RawMaterialButton(
+      onPressed: () => {},
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       constraints: BoxConstraints(minWidth: 32.0, minHeight: 32.0),
       elevation: 2.0,
