@@ -64,13 +64,13 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                       },
                     ),
                     items: List.generate(
-                      state.banners.length,
+                      state.banners.data.length,
                       (index) => Container(
                         width: double.infinity,
                         child: InkWell(
-                          child: state.banners[index].logo != null
+                          child: state.banners.data[index].logo != null
                               ? CachedNetworkImage(
-                                  imageUrl: state.banners[index].logo,
+                                  imageUrl: state.banners.data[index].logo,
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                     decoration: BoxDecoration(
@@ -106,7 +106,7 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          state.banners.length,
+                          state.banners.data.length,
                           (index) => Container(
                             width: 8.0,
                             height: 8.0,
