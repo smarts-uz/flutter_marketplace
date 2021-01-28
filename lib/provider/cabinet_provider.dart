@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/const/consts.dart';
+import 'package:flutter_marketplace/pages/cabine_regis_email_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_about_app_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_account_security_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_costofdelivery.dart';
@@ -23,7 +24,7 @@ class CabinetProvider extends ChangeNotifier{
   openRegistrationScreen(BuildContext context){
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CabinetPageRegistration()),
+      MaterialPageRoute(builder: (context) => CabinetPageRegistrationEmail()),
     );
   }
 

@@ -48,7 +48,7 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8.0, top: 4.0),
                           child: Text(
-                            "Телефон",
+                            "Email",
                             style: TextStyle(
                               color: !chech_phone_number
                                   ? Colors.black38
