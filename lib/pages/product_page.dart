@@ -1,8 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
+import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
+import 'package:flutter_marketplace_service/service/product/product_api_provider.dart';
+import 'package:flutter_marketplace_service/service/product/product_repository.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:share/share.dart';
 
@@ -16,6 +22,8 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage>
     with SingleTickerProviderStateMixin {
   final controller = PageController(viewportFraction: 1);
+
+  final productRepository = ProductApiProvider();
 
   bool isFavorite = false;
   int isSize = 0;
@@ -43,11 +51,46 @@ class _ProductPageState extends State<ProductPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.white,
-      appBar: _getAppBar(),
-      body: _getBody(),
-      bottomNavigationBar: _getFooter(),
+    return BlocProvider<ProductCubit>(
+      create: (context) => ProductCubit(productRepository)..getAll(2),
+      child: Scaffold(
+        backgroundColor: MyColors.white,
+        appBar: _getAppBar(),
+        body: BlocBuilder<ProductCubit, ProductState>(
+            builder: (context, state) {
+              if (state is ProductEmptyState || state is ProductLoadingState) {
+                return Shimmer.fromColors(
+                  baseColor: MyColors.shimmerBaseColor,
+                  highlightColor: MyColors.shimmerHighlightColor,
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: false,
+                      height: 150,
+                      aspectRatio: 1,
+                      enlargeCenterPage: true,
+                    ),
+                    items: List.generate(
+                      3,
+                          (_) =>
+                          Container(
+                            width: double.infinity,
+                            color: MyColors.white,
+                          ),
+                    ),
+                  ),
+                );
+              } else if (state is ProductLoadedState) {
+               return  _getBody();
+              }
+              else if(state is ProductErrorState){
+                return Center(
+                  child: Text("Error"),
+                );
+              }
+         }
+        ),
+        bottomNavigationBar: _getFooter(),
+      ),
     );
   }
 
