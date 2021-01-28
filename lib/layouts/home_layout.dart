@@ -13,7 +13,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:speech_recognition/speech_recognition.dart';
 
 class HomeLayout extends StatefulWidget {
   HomeLayout({Key key, this.title}) : super(key: key);
@@ -26,7 +25,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
-  SpeechRecognition _speechRecognition = SpeechRecognition();
+
   bool _isAvailable = false;
   bool _isListening = false;
 
@@ -39,26 +38,26 @@ class _HomeLayoutState extends State<HomeLayout> {
   void initState() {
     _changeSysBar();
     super.initState();
-    _askPermission();
-    _speechRecognition.setAvailabilityHandler(
-      (bool result) => setState(() => _isAvailable = result),
-    );
+    // _askPermission();
+    // _speechRecognition.setAvailabilityHandler(
+    //   (bool result) => setState(() => _isAvailable = result),
+    // );
 
-    _speechRecognition.setRecognitionStartedHandler(
-      () => setState(() => _isListening = true),
-    );
+    // _speechRecognition.setRecognitionStartedHandler(
+    //   () => setState(() => _isListening = true),
+    // );
 
-    _speechRecognition.setRecognitionResultHandler(
-      (String speech) => setState(() => resultText = speech),
-    );
+    // _speechRecognition.setRecognitionResultHandler(
+    //   (String speech) => setState(() => resultText = speech),
+    // );
 
-    _speechRecognition.setRecognitionCompleteHandler(
-      () => setState(() => _isListening = false),
-    );
+    // _speechRecognition.setRecognitionCompleteHandler(
+    //   () => setState(() => _isListening = false),
+    // );
 
-    _speechRecognition.activate().then(
-          (result) => setState(() => _isAvailable = result),
-        );
+    // _speechRecognition.activate().then(
+    //       (result) => setState(() => _isAvailable = result),
+    //     );
   }
 
   void _updateStatus(PermissionStatus status) {
@@ -95,22 +94,22 @@ class _HomeLayoutState extends State<HomeLayout> {
   }
 
   _speechTotext() {
-    print(_isAvailable.toString() + ' ' + _isListening.toString());
-    if (_isListening)
-      _speechRecognition.stop().then(
-            (result) => setState(() {
-              _isListening = result;
-              resultText = "";
-            }),
-          );
-    if (_isAvailable && !_isListening) {
-      _speechRecognition.listen(locale: "ru_RU").then((result) {
-        setState(() {
-          resultText = result;
-          print(resultText + " ok Google");
-        });
-      });
-    } else {}
+    // print(_isAvailable.toString() + ' ' + _isListening.toString());
+    // if (_isListening)
+    //   _speechRecognition.stop().then(
+    //         (result) => setState(() {
+    //           _isListening = result;
+    //           resultText = "";
+    //         }),
+    //       );
+    // if (_isAvailable && !_isListening) {
+    //   _speechRecognition.listen(locale: "ru_RU").then((result) {
+    //     setState(() {
+    //       resultText = result;
+    //       print(resultText + " ok Google");
+    //     });
+    //   });
+    // } else {}
   }
 
   @override
