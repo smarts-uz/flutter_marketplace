@@ -97,6 +97,11 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
             if(state is UsersLoginLoadedState){
               Navigator.pop(context);
             }
+            if(state is UsersErrorState){
+              return Center(
+                child: Text("Error"),
+              );
+            }
             return Stack(
                 children: <Widget>[
                   SingleChildScrollView(
