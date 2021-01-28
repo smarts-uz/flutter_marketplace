@@ -7,10 +7,12 @@ import 'package:flutter_marketplace_service/service/users/users_repository.dart'
 
 class CabinetPageRegistrationEmail extends StatefulWidget {
   @override
-  _CabinetPageRegistrationEmailState createState() => _CabinetPageRegistrationEmailState();
+  _CabinetPageRegistrationEmailState createState() =>
+      _CabinetPageRegistrationEmailState();
 }
 
-class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEmail> {
+class _CabinetPageRegistrationEmailState
+    extends State<CabinetPageRegistrationEmail> {
   bool check_email = false;
   bool check_name = false;
   bool check_passpord = false;
@@ -19,25 +21,23 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
   final TextEditingController _userName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   final TextEditingController _comfirmPassword = new TextEditingController();
-  String _nameString = "";
-  String _passwordString = "";
-  String _emailString = "";
-  String _comfirmPasswordString = "";
-  bool _passwordVisible;
-  bool _comfirmVisible;
+  String _nameString = "name";
+  String _passwordString = "123456";
+  String _emailString = "asdasdsa@gm.ru";
+  String _comfirmPasswordString = "123456";
+  bool _passwordVisible = false;
+  bool _comfirmVisible = false;
 
   UsersCubit usersCubit = UsersCubit(UsersRepository());
   //
   final scaffoldState = GlobalKey<ScaffoldState>();
   //
 
+  // @override
+  // void initState() {
+  //   super.initState();
 
-  @override
-  void initState() {
-    super.initState();
-    _passwordVisible = false;
-    _comfirmVisible = false;
-  }
+  // }
 
   _CabinetPageRegistrationEmailState() {
     _userName.addListener(_nameListen);
@@ -78,9 +78,6 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,42 +85,48 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
       body: BlocProvider<UsersCubit>(
         create: (context) => usersCubit,
         child: BlocBuilder<UsersCubit, UsersState>(
-          builder: (context, state){
+          builder: (context, state) {
             if (state is UsersLoadingState) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-            if(state is UsersLoginLoadedState){
+            if (state is UsersLoginLoadedState) {
               Navigator.pop(context);
             }
-            if(state is UsersErrorState){
+            if (state is UsersErrorState) {
               return Center(
                 child: Text("Error"),
               );
             }
-            return Stack(
-                children: <Widget>[
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Align(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: IconButton(icon: Icon(Icons.close),
-                              onPressed: (){Navigator.pop(context);},
-                            ),
-                          ),
-                          alignment: Alignment.centerLeft,
+            return Stack(children: <Widget>[
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Align(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
-                        Center(child: Text("Вход или регистрация"),),
-                       Align(
-                           child: Padding(
-                             padding: const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-                             child: Text("Только для зарегистрированных пользователей"),
-                           ),
-                       alignment: Alignment.topLeft,
-                       ),
+                      ),
+                      alignment: Alignment.centerLeft,
+                    ),
+                    Center(
+                      child: Text("Вход или регистрация"),
+                    ),
+                    Align(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                        child:
+                            Text("Только для зарегистрированных пользователей"),
+                      ),
+                      alignment: Alignment.topLeft,
+                    ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
                       child: Container(
@@ -135,7 +138,8 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                             children: [
                               Align(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 4.0),
                                   child: Text(
                                     "Name",
                                     style: TextStyle(
@@ -150,7 +154,8 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                               Container(
                                 height: 30,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8.0),
                                   child: TextField(
                                     controller: _userName,
                                     keyboardType: TextInputType.name,
@@ -160,7 +165,8 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                               ),
                               Align(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 4.0),
                                   child: Text(
                                     "Email",
                                     style: TextStyle(
@@ -175,7 +181,8 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                               Container(
                                 height: 30,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8.0),
                                   child: TextField(
                                     controller: _userEmail,
                                     keyboardType: TextInputType.emailAddress,
@@ -185,7 +192,8 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                               ),
                               Align(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 4.0),
                                   child: Text(
                                     "Passpord",
                                     style: TextStyle(
@@ -193,7 +201,6 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                                           ? Colors.black38
                                           : Colors.red,
                                     ),
-
                                   ),
                                 ),
                                 alignment: Alignment.centerLeft,
@@ -201,36 +208,38 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                               Container(
                                 height: 30,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8.0),
                                   child: TextFormField(
                                     controller: _password,
                                     keyboardType: TextInputType.text,
                                     onChanged: (string) {},
                                     decoration: new InputDecoration(
                                         suffixIcon: IconButton(
-                                          icon: Icon(
-                                            _passwordVisible ? Icons.visibility
-                                                : Icons.visibility_off,
-                                            color: Colors.black38,
-                                          ),
-                                          onPressed: (){
-                                            setState(() {
-                                              _passwordVisible = !_passwordVisible;
-                                            });
-                                          },
-                                        )
-                                    ),
+                                      icon: Icon(
+                                        _passwordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: Colors.black38,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _passwordVisible = !_passwordVisible;
+                                        });
+                                      },
+                                    )),
                                     obscureText: !_passwordVisible,
                                   ),
                                 ),
                               ),
                               Align(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, top: 4.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 4.0),
                                   child: Text(
                                     "Confirm Passpord",
                                     style: TextStyle(
-                                      color: ! check_comfirmpasspord
+                                      color: !check_comfirmpasspord
                                           ? Colors.black38
                                           : Colors.red,
                                     ),
@@ -241,41 +250,53 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                               Container(
                                 height: 30,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, right: 8.0),
                                   child: TextFormField(
                                     controller: _comfirmPassword,
                                     keyboardType: TextInputType.text,
                                     onChanged: (string) {},
                                     decoration: new InputDecoration(
                                         suffixIcon: IconButton(
-                                          icon: Icon(
-                                            _comfirmVisible ? Icons.visibility
-                                                : Icons.visibility_off,
-                                            color: Colors.black38,
-                                          ),
-                                          onPressed: (){
-                                            setState(() {
-                                              _comfirmVisible = !_comfirmVisible;
-                                            });
-                                          },
-                                        )
-                                    ),
+                                      icon: Icon(
+                                        _comfirmVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: Colors.black38,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _comfirmVisible = !_comfirmVisible;
+                                        });
+                                      },
+                                    )),
                                     obscureText: !_comfirmVisible,
                                   ),
                                 ),
                               ),
                             ],
-                          )
-                      ),
+                          )),
                     ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(24.0, 0, 16.0, 0),
-                          child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: (check_email || check_name || check_passpord || check_passpord || check_comfirmpasspord) ? Text("Данные не заполнены", style: TextStyle(color: Colors.red),) : SizedBox(height: 1.0,)),
-                        ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0),
+                      padding: EdgeInsets.fromLTRB(24.0, 0, 16.0, 0),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: (check_email ||
+                                  check_name ||
+                                  check_passpord ||
+                                  check_passpord ||
+                                  check_comfirmpasspord)
+                              ? Text(
+                                  "Данные не заполнены",
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : SizedBox(
+                                  height: 1.0,
+                                )),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0),
                       child: SizedBox(
                         width: double.infinity,
                         height: 50.0,
@@ -290,64 +311,67 @@ class _CabinetPageRegistrationEmailState extends State<CabinetPageRegistrationEm
                             child: Text(
                               "Регистрация",
                               style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             )),
                       ),
                     ),
                   ],
-                    ),
+                ),
+              ),
+              Positioned(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Вернуться на главный экран",
+                          style: TextStyle(color: Colors.blue),
+                        )),
                   ),
-                  Positioned( child: Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: InkWell(
-                          onTap: (){
-                            Navigator.pop(context);
-                          },
-                          child: Text("Вернуться на главный экран", style: TextStyle(color: Colors.blue),)),
-                    ),
-                  ),)
-                ]
-            );
-  },
+                ),
+              )
+            ]);
+          },
         ),
       ),
     );
   }
 
   void onPress() {
-    if(_nameString == "") { // || _passwordString == "" || _emailString == "" || _comfirmPasswordString == ""){
+    if (_nameString == "") {
+      // || _passwordString == "" || _emailString == "" || _comfirmPasswordString == ""){
       check_name = true;
       print("ok nameString");
     }
-    if(_passwordString == ""){
+    if (_passwordString == "") {
       check_passpord = true;
       print("Ok passwordString");
     }
-    if(_emailString == ""){
+    if (_emailString == "") {
       check_email = true;
     }
-    if(_comfirmPasswordString == ""){
+    if (_comfirmPasswordString == "") {
       check_comfirmpasspord = true;
     }
-    if(check_name || check_email || check_passpord || check_comfirmpasspord){
-    //  data not filled
-    }
-    else {
+    if (check_name || check_email || check_passpord || check_comfirmpasspord) {
+      //  data not filled
+    } else {
       print("ok");
       usersCubit.signup(SignupRequest(
-        name: _nameString,
-        email: _emailString,
-        password: _passwordString,
-        passowrdConfirmation: _comfirmPasswordString
-      ));
+          name: _nameString,
+          email: _emailString,
+          password: _passwordString,
+          passowrdConfirmation: _comfirmPasswordString));
     }
     onChanged();
   }
 
-  void onChanged(){
-    setState(() {
-    });
+  void onChanged() {
+    setState(() {});
   }
 }

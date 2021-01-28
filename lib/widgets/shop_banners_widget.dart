@@ -3,8 +3,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace_service/service/brand/brand_repository.dart';
-import 'package:flutter_marketplace_service/service/brand/cubit/brand_cubit.dart';
+import 'package:flutter_marketplace_service/config.dart';
+import 'package:flutter_marketplace_service/service/banner/banner_repository.dart';
+import 'package:flutter_marketplace_service/service/banner/cubit/banner_cubit.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 class ShopBannersWidget extends StatefulWidget {
@@ -16,19 +18,19 @@ class ShopBannersWidget extends StatefulWidget {
 
 class _ShopBannersWidgetState extends State<ShopBannersWidget> {
   int _currentBanner = 0;
-  final brandRepository = BrandRepository();
+  final bannersRepository = BannersRepository();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BrandCubit>(
-      create: (context) => BrandCubit(brandRepository)..fetchBanners(),
+    return BlocProvider<BannerCubit>(
+      create: (context) => BannerCubit(bannersRepository)..fetchBanners(),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 18),
-        child: BlocBuilder<BrandCubit, BrandState>(
+        child: BlocBuilder<BannerCubit, BannerState>(
           builder: (context, state) {
-            // final BrandCubit shopBannerCubit = context.watch<BrandCubit>();
+            // final BannerCubit shopBannerCubit = context.watch<BannerCubit>();
 
-            if (state is BrandEmptyState || state is BrandLoadingState) {
+            if (state is BannerEmptyState || state is BannerLoadingState) {
               return Shimmer.fromColors(
                 baseColor: MyColors.shimmerBaseColor,
                 highlightColor: MyColors.shimmerHighlightColor,
@@ -48,7 +50,7 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                   ),
                 ),
               );
-            } else if (state is BrandLoadedState) {
+            } else if (state is BannerLoadedState) {
               return Stack(
                 children: [
                   CarouselSlider(
@@ -64,13 +66,14 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                       },
                     ),
                     items: List.generate(
-                      state.banners.data.length,
+                      state.banner.sliders.data.length,
                       (index) => Container(
                         width: double.infinity,
                         child: InkWell(
-                          child: state.banners.data[index].logo != null
+                          child: state.banner.sliders.data[index].photo != null
                               ? CachedNetworkImage(
-                                  imageUrl: state.banners.data[index].logo,
+                                  imageUrl:
+                                      "${Config.filesUrl}/${state.banner.sliders.data[index].photo}",
                                   imageBuilder: (context, imageProvider) =>
                                       Container(
                                     decoration: BoxDecoration(
@@ -106,7 +109,7 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
-                          state.banners.data.length,
+                          state.banner.sliders.data.length,
                           (index) => Container(
                             width: 8.0,
                             height: 8.0,
