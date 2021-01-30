@@ -30,7 +30,7 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
           builder: (context, state) {
             // final BannerCubit shopBannerCubit = context.watch<BannerCubit>();
 
-            if (state is BannerEmptyState || state is BannerLoadingState) {
+            if (state is BannerInitial || state is BannerLoadingState) {
               return Shimmer.fromColors(
                 baseColor: MyColors.shimmerBaseColor,
                 highlightColor: MyColors.shimmerHighlightColor,

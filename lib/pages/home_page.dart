@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/widgets/best_selling_widget.dart';
+import 'package:flutter_marketplace/widgets/product_card_widget.dart';
 
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
@@ -31,9 +33,7 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         physics: BouncingScrollPhysics(),
         children: [
-          // Padding(padding: EdgeInsets.all(10)),
           ShopBannersWidget(),
-          // Padding(padding: EdgeInsets.all(10)),
           _getCategory(),
           ProductCardsWidget(
             title: "Лучшее предложение",
@@ -41,6 +41,13 @@ class _HomePageState extends State<HomePage> {
             named: false,
             list: false,
             perCol: 3,
+          ),
+          BestSellingWidget(
+            title: "Лучшее предложение",
+            named: false,
+            vertical: false,
+            perCol: 3,
+            type: "selling",
           ),
           _getProfitable("Это выгодно! Успей купить!"),
           ProductCardsWidget(
