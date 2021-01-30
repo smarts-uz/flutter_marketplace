@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace_service/models/products_%20response.dart';
+import 'package:flutter_marketplace_service/models/products_response.dart';
 
 import 'package:get/get.dart';
 
