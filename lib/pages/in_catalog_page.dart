@@ -4,7 +4,6 @@ import 'package:flutter_marketplace/config/colors.dart';
 
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 class InCatalogPage extends StatefulWidget {
   InCatalogPage({Key key}) : super(key: key);

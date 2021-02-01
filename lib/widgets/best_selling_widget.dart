@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/widgets/best_selling_card_widget.dart';
 
-import 'package:flutter_marketplace/widgets/product_card_widget.dart';
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
 import 'package:flutter_marketplace_service/service/product/product_repository.dart';
 
@@ -74,7 +73,8 @@ class _BestSellingWidgetState extends State<BestSellingWidget> {
         itemBuilder: (context, index) {
           return Container(
             width: 180,
-            child: ProductCardWidget(named: widget.named),
+            child: BestSellingCardWidget(
+                named: widget.named, product: state.list.data[index]),
           );
         },
       ),
@@ -99,10 +99,14 @@ class _BestSellingWidgetState extends State<BestSellingWidget> {
 
   ProductCubit _initType() {
     switch (widget.type) {
-      case 'selling':
-        return ProductCubit(productRepository)..getOfBestSelling();
+      case 'getOfTodaysDeal':
+        return ProductCubit(productRepository)..getOfTodaysDeal();
+      case 'getOfFeatured':
+        return ProductCubit(productRepository)..getOfFeatured();
+      case 'getOfBestSeller':
+        return ProductCubit(productRepository)..getOfBestSeller();
       default:
-        return ProductCubit(productRepository)..getAll(1);
+        return ProductCubit(productRepository);
     }
   }
 }

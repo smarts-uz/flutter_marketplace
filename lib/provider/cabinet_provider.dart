@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/const/consts.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_marketplace/pages/cabinet_help_inside_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_help_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_orders_page.dart';
 import 'package:flutter_marketplace/pages/cabinet_purchased_goods_page.dart';
-import 'package:flutter_marketplace/pages/cabinet_registration_page.dart';
 import 'package:flutter_marketplace/pages/cart_page_search.dart';
 import 'package:flutter_marketplace/pages/point_map.dart';
 import 'package:flutter_marketplace/provider/cabinet_help_provider.dart';
@@ -19,9 +16,8 @@ import 'package:provider/provider.dart';
 
 import 'cabinet_help_inside_provider.dart';
 
-class CabinetProvider extends ChangeNotifier{
-
-  openRegistrationScreen(BuildContext context){
+class CabinetProvider extends ChangeNotifier {
+  openRegistrationScreen(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CabinetPageRegistrationEmail()),
@@ -34,7 +30,6 @@ class CabinetProvider extends ChangeNotifier{
       MaterialPageRoute(builder: (context) => CartSearch()),
     );
   }
-
 
   accountSecurity(BuildContext context) {
     Navigator.push(
@@ -53,58 +48,64 @@ class CabinetProvider extends ChangeNotifier{
   helpPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ChangeNotifierProvider(
-          create: (context) => CabinetHelpProvider(),
-          child: CabinetHelpPage())),
+      MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+              create: (context) => CabinetHelpProvider(),
+              child: CabinetHelpPage())),
     );
   }
 
-  diliveryMethod(BuildContext context){
+  diliveryMethod(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
               create: (context) => CabinetHelpInsideProvider(),
-              child: CabinetHelpDriverPage(list: delivery_methods, appbar_title: 'Способы доставки',))),
+              child: CabinetHelpDriverPage(
+                list: delivery_methods,
+                appbarTitle: 'Способы доставки',
+              ))),
     );
   }
-  paymentMethod(BuildContext context){
+
+  paymentMethod(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
               create: (context) => CabinetHelpInsideProvider(),
-              child: CabinetHelpDriverPage(list: payment_methods, appbar_title: 'Способы оплаты',))),
+              child: CabinetHelpDriverPage(
+                list: payment_methods,
+                appbarTitle: 'Способы оплаты',
+              ))),
     );
   }
 
-
-  purchasedGoods(BuildContext context){
+  purchasedGoods(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PurchasedGoods()),
     );
   }
 
-  orderPages(BuildContext context){
+  orderPages(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CabinetOrderPage()),
     );
   }
 
-  costofDeliry(BuildContext context){
+  costofDeliry(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CabinetCostOfDelivery()),
     );
   }
 
-  openPointMap(BuildContext context){
+  openPointMap(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => PointMap()),
     );
   }
-
 }

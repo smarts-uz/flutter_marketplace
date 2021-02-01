@@ -9,7 +9,6 @@ class CabinetOrderPage extends StatefulWidget {
 
 class _CabinetOrderPageState extends State<CabinetOrderPage> {
   bool isChecked = false;
-  bool _isFavorite = false;
   bool _istextnumber = false;
   bool _iconvisible = false;
   String _icostalocnumber = "21";

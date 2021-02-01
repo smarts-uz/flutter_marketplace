@@ -37,6 +37,7 @@ dependencies:
   cached_network_image: ^2.5.0
   cupertino_icons: ^1.0.0
   catcher: ^0.4.0
+  intl: ^0.16.1
 
   flutter_marketplace_service:
     path: ../flutter_marketplace_service
@@ -72,6 +73,7 @@ flutter:
     - assets/banner.jpg
     - assets/carousel.jpg
     - assets/product.png
+    - assets/default-image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

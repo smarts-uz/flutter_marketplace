@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace_service/models/signup_request.dart';
 import 'package:flutter_marketplace_service/service/users/cubit/users_cubit.dart';
 import 'package:flutter_marketplace_service/service/users/users_repository.dart';
@@ -13,10 +12,10 @@ class CabinetPageRegistrationEmail extends StatefulWidget {
 
 class _CabinetPageRegistrationEmailState
     extends State<CabinetPageRegistrationEmail> {
-  bool check_email = false;
-  bool check_name = false;
-  bool check_passpord = false;
-  bool check_comfirmpasspord = false;
+  bool checkEmail = false;
+  bool checkName = false;
+  bool checkPasspord = false;
+  bool checkComfirmPasspord = false;
   final TextEditingController _userEmail = new TextEditingController();
   final TextEditingController _userName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
@@ -143,7 +142,7 @@ class _CabinetPageRegistrationEmailState
                                   child: Text(
                                     "Name",
                                     style: TextStyle(
-                                      color: !check_name
+                                      color: !checkName
                                           ? Colors.black38
                                           : Colors.red,
                                     ),
@@ -170,7 +169,7 @@ class _CabinetPageRegistrationEmailState
                                   child: Text(
                                     "Email",
                                     style: TextStyle(
-                                      color: !check_email
+                                      color: !checkEmail
                                           ? Colors.black38
                                           : Colors.red,
                                     ),
@@ -197,7 +196,7 @@ class _CabinetPageRegistrationEmailState
                                   child: Text(
                                     "Passpord",
                                     style: TextStyle(
-                                      color: !check_passpord
+                                      color: !checkPasspord
                                           ? Colors.black38
                                           : Colors.red,
                                     ),
@@ -239,7 +238,7 @@ class _CabinetPageRegistrationEmailState
                                   child: Text(
                                     "Confirm Passpord",
                                     style: TextStyle(
-                                      color: !check_comfirmpasspord
+                                      color: !checkComfirmPasspord
                                           ? Colors.black38
                                           : Colors.red,
                                     ),
@@ -281,11 +280,11 @@ class _CabinetPageRegistrationEmailState
                       padding: EdgeInsets.fromLTRB(24.0, 0, 16.0, 0),
                       child: Align(
                           alignment: Alignment.centerLeft,
-                          child: (check_email ||
-                                  check_name ||
-                                  check_passpord ||
-                                  check_passpord ||
-                                  check_comfirmpasspord)
+                          child: (checkEmail ||
+                                  checkName ||
+                                  checkPasspord ||
+                                  checkPasspord ||
+                                  checkComfirmPasspord)
                               ? Text(
                                   "Данные не заполнены",
                                   style: TextStyle(color: Colors.red),
@@ -345,20 +344,20 @@ class _CabinetPageRegistrationEmailState
   void onPress() {
     if (_nameString == "") {
       // || _passwordString == "" || _emailString == "" || _comfirmPasswordString == ""){
-      check_name = true;
+      checkName = true;
       print("ok nameString");
     }
     if (_passwordString == "") {
-      check_passpord = true;
+      checkPasspord = true;
       print("Ok passwordString");
     }
     if (_emailString == "") {
-      check_email = true;
+      checkEmail = true;
     }
     if (_comfirmPasswordString == "") {
-      check_comfirmpasspord = true;
+      checkComfirmPasspord = true;
     }
-    if (check_name || check_email || check_passpord || check_comfirmpasspord) {
+    if (checkName || checkEmail || checkPasspord || checkComfirmPasspord) {
       //  data not filled
     } else {
       print("ok");

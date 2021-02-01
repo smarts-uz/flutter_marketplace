@@ -2,11 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/widgets/best_selling_widget.dart';
-import 'package:flutter_marketplace/widgets/product_card_widget.dart';
 
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -35,19 +33,12 @@ class _HomePageState extends State<HomePage> {
         children: [
           ShopBannersWidget(),
           _getCategory(),
-          ProductCardsWidget(
-            title: "Лучшее предложение",
-            count: 6,
-            named: false,
-            list: false,
-            perCol: 3,
-          ),
           BestSellingWidget(
             title: "Лучшее предложение",
             named: false,
             vertical: false,
             perCol: 3,
-            type: "selling",
+            type: "getOfFeatured",
           ),
           _getProfitable("Это выгодно! Успей купить!"),
           ProductCardsWidget(
@@ -65,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             list: false,
             perCol: 3,
           ),
-          _getProfitable("Покупки сезона", isName: true),
+          _getProfitable("Покупки сезона", named: true),
           ProductCardsWidget(
             title: "Бесплатная доставка по всему миру",
             count: 6,
@@ -246,7 +237,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _getProfitable(String title, {isName: false}) {
+  Widget _getProfitable(String title, {named: false}) {
     return Column(children: [
       Container(
         width: double.infinity,
@@ -282,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                isName
+                named
                     ? Container(
                         padding: EdgeInsets.only(left: 2, right: 2, bottom: 6),
                         width: MediaQuery.of(context).size.width / 3.2,

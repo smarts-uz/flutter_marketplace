@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
-
+import 'package:flutter_marketplace/widgets/best_selling_widget.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
+
 import 'package:provider/provider.dart';
 
 class CabinetPage extends StatefulWidget {
@@ -100,10 +101,9 @@ class _CabinetPageState extends State<CabinetPage> {
                           elevation: 0,
                           onPressed: () => {
                             setState(() => {
-                     //         isAuth = !isAuth,
-                             myProvider.openRegistrationScreen(context),
-                            }
-                            )
+                                  //         isAuth = !isAuth,
+                                  myProvider.openRegistrationScreen(context),
+                                })
                           },
                           child: Text(
                             "Войти или зарегистрироватся",
@@ -124,19 +124,20 @@ class _CabinetPageState extends State<CabinetPage> {
           height: 30,
         ),
         _listItem(
-          () => {
-            myProvider.listItemLocation(context)
-          },
+          () => {myProvider.listItemLocation(context)},
           "Ташкент",
           icon: Icons.location_on_outlined,
           primary: true,
         ),
-        _listItem(() => {
-          myProvider.openPointMap(context),
-        }, "Пункты выдачи на карте"),
-        _listItem(() => {
-          myProvider.costofDeliry(context),
-        }, "Стоимость доставки", divider: false),
+        _listItem(
+          () => {myProvider.openPointMap(context)},
+          "Пункты выдачи на карте",
+        ),
+        _listItem(
+          () => {myProvider.costofDeliry(context)},
+          "Стоимость доставки",
+          divider: false,
+        ),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -146,12 +147,15 @@ class _CabinetPageState extends State<CabinetPage> {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
           ),
         ),
-        _listItem(() => {
-          myProvider.orderPages(context),
-        }, "Заказы"),
-        _listItem(() => {
-          myProvider.purchasedGoods(context),
-        }, "Купленные товары", divider: false),
+        _listItem(
+          () => {myProvider.orderPages(context)},
+          "Заказы",
+        ),
+        _listItem(
+          () => {myProvider.purchasedGoods(context)},
+          "Купленные товары",
+          divider: false,
+        ),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -161,15 +165,19 @@ class _CabinetPageState extends State<CabinetPage> {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
           ),
         ),
-        _listItem(() => {
-         myProvider.diliveryMethod(context),
-        }, "Способы доставки"),
-        _listItem(() => {
-          myProvider.paymentMethod(context),
-        }, "Способы оплаты"),
-        _listItem(() => {
-          myProvider.helpPage(context),
-        }, "Помощь", divider: false),
+        _listItem(
+          () => {myProvider.diliveryMethod(context)},
+          "Способы доставки",
+        ),
+        _listItem(
+          () => {myProvider.paymentMethod(context)},
+          "Способы оплаты",
+        ),
+        _listItem(
+          () => {myProvider.helpPage(context)},
+          "Помощь",
+          divider: false,
+        ),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -179,22 +187,25 @@ class _CabinetPageState extends State<CabinetPage> {
             style: TextStyle(fontWeight: FontWeight.w900, fontSize: 12),
           ),
         ),
-        _listItem(() => {
-          myProvider.accountSecurity(context)
-        }, "Аккоунт и безопасность"),
-        _listItem(() => {
-          myProvider.aboutApp(context)
-        }, "О приложении", divider: false),
+        _listItem(
+          () => {myProvider.accountSecurity(context)},
+          "Аккоунт и безопасность",
+        ),
+        _listItem(
+          () => {myProvider.aboutApp(context)},
+          "О приложении",
+          divider: false,
+        ),
         Container(
           decoration: BoxDecoration(color: MyColors.athensGray),
           height: 30,
         ),
-        ProductCardsWidget(
-          count: 10,
+        BestSellingWidget(
           named: true,
           perCol: 2,
           title: "Лучшее для вас",
-          list: false,
+          vertical: false,
+          type: "getOfRelated",
         ),
         Padding(padding: EdgeInsets.all(15))
       ],

@@ -4,7 +4,6 @@ import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:flutter_marketplace/widgets/cart_item_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class CartPage extends StatefulWidget {
   CartPage({Key key}) : super(key: key);

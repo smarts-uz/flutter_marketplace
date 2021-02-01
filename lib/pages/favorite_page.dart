@@ -133,7 +133,7 @@ class _FavoritePageState extends State<FavoritePage> {
                         selected = "1";
                       });
                     },
-                    child: _dialog_item("Сначала новые", "1"),
+                    child: _dialogItem("Сначала новые", "1"),
                   ),
                   InkWell(
                       onTap: () {
@@ -141,28 +141,28 @@ class _FavoritePageState extends State<FavoritePage> {
                           selected = "2";
                         });
                       },
-                      child: _dialog_item("Сначала стары", "2")),
+                      child: _dialogItem("Сначала стары", "2")),
                   InkWell(
                       onTap: () {
                         setState(() {
                           selected = "3";
                         });
                       },
-                      child: _dialog_item("Сначала дешёвые", "3")),
+                      child: _dialogItem("Сначала дешёвые", "3")),
                   InkWell(
                       onTap: () {
                         setState(() {
                           selected = "4";
                         });
                       },
-                      child: _dialog_item("Сначала дорогие", "4")),
+                      child: _dialogItem("Сначала дорогие", "4")),
                   InkWell(
                     onTap: () {
                       setState(() {
                         selected = "5";
                       });
                     },
-                    child: _dialog_item("По размеру скидки", "5"),
+                    child: _dialogItem("По размеру скидки", "5"),
                   ),
                 ],
               ),
@@ -173,7 +173,7 @@ class _FavoritePageState extends State<FavoritePage> {
     );
   }
 
-  Widget _dialog_item(String name, String number) {
+  Widget _dialogItem(String name, String number) {
     return Container(
       child: Row(
         children: [

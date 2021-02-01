@@ -9,7 +9,6 @@ import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -26,11 +25,7 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  bool _isAvailable = false;
-  bool _isListening = false;
-
   String resultText = "";
-  PermissionStatus _status;
 
   int _curentIndex = 0;
 
@@ -38,44 +33,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   void initState() {
     _changeSysBar();
     super.initState();
-    // _askPermission();
-    // _speechRecognition.setAvailabilityHandler(
-    //   (bool result) => setState(() => _isAvailable = result),
-    // );
-
-    // _speechRecognition.setRecognitionStartedHandler(
-    //   () => setState(() => _isListening = true),
-    // );
-
-    // _speechRecognition.setRecognitionResultHandler(
-    //   (String speech) => setState(() => resultText = speech),
-    // );
-
-    // _speechRecognition.setRecognitionCompleteHandler(
-    //   () => setState(() => _isListening = false),
-    // );
-
-    // _speechRecognition.activate().then(
-    //       (result) => setState(() => _isAvailable = result),
-    //     );
   }
-
-  void _updateStatus(PermissionStatus status) {
-    if (status != _status) {
-      setState(() {
-        _status = status;
-      });
-    }
-  }
-
-  void _askPermission() {
-    // PermissionHandler().requestPermissions([PermissionGroup.microphone])
-    //     .then(_onStatusRequested);
-  }
-  // void _onStatusRequested(Map<PermissionGroup, PermissionStatus> statues){
-  //   final status = statues[PermissionGroup.microphone];
-  //   _updateStatus(status);
-  // }
 
   @override
   void dispose() {

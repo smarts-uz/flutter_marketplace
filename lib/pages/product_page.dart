@@ -6,7 +6,6 @@ import 'package:flutter_marketplace/config/colors.dart';
 
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
-import 'package:flutter_marketplace_service/service/product/product_api_provider.dart';
 import 'package:flutter_marketplace_service/service/product/product_repository.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/config/catchFilesUrl.dart';
 import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 import 'package:flutter_marketplace_service/models/products_response.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class BestSellingCardWidget extends StatefulWidget {
   BestSellingCardWidget({
     Key key,
     this.named,
-    this.product,
+    @required this.product,
   }) : super(key: key);
 
   final bool named;
@@ -26,6 +29,14 @@ class _BestSellingCardWidgetState extends State<BestSellingCardWidget> {
   Widget build(BuildContext context) {
     final ProductModel product = widget.product;
 
+    final NumberFormat _num = NumberFormat("#,###.##", 'en_US');
+    _num.maximumIntegerDigits = 2;
+
+    String _sum(double param) {
+      final String res = _num.format(param);
+      return res.replaceAll(',', " ");
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 9),
       child: Column(
@@ -40,10 +51,14 @@ class _BestSellingCardWidgetState extends State<BestSellingCardWidget> {
                     padding: EdgeInsets.only(bottom: 3, top: 6),
                     child: Stack(
                       children: [
-                        InkWell(
-                          child: Image.asset(
-                            product.thumbnailImage ?? 'assets/best-beal.png',
-                            fit: BoxFit.cover,
+                        Container(
+                          width: double.infinity,
+                          child: InkWell(
+                            child: CacheImageWidget(
+                              height: 110,
+                              url: product.thumbnailImage,
+                              catchUrl: CatchFilesUrl.product,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -145,7 +160,7 @@ class _BestSellingCardWidgetState extends State<BestSellingCardWidget> {
                         child: Wrap(
                           children: [
                             Text(
-                              "14 990 P",
+                              "${_sum(product.basePrice)}",
                               style: TextStyle(
                                 color: MyColors.hibiscus,
                                 fontWeight: FontWeight.bold,

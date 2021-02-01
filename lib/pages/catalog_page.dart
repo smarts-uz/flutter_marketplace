@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
-import 'package:shimmer/shimmer.dart';
 
 class CatalogPage extends StatefulWidget {
   CatalogPage({Key key}) : super(key: key);

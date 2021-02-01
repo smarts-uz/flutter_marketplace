@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../extensions/hex_color.dart';
 
@@ -12,7 +11,7 @@ class FavoriteCardWidget extends StatefulWidget {
 }
 
 class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
-  final GlobalKey<ScaffoldState> _scaffoldStatae = GlobalKey<ScaffoldState>();
+  // final GlobalKey<ScaffoldState> _scaffoldStatae = GlobalKey<ScaffoldState>();
   int _currentBanner = 0;
   int _itemCount = 0;
   bool _isFavorite = true;
@@ -371,25 +370,25 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
         child: Container(
           child: Column(
             children: [
-              _padding_text(
+              _paddingText(
                 "Добавить в список",
                 Icon(
                   Icons.add,
                   size: 18,
                 ),
               ),
-              _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-              _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-              _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-              _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-              _padding_text(
+              _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+              _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+              _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+              _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+              _paddingText(
                 "Удалить из избранного",
                 Icon(
                   Icons.delete_outline,
                   size: 18,
                 ),
               ),
-              _padding_text(
+              _paddingText(
                 "Отмена",
                 Icon(
                   Icons.close,
@@ -408,25 +407,25 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
   //     child: Container(
   //       child: Column(
   //         children: [
-  //           _padding_text(
+  //           _paddingText(
   //             "Добавить в список",
   //             Icon(
   //               Icons.add,
   //               size: 18,
   //             ),
   //           ),
-  //           _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-  //           _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-  //           _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-  //           _padding_text_sized("Регулярная доставка", SizedBox(width: 18)),
-  //           _padding_text(
+  //           _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+  //           _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+  //           _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+  //           _paddingTextSized("Регулярная доставка", SizedBox(width: 18)),
+  //           _paddingText(
   //             "Удалить из избранного",
   //             Icon(
   //               Icons.delete_outline,
   //               size: 18,
   //             ),
   //           ),
-  //           _padding_text(
+  //           _paddingText(
   //             "Отмена",
   //             Icon(
   //               Icons.close,
@@ -439,7 +438,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
   //   );
   // }
 
-  Widget _padding_text(String text, Widget i) {
+  Widget _paddingText(String text, Widget i) {
     return InkWell(
       onTap: () {},
       child: Padding(
@@ -458,7 +457,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
     );
   }
 
-  Widget _padding_text_sized(String text, Widget a) {
+  Widget _paddingTextSized(String text, Widget a) {
     return InkWell(
       onTap: () {},
       child: Padding(
