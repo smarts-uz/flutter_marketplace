@@ -10,11 +10,14 @@ void main() {
       CatcherOptions(DialogReportMode(), [ConsoleHandler()]);
 
   CatcherOptions releaseOptions = CatcherOptions(DialogReportMode(), [
-    HttpHandler(HttpRequestType.post, Uri.parse("https://httpstat.us/200"),
-        printLogs: true,
-        enableDeviceParameters: true,
-        enableApplicationParameters: true,
-        enableStackTrace: true)
+    HttpHandler(
+      HttpRequestType.post,
+      Uri.parse("https://httpstat.us/200"),
+      printLogs: true,
+      enableDeviceParameters: true,
+      enableApplicationParameters: true,
+      enableStackTrace: true,
+    )
   ]);
 
   Catcher(
