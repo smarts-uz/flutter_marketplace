@@ -26,7 +26,8 @@ class _CabinetPageRegistrationEmailState
   String _comfirmPasswordString = "123456";
   bool _passwordVisible = false;
   bool _comfirmVisible = false;
-
+  double INPUT_HEIGHT = 45;
+  double INPUT_SPACE = 10;
   UsersCubit usersCubit = UsersCubit(UsersRepository());
   //
   final scaffoldState = GlobalKey<ScaffoldState>();
@@ -79,263 +80,254 @@ class _CabinetPageRegistrationEmailState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldState,
-      body: BlocProvider<UsersCubit>(
-        create: (context) => usersCubit,
-        child: BlocBuilder<UsersCubit, UsersState>(
-          builder: (context, state) {
-            if (state is UsersLoadingState) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (state is UsersLoginLoadedState) {
-              Navigator.pop(context);
-            }
-            if (state is UsersErrorState) {
-              return Center(
-                child: Text("Error"),
-              );
-            }
-            return Stack(children: <Widget>[
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Align(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                      alignment: Alignment.centerLeft,
-                    ),
-                    Center(
-                      child: Text("Вход или регистрация"),
-                    ),
-                    Align(
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-                        child:
-                            Text("Только для зарегистрированных пользователей"),
-                      ),
-                      alignment: Alignment.topLeft,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(242, 243, 245, 1),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Align(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, top: 4.0),
-                                  child: Text(
-                                    "Name",
-                                    style: TextStyle(
-                                      color: !checkName
-                                          ? Colors.black38
-                                          : Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                alignment: Alignment.centerLeft,
-                              ),
-                              Container(
-                                height: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: TextField(
-                                    controller: _userName,
-                                    keyboardType: TextInputType.name,
-                                    onChanged: (string) {},
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, top: 4.0),
-                                  child: Text(
-                                    "Email",
-                                    style: TextStyle(
-                                      color: !checkEmail
-                                          ? Colors.black38
-                                          : Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                alignment: Alignment.centerLeft,
-                              ),
-                              Container(
-                                height: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: TextField(
-                                    controller: _userEmail,
-                                    keyboardType: TextInputType.emailAddress,
-                                    onChanged: (string) {},
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, top: 4.0),
-                                  child: Text(
-                                    "Passpord",
-                                    style: TextStyle(
-                                      color: !checkPasspord
-                                          ? Colors.black38
-                                          : Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                alignment: Alignment.centerLeft,
-                              ),
-                              Container(
-                                height: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: TextFormField(
-                                    controller: _password,
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (string) {},
-                                    decoration: new InputDecoration(
-                                        suffixIcon: IconButton(
-                                      icon: Icon(
-                                        _passwordVisible
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                        color: Colors.black38,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          _passwordVisible = !_passwordVisible;
-                                        });
-                                      },
-                                    )),
-                                    obscureText: !_passwordVisible,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, top: 4.0),
-                                  child: Text(
-                                    "Confirm Passpord",
-                                    style: TextStyle(
-                                      color: !checkComfirmPasspord
-                                          ? Colors.black38
-                                          : Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                alignment: Alignment.centerLeft,
-                              ),
-                              Container(
-                                height: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8.0),
-                                  child: TextFormField(
-                                    controller: _comfirmPassword,
-                                    keyboardType: TextInputType.text,
-                                    onChanged: (string) {},
-                                    decoration: new InputDecoration(
-                                        suffixIcon: IconButton(
-                                      icon: Icon(
-                                        _comfirmVisible
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                        color: Colors.black38,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          _comfirmVisible = !_comfirmVisible;
-                                        });
-                                      },
-                                    )),
-                                    obscureText: !_comfirmVisible,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(24.0, 0, 16.0, 0),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: (checkEmail ||
-                                  checkName ||
-                                  checkPasspord ||
-                                  checkPasspord ||
-                                  checkComfirmPasspord)
-                              ? Text(
-                                  "Данные не заполнены",
-                                  style: TextStyle(color: Colors.red),
-                                )
-                              : SizedBox(
-                                  height: 1.0,
-                                )),
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 50.0,
-                        child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
+    return SafeArea(
+      child: Scaffold(
+        key: scaffoldState,
+        backgroundColor: Colors.white,
+        body: BlocProvider<UsersCubit>(
+          create: (context) => usersCubit,
+          child: BlocBuilder<UsersCubit, UsersState>(
+            builder: (context, state) {
+              if (state is UsersLoadingState) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is UsersLoginLoadedState) {
+                Navigator.pop(context);
+              }
+              if (state is UsersErrorState) {
+                return Center(
+                  child: Text("Error"),
+                );
+              }
+              return Stack(children: <Widget>[
+                SingleChildScrollView(
+                  child: Container(
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Align(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                              icon: Icon(Icons.close),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
-                            color: Color.fromRGBO(0, 91, 254, 1),
-                            onPressed: () {
-                              onPress();
-                            },
-                            child: Text(
-                              "Регистрация",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                      ),
+                          ),
+                          alignment: Alignment.centerLeft,
+                        ),
+                        Center(
+                          child: Text("Вход или регистрация"),
+                        ),
+                        Align(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                            child:
+                                Text("Только для зарегистрированных пользователей"),
+                          ),
+                          alignment: Alignment.topLeft,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 4.0),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: INPUT_HEIGHT,
+                                    child: TextField(
+                                      controller: _userName,
+                                      keyboardType: TextInputType.name,
+                                      onChanged: (string) {},
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        hintText: "Name",
+                                        border: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: Colors.black54),
+                                          borderRadius: BorderRadius.circular(25.7),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: Colors.black54),
+                                          borderRadius: BorderRadius.circular(25.7),
+                                        ),
+                                        contentPadding: const EdgeInsets.only(
+                                            left: 14.0, bottom: 8.0, top: 8.0),
+                                      ),
+
+                                    ),
+                                  ),
+                                  SizedBox(height: INPUT_SPACE),
+                                  Container(
+                                    height: INPUT_HEIGHT,
+                                    child: TextField(
+                                      controller: _userEmail,
+                                      keyboardType: TextInputType.emailAddress,
+                                      onChanged: (string) {},
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        hintText: "Password",
+                                        border: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: Colors.black54),
+                                          borderRadius: BorderRadius.circular(25.7),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: Colors.black54),
+                                          borderRadius: BorderRadius.circular(25.7),
+                                        ),
+                                        contentPadding: const EdgeInsets.only(
+                                            left: 14.0, bottom: 8.0, top: 8.0),
+                                      ),
+
+                                    ),
+                                  ),
+                                  SizedBox(height: INPUT_SPACE),
+                                  Container(
+                                    height: INPUT_HEIGHT,
+                                    child: TextFormField(
+                                      controller: _password,
+                                      keyboardType: TextInputType.text,
+                                      onChanged: (string) {},
+                                      decoration: new InputDecoration(
+                                        filled: true,
+                                          suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _passwordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Colors.black38,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordVisible = !_passwordVisible;
+                                          });
+                                        },
+                                      ),
+                                        hintText: "Email",
+                                      border: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: Colors.black54),
+                                           borderRadius: BorderRadius.circular(25.7),
+                                              ),
+                                         enabledBorder: OutlineInputBorder(
+                                          borderSide: new BorderSide(color: Colors.black54),
+                                         borderRadius: BorderRadius.circular(25.7),
+                                          ),
+                                         contentPadding: const EdgeInsets.only(
+                                         left: 14.0, bottom: 8.0, top: 8.0),
+                                         ),
+                                      obscureText: !_passwordVisible,
+                                    ),
+                                  ),
+                                  SizedBox(height: INPUT_SPACE),
+                                  Container(
+                                    color: Colors.white,
+                                    height: INPUT_HEIGHT,
+                                    child: TextFormField(
+                                      controller: _comfirmPassword,
+                                      keyboardType: TextInputType.text,
+                                      onChanged: (string) {},
+                                      decoration: new InputDecoration(
+                                        hintText: "Confirm Passpord",
+                                          filled: true,
+                                          suffixIcon: IconButton(
+                                        icon: Icon(
+                                          _comfirmVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Colors.black38,
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _comfirmVisible = !_comfirmVisible;
+                                          });
+                                        },
+                                      ),
+                                    border: OutlineInputBorder(
+                                    borderSide: new BorderSide(color: Colors.black54),
+                                    borderRadius: BorderRadius.circular(25.7),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                    borderSide: new BorderSide(color: Colors.black54),
+                                    borderRadius: BorderRadius.circular(25.7),
+                                    ),
+                                    contentPadding: const EdgeInsets.only(
+                                    left: 14.0, bottom: 8.0, top: 8.0),
+
+                                      ),
+                                      obscureText: !_comfirmVisible,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(24.0, 0, 16.0, 0),
+                          child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: (checkEmail ||
+                                      checkName ||
+                                      checkPasspord ||
+                                      checkPasspord ||
+                                      checkComfirmPasspord)
+                                  ? Text(
+                                      "Данные не заполнены",
+                                      style: TextStyle(color: Colors.red),
+                                    )
+                                  : SizedBox(
+                                      height: 1.0,
+                                    )),
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 20.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 50.0,
+                            child: FlatButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                ),
+                                color: Color.fromRGBO(0, 91, 254, 1),
+                                onPressed: () {
+                                  onPress();
+                                },
+                                child: Text(
+                                  "Регистрация",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Positioned(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Вернуться на главный экран",
-                          style: TextStyle(color: Colors.blue),
-                        )),
                   ),
                 ),
-              )
-            ]);
-          },
+                Positioned(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Align(
+                      alignment: FractionalOffset.bottomCenter,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Вернуться на главный экран",
+                            style: TextStyle(color: Colors.blue),
+                          )),
+                    ),
+                  ),
+                )
+              ]);
+            },
+          ),
         ),
       ),
     );
