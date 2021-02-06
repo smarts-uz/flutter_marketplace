@@ -10,6 +10,7 @@ class AccountSecurity extends StatefulWidget {
 class _AccountSecurityState extends State<AccountSecurity> {
   bool isChecked = true;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

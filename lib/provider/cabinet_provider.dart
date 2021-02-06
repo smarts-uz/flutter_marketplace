@@ -20,7 +20,7 @@ class CabinetProvider extends ChangeNotifier {
   openRegistrationScreen(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CabinetPageRegistrationEmail()),
+      CabinetPageRegistrationEmail.route(),
     );
   }
 
