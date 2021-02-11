@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/pages/cabinet_page.dart';
 import 'package:flutter_marketplace/pages/cart_page.dart';
@@ -8,6 +9,10 @@ import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
+import 'package:flutter_marketplace_service/service/category/category_api_provider.dart';
+import 'package:flutter_marketplace_service/service/category/bloc/category_bloc.dart';
+import 'package:flutter_marketplace_service/service/wishlist/bloc/wishlist_bloc.dart';
+import 'package:flutter_marketplace_service/service/wishlist/wishlist_api_provider.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -172,7 +177,10 @@ class _HomeLayoutState extends State<HomeLayout> {
               );
             case '/catalog':
               return MaterialPageRoute(
-                builder: (BuildContext context) => CatalogPage(),
+                builder: (BuildContext context) =>
+                    BlocProvider(
+                        create: (context) => CategoryBloc(categoryProvider: CategoryProvider()),
+                        child: CatalogPage()),
                 settings: settings,
               );
             case '/cart':
@@ -183,7 +191,10 @@ class _HomeLayoutState extends State<HomeLayout> {
               );
             case '/fovarite':
               return MaterialPageRoute(
-                builder: (BuildContext context) => FavoritePage(),
+                builder: (BuildContext context) =>
+                    BlocProvider(
+                      create: (context) => WishlistBloc(wishlistApiProvider: WishlistApiProvider()),
+                    child: FavoritePage()),
                 settings: settings,
               );
             case '/cabinet':

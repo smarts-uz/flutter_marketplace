@@ -6,6 +6,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../extensions/hex_color.dart';
 
 class FavoriteCardWidget extends StatefulWidget {
+  final WishlistLoadedState;
+
+
+  FavoriteCardWidget({this.WishlistLoadedState});
+
   @override
   _FavoriteCardWidgetState createState() => _FavoriteCardWidgetState();
 }
@@ -156,6 +161,7 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
                                       top: 0,
                                       right: 0,
                                       child: Icon(
+
                                         Icons.favorite_border,
                                         color: HexColor("#FB0F5A"),
                                         size: 35.0,
