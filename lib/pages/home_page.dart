@@ -41,6 +41,8 @@ class _HomePageState extends State<HomePage> {
       onRefresh: _refresh,
       child: ListView(
         physics: BouncingScrollPhysics(),
+        cacheExtent: 999999999999999,
+        addAutomaticKeepAlives: true,
         children: [
           ShopBannersWidget(),
           // BlocProvider<CategoryBloc>(
@@ -282,7 +284,7 @@ class _HomePageState extends State<HomePage> {
     //     }
     //   },
     // );
-   }
+  }
 
   Widget _getProfitable(String title, {named: false}) {
     return Column(children: [

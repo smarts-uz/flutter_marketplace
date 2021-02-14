@@ -205,7 +205,7 @@ class _CabinetPageState extends State<CabinetPage> {
           perCol: 2,
           title: "Лучшее для вас",
           vertical: false,
-          type: "getOfRelated",
+          type: "getOfTodaysDeal",
         ),
         Padding(padding: EdgeInsets.all(15))
       ],
