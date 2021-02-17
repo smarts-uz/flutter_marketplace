@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace_service/service/users/cubit/users_cubit.dart';
-import 'package:flutter_marketplace/pages/cabine_regis_email_page.dart';
 
 class CabinetPageRegistration extends StatefulWidget {
   static MaterialPageRoute route() =>

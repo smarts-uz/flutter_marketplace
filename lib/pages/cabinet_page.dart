@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
-import 'package:flutter_marketplace/widgets/best_selling_widget.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 
 import 'package:provider/provider.dart';
@@ -200,7 +199,7 @@ class _CabinetPageState extends State<CabinetPage> {
           decoration: BoxDecoration(color: MyColors.athensGray),
           height: 30,
         ),
-        BestSellingWidget(
+        ProductCardsWidget(
           named: true,
           perCol: 2,
           title: "Лучшее для вас",

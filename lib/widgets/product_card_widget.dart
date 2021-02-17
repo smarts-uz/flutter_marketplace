@@ -1,30 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/pages/product_page.dart';
+import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
+import 'package:flutter_marketplace_service/models/products_response.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ProductCardWidget extends StatefulWidget {
-  ProductCardWidget({Key key, this.named}) : super(key: key);
+  ProductCardWidget({
+    Key key,
+    this.named = false,
+    @required this.product,
+    this.isBestSaller = false,
+  }) : super(key: key);
 
   final bool named;
+  final ProductModel product;
+  final bool isBestSaller;
 
   @override
   _ProductCardWidgetState createState() => _ProductCardWidgetState();
 }
 
 class _ProductCardWidgetState extends State<ProductCardWidget> {
-  // int _count = 0;
   bool _selected = false;
   bool _isFavorite = false;
 
   @override
   Widget build(BuildContext context) {
+    final ProductModel product = widget.product;
+
+    final NumberFormat _num = NumberFormat("#,###.##", 'en_US');
+    _num.maximumIntegerDigits = 2;
+
+    String _sum(double param) {
+      final String res = _num.format(param);
+      return res.replaceAll(',', " ");
+    }
+
+    final bool isDiscount = product.discount > 0;
+
+    final int discount =
+        isDiscount ? ((product.discount / product.basePrice) * 100).round() : 0;
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 9),
       child: Column(
         children: [
           InkWell(
-            onTap: () => {Get.toNamed("/product")},
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductPage(product: product),
+                ),
+              )
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
@@ -33,33 +65,12 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                     padding: EdgeInsets.only(bottom: 3, top: 6),
                     child: Stack(
                       children: [
-                        InkWell(
-                          child: Image.asset(
-                            'assets/best-beal.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: 8,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 4.3,
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                              color: MyColors.royalPurple,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              "Часто покупаете?",
-                              style: TextStyle(
-                                color: MyColors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              softWrap: false,
+                        Container(
+                          width: double.infinity,
+                          child: InkWell(
+                            child: CacheImageWidget(
+                              height: 110,
+                              url: product.thumbnailImage,
                             ),
                           ),
                         ),
@@ -96,79 +107,89 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                   ]),
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          left: 8,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 5,
-                            ),
-                            decoration: BoxDecoration(
-                              color: MyColors.red,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              "—40%",
-                              style: TextStyle(
-                                color: MyColors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        ),
+                        isDiscount
+                            ? Positioned(
+                                bottom: 0,
+                                left: 0,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: MyColors.red,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  child: Text(
+                                    "-$discount%",
+                                    style: TextStyle(
+                                      color: MyColors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                   ),
                   Column(
                     children: [
+                      _isBestSaller(widget.isBestSaller),
                       Container(
                         width: double.infinity,
-                        child: Text(
-                          "Бестселлер",
-                          style: TextStyle(
-                            color: MyColors.sorrellBrown,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        child: Wrap(
-                          children: [
-                            Text(
-                              "14 990 P",
-                              style: TextStyle(
-                                color: MyColors.hibiscus,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 3),
-                              child: Text(
-                                "14 990 P",
+                        child: isDiscount
+                            ? Wrap(
+                                children: [
+                                  Text(
+                                    "${_sum(product.baseDiscountedPrice)}",
+                                    style: TextStyle(
+                                      color: MyColors.hibiscus,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(left: 3, top: 2),
+                                    child: Text(
+                                      "${_sum(product.basePrice)}",
+                                      style: TextStyle(
+                                        color: MyColors.thunder,
+                                        fontSize: 11,
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor: MyColors.hibiscus,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            : Text(
+                                "${_sum(product.basePrice)}",
                                 style: TextStyle(
-                                  color: MyColors.thunder,
-                                  fontSize: 11,
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor: MyColors.hibiscus,
+                                  color: MyColors.hibiscus,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            )
-                          ],
-                        ),
                       ),
                       widget.named
                           ? Container(
                               width: double.infinity,
-                              child: Text(
-                                "Redmi Note 9 Pro Max / Redmi Note 9 Pro",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 4,
-                                softWrap: false,
+                              height: 33,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    product.name,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    softWrap: false,
+                                  ),
+                                ],
                               ),
                             )
                           : Container(),
@@ -187,9 +208,23 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
     );
   }
 
+  Widget _isBestSaller(bool isBestSaller) {
+    return isBestSaller
+        ? Container(
+            width: double.infinity,
+            child: Text(
+              "Бестселлер",
+              style: TextStyle(
+                color: MyColors.sorrellBrown,
+                fontSize: 12,
+              ),
+            ),
+          )
+        : Container();
+  }
+
   Widget _getCounterBtn() {
     return Container(
-      padding: EdgeInsets.only(top: 4),
       width: double.infinity,
       child: RaisedButton(
         onPressed: () => setState(() => _selected = !_selected),

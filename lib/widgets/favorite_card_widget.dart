@@ -6,10 +6,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../extensions/hex_color.dart';
 
 class FavoriteCardWidget extends StatefulWidget {
-  final WishlistLoadedState;
+  FavoriteCardWidget({this.wishlistLoadedState});
 
-
-  FavoriteCardWidget({this.WishlistLoadedState});
+  final wishlistLoadedState;
 
   @override
   _FavoriteCardWidgetState createState() => _FavoriteCardWidgetState();
@@ -105,37 +104,6 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
                           ),
                         ),
                         Positioned(
-                          top: 0,
-                          left: 8,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 4.3,
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                              color: HexColor("#7D38A5"),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              "Часто покупаете?",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 10,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              softWrap: false,
-                            ),
-                            // child: Container(
-                            //   margin:
-                            //       EdgeInsets.only(left: 2, right: 2, top: 2),
-                            //   width: double.infinity,
-                            //   height: 10,
-                            //   color: MyColors.white,
-                            // ),
-                          ),
-                        ),
-                        Positioned(
                           top: 2,
                           right: 2,
                           child: InkWell(
@@ -161,7 +129,6 @@ class _FavoriteCardWidgetState extends State<FavoriteCardWidget> {
                                       top: 0,
                                       right: 0,
                                       child: Icon(
-
                                         Icons.favorite_border,
                                         color: HexColor("#FB0F5A"),
                                         size: 35.0,

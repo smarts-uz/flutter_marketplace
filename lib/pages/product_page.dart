@@ -3,8 +3,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace_service/models/products_response.dart';
 
-import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
 import 'package:flutter_marketplace_service/service/product/product_repository.dart';
 import 'package:shimmer/shimmer.dart';
@@ -12,7 +12,12 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:share/share.dart';
 
 class ProductPage extends StatefulWidget {
-  ProductPage({Key key}) : super(key: key);
+  ProductPage({
+    Key key,
+    @required this.product,
+  }) : super(key: key);
+
+  final ProductModel product;
 
   @override
   _ProductPageState createState() => _ProductPageState();
@@ -50,6 +55,8 @@ class _ProductPageState extends State<ProductPage>
 
   @override
   Widget build(BuildContext context) {
+    print(widget.product.id);
+
     return BlocProvider<ProductCubit>(
       create: (context) => ProductCubit(productRepository)..getAll(2),
       child: Scaffold(
@@ -649,20 +656,18 @@ class _ProductPageState extends State<ProductPage>
             ][_tabIndex],
           ),
           Padding(padding: EdgeInsets.only(top: 10)),
-          ProductCardsWidget(
-            title: "Рекомендуемые промо-товары",
-            count: 3,
-            named: true,
-            list: true,
-            perCol: 3,
-          ),
-          ProductCardsWidget(
-            title: "Рекомендуем также",
-            count: 3,
-            named: true,
-            list: true,
-            perCol: 3,
-          ),
+          // ProductCardsWidget(
+          //   title: "Рекомендуемые промо-товары",
+          //   named: true,
+          //   vertical: true,
+          //   perCol: 3,
+          // ),
+          // ProductCardsWidget(
+          //   title: "Рекомендуем также",
+          //   named: true,
+          //   vertical: true,
+          //   perCol: 3,
+          // ),
           Container(
             decoration: BoxDecoration(color: MyColors.blackHaze),
             padding: EdgeInsets.all(15),

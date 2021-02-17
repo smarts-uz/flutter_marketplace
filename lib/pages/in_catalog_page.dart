@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 
-import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
 
 class InCatalogPage extends StatefulWidget {
@@ -70,28 +69,25 @@ class _InCatalogPageState extends State<InCatalogPage> {
           Padding(padding: EdgeInsets.all(10)),
           ShopBannersWidget(),
           _getProfitable("", isName: true),
-          ProductCardsWidget(
-            title: "Скидки до 80%",
-            count: 3,
-            named: false,
-            list: false,
-            perCol: 3,
-          ),
+          // ProductCardsWidget(
+          //   title: "Скидки до 80%",
+          //   named: false,
+          //   vertical: false,
+          //   perCol: 3,
+          // ),
           _getBanner(),
-          ProductCardsWidget(
-            title: "Новогодняя распродажа",
-            count: 3,
-            named: false,
-            list: false,
-            perCol: 3,
-          ),
-          ProductCardsWidget(
-            title: "Бесплатная доставка по всему миру",
-            count: 6,
-            named: true,
-            list: false,
-            perCol: 3,
-          ),
+          // ProductCardsWidget(
+          //   title: "Новогодняя распродажа",
+          //   named: false,
+          //   vertical: false,
+          //   perCol: 3,
+          // ),
+          // ProductCardsWidget(
+          //   title: "Бесплатная доставка по всему миру",
+          //   named: true,
+          //   vertical: false,
+          //   perCol: 3,
+          // ),
           Padding(padding: EdgeInsets.all(10)),
         ],
       ),

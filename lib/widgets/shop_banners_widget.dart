@@ -1,9 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/config/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace_service/config.dart';
+import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 import 'package:flutter_marketplace_service/service/banner/banner_repository.dart';
 import 'package:flutter_marketplace_service/service/banner/cubit/banner_cubit.dart';
 
@@ -70,29 +69,10 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                       (index) => Container(
                         width: double.infinity,
                         child: InkWell(
-                          child: state.banner.sliders.data[index].photo != null
-                              ? CachedNetworkImage(
-                                  imageUrl:
-                                      "${Config.filesUrl}/${state.banner.sliders.data[index].photo}",
-                                  imageBuilder: (context, imageProvider) =>
-                                      Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                    'assets/carousel.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : Image.asset(
-                                  'assets/carousel.jpg',
-                                  fit: BoxFit.cover,
-                                ),
+                          child: CacheImageWidget(
+                            url: state.banner.sliders.data[index].photo,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -131,7 +111,7 @@ class _ShopBannersWidgetState extends State<ShopBannersWidget> {
                 ],
               );
             } else {
-              return Text('error');
+              return Container();
             }
           },
         ),

@@ -24,7 +24,7 @@ class _CabinetPageRegistrationEmailState
     extends State<CabinetPageRegistrationEmail> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
-  bool checkName = false;  
+  bool checkName = false;
   bool checkEmail = false;
   bool checkPassword = false;
   bool checkComfirmPassword = false;
@@ -88,7 +88,6 @@ class _CabinetPageRegistrationEmailState
             }
             return Stack(children: <Widget>[
               SingleChildScrollView(
-                
                 child: Form(
                   key: _formKey,
                   autovalidate: _autoValidate,
@@ -128,7 +127,9 @@ class _CabinetPageRegistrationEmailState
                             child: Column(
                               children: [
                                 Container(
-                                  height: (checkName) ? inputHeight + 26 : inputHeight,
+                                  height: (checkName)
+                                      ? inputHeight + 26
+                                      : inputHeight,
                                   child: TextFormField(
                                     controller: _userName,
                                     keyboardType: TextInputType.text,
@@ -156,7 +157,9 @@ class _CabinetPageRegistrationEmailState
                                 ),
                                 SizedBox(height: inputSpace),
                                 Container(
-                                  height: (checkEmail) ? inputHeight + 26 : inputHeight,
+                                  height: (checkEmail)
+                                      ? inputHeight + 26
+                                      : inputHeight,
                                   child: TextFormField(
                                     controller: _userEmail,
                                     keyboardType: TextInputType.text,
@@ -184,7 +187,9 @@ class _CabinetPageRegistrationEmailState
                                 ),
                                 SizedBox(height: inputSpace),
                                 Container(
-                                  height: (checkPassword) ? inputHeight + 22 : inputHeight,
+                                  height: (checkPassword)
+                                      ? inputHeight + 22
+                                      : inputHeight,
                                   child: TextFormField(
                                     controller: _password,
                                     keyboardType: TextInputType.text,
@@ -228,7 +233,9 @@ class _CabinetPageRegistrationEmailState
                                 SizedBox(height: inputSpace),
                                 Container(
                                   color: Colors.white,
-                                  height: (checkComfirmPassword) ? inputHeight + 22 : inputHeight,
+                                  height: (checkComfirmPassword)
+                                      ? inputHeight + 22
+                                      : inputHeight,
                                   child: TextFormField(
                                     controller: _comfirmPassword,
                                     keyboardType: TextInputType.text,
@@ -311,8 +318,6 @@ class _CabinetPageRegistrationEmailState
                     ],
                   ),
                 ),
-              
-              
               ),
               Positioned(
                 child: Padding(
@@ -320,31 +325,30 @@ class _CabinetPageRegistrationEmailState
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
                     child: InkWell(
-                        onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CabinetPageRegistration()),
-                      );
-                    },
-                        child: Text(
-                          "Вернуться на главный экран",
-                          style: TextStyle(color: Colors.blue),
-                        )),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CabinetPageRegistration(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Вернуться на главный экран",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
                   ),
                 ),
               )
-            
             ]);
           },
         ),
       ),
     );
   }
-  
 
-    String validateName(String value) {
+  String validateName(String value) {
     String patern = r'(^[a-zA-Z ]*$)';
     RegExp regExp = RegExp(patern);
     if (value.length == 0) {
@@ -357,7 +361,6 @@ class _CabinetPageRegistrationEmailState
     checkName = false;
     return null;
   }
-
 
   String validateEmail(String email) {
     if (email != null && email.length > 100) {
@@ -373,9 +376,6 @@ class _CabinetPageRegistrationEmailState
     return null;
   }
 
-
-
-
   String validatePassword(String value) {
     if (value.length == 0) {
       checkPassword = true;
@@ -387,7 +387,6 @@ class _CabinetPageRegistrationEmailState
     checkPassword = false;
     return null;
   }
-
 
   String validateConPass(String value) {
     var password = _password.text;
@@ -403,23 +402,18 @@ class _CabinetPageRegistrationEmailState
     return null;
   }
 
-
-
-
   void _onPress() async {
     var username = _userName.text;
     var email = _userEmail.text;
     var pass = _password.text;
     var comPass = _comfirmPassword.text;
-    
-    
+
     var param = new SignupRequest();
-        param.name = username;
-        param.email = email;
-        param.password = pass;
-        param.passowrdConfirmation = comPass;
-      
-      
+    param.name = username;
+    param.email = email;
+    param.password = pass;
+    param.passowrdConfirmation = comPass;
+
     if (_formKey.currentState.validate()) {
       print("$username, $email, $pass, $comPass");
       var res = await repo.signup(param);
@@ -439,19 +433,17 @@ class _CabinetPageRegistrationEmailState
       }
     } else {
 //    If all data are not valid then start auto validation.
-      
+
       setState(() {
         _autoValidate = true;
       });
       throw Exception("Не удалось авторизовать.");
     }
-     
 
     onChanged();
   }
+
   void onChanged() {
     setState(() {});
   }
-
-
 }

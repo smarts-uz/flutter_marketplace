@@ -6,24 +6,30 @@ import 'package:catcher/catcher.dart';
 import 'package:get/get.dart';
 
 void main() {
-  CatcherOptions debugOptions =
-      CatcherOptions(DialogReportMode(), [ConsoleHandler()]);
+  CatcherOptions debugOptions = CatcherOptions(
+    DialogReportMode(),
+    [ConsoleHandler()],
+  );
 
-  CatcherOptions releaseOptions = CatcherOptions(DialogReportMode(), [
-    HttpHandler(
-      HttpRequestType.post,
-      Uri.parse("https://httpstat.us/200"),
-      printLogs: true,
-      enableDeviceParameters: true,
-      enableApplicationParameters: true,
-      enableStackTrace: true,
-    )
-  ]);
+  CatcherOptions releaseOptions = CatcherOptions(
+    DialogReportMode(),
+    [
+      HttpHandler(
+        HttpRequestType.post,
+        Uri.parse("https://httpstat.us/200"),
+        printLogs: true,
+        enableDeviceParameters: true,
+        enableApplicationParameters: true,
+        enableStackTrace: true,
+      )
+    ],
+  );
 
   Catcher(
-      rootWidget: MyApp(),
-      debugConfig: debugOptions,
-      releaseConfig: releaseOptions);
+    rootWidget: MyApp(),
+    debugConfig: debugOptions,
+    releaseConfig: releaseOptions,
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -38,7 +44,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomeLayout(title: _title),
-        '/product': (context) => ProductPage(),
+        // '/product': (context) => ProductPage(),
       },
       onGenerateRoute: (settings) {
         switch (settings.name) {

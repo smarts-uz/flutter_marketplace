@@ -20,7 +20,7 @@ class _FavoritePageState extends State<FavoritePage> {
   int _radioVal = 0;
   bool status = false;
   final wishlistRepository = WishlistRepository();
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -102,64 +102,56 @@ class _FavoritePageState extends State<FavoritePage> {
             ],
           ),
         ),
-        BlocBuilder<WishlistBloc, WishlistState>(
-            builder: (context, state) {
-              if (state is WishlistError) {
-                return Text(
-                    "error"
-                );
-              }
-              if (state is WishlistLoading) {
-                return Shimmer.fromColors(
-                  baseColor: MyColors.shimmerBaseColor,
-                  highlightColor: MyColors.shimmerHighlightColor,
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      autoPlay: false,
-                      height: 150,
-                      aspectRatio: 1,
-                      enlargeCenterPage: true,
-                    ),
-                    items: List.generate(
-                      3,
-                          (_) => Container(
-                        width: double.infinity,
-                        color: MyColors.white,
+        BlocBuilder<WishlistBloc, WishlistState>(builder: (context, state) {
+          if (state is WishlistError) {
+            return Text("error");
+          }
+          if (state is WishlistLoading) {
+            return Shimmer.fromColors(
+              baseColor: MyColors.shimmerBaseColor,
+              highlightColor: MyColors.shimmerHighlightColor,
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: false,
+                  height: 150,
+                  aspectRatio: 1,
+                  enlargeCenterPage: true,
+                ),
+                items: List.generate(
+                  3,
+                  (_) => Container(
+                    width: double.infinity,
+                    color: MyColors.white,
+                  ),
+                ),
+              ),
+            );
+          }
+          if (state is WishlistLoaded) {
+            print("Okkkkkkkkkkkkkkkkkkkkkkkkkk");
+            return Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                children: [
+                  Wrap(
+                    children: List.generate(
+                      state.data.length,
+                      (index) => Container(
+                        width: MediaQuery.of(context).size.width / 2,
+                        child: FavoriteCardWidget(wishlistLoadedState: state),
                       ),
                     ),
                   ),
-                );
-              }
-    if (state is WishlistLoaded) {
-      print("Okkkkkkkkkkkkkkkkkkkkkkkkkk");
-                return Flexible(
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      Wrap(
-                        children: List.generate(
-                          state.data.length,
-                              (index) =>
-                              Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width / 2,
-                                child: FavoriteCardWidget(WishlistLoadedState: state),
-                              ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-              return Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Text("No information"),
-              );
-            }
-        ),
+                ],
+              ),
+            );
+          }
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Text("No information"),
+          );
+        }),
       ],
     );
   }
