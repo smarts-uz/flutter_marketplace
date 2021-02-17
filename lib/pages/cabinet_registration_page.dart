@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_marketplace_service/service/users/cubit/users_cubit.dart';
 import 'package:flutter_marketplace/pages/cabine_regis_email_page.dart';
 
 class CabinetPageRegistration extends StatefulWidget {
+  static MaterialPageRoute route() =>
+      MaterialPageRoute(builder: (context) => screen());
+
+  static Widget screen() => BlocProvider(
+      create: (context) => UsersCubit(), child: CabinetPageRegistration());
+
   @override
   _CabinetPageRegistrationState createState() =>
       _CabinetPageRegistrationState();
@@ -114,12 +122,7 @@ class _CabinetPageRegistrationState extends State<CabinetPageRegistration> {
                 alignment: FractionalOffset.bottomCenter,
                 child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                CabinetPageRegistrationEmail()),
-                      );
+                      Navigator.pop(context);
                     },
                     child: Text(
                       "Войти по почте",

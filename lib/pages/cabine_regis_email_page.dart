@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/sharepreference/share_preference.dart';
 import 'package:flutter_marketplace_service/models/signup_request.dart';
 import 'package:flutter_marketplace_service/service/users/cubit/users_cubit.dart';
 import 'package:flutter_marketplace_service/service/users/users_repository.dart';
+
+import 'cabinet_registration_page.dart';
 
 class CabinetPageRegistrationEmail extends StatefulWidget {
   static MaterialPageRoute route() =>
@@ -19,27 +22,25 @@ class CabinetPageRegistrationEmail extends StatefulWidget {
 
 class _CabinetPageRegistrationEmailState
     extends State<CabinetPageRegistrationEmail> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
+  bool checkName = false;  
   bool checkEmail = false;
-  bool checkName = false;
-  bool checkPasspord = false;
-  bool checkComfirmPasspord = false;
+  bool checkPassword = false;
+  bool checkComfirmPassword = false;
   final TextEditingController _userEmail = new TextEditingController();
   final TextEditingController _userName = new TextEditingController();
   final TextEditingController _password = new TextEditingController();
   final TextEditingController _comfirmPassword = new TextEditingController();
-  String _nameString = "Abror";
-  String _passwordString = "salom9804";
-  String _emailString = "abrorbobomurodov1998@gmail.com";
-  String _comfirmPasswordString = "salom9804";
   bool _passwordVisible = false;
   bool _comfirmVisible = false;
-  double INPUT_HEIGHT = 45;
-  double INPUT_SPACE = 10;
+  double inputHeight = 45;
+  double inputSpace = 10;
 
-  //
   final scaffoldState = GlobalKey<ScaffoldState>();
 
   //
+  UsersRepository repo = UsersRepository();
 
   UsersCubit cubit;
 
@@ -47,45 +48,6 @@ class _CabinetPageRegistrationEmailState
   void initState() {
     cubit = BlocProvider.of<UsersCubit>(context);
     super.initState();
-  }
-
-  _CabinetPageRegistrationEmailState() {
-    _userName.addListener(_nameListen);
-    _userEmail.addListener(_emailListen);
-    _password.addListener(_passwordListen);
-    _comfirmPassword.addListener(_comfirmPasswordListen);
-  }
-
-  void _nameListen() {
-    if (_userName.text.isEmpty) {
-      _nameString = "";
-    } else {
-      _nameString = _userName.text;
-    }
-  }
-
-  void _passwordListen() {
-    if (_password.text.isEmpty) {
-      _passwordString = "";
-    } else {
-      _passwordString = _password.text;
-    }
-  }
-
-  void _comfirmPasswordListen() {
-    if (_comfirmPassword.text.isEmpty) {
-      _comfirmPasswordString = "";
-    } else {
-      _comfirmPasswordString = _comfirmPassword.text;
-    }
-  }
-
-  void _emailListen() {
-    if (_userEmail.text.isEmpty) {
-      _emailString = "";
-    } else {
-      _emailString = _userEmail.text;
-    }
   }
 
   @override
@@ -113,10 +75,10 @@ class _CabinetPageRegistrationEmailState
             }
             if (state is UsersLoginLoadedState) {
               SharePreference sharePreference = SharePreference();
-              sharePreference.saveValue("name", _nameString);
-              sharePreference.saveValue("email", _emailString);
-              sharePreference.saveValue("password", _emailString);
-              // String name = await sharePreference.get("name");
+              sharePreference.saveValue("name", _userName.text);
+              sharePreference.saveValue("email", _userEmail.text);
+              sharePreference.saveValue("password", _password.text);
+              // // String name = await sharePreference.get("name");
               Navigator.pop(context);
             }
             if (state is UsersErrorState) {
@@ -126,8 +88,10 @@ class _CabinetPageRegistrationEmailState
             }
             return Stack(children: <Widget>[
               SingleChildScrollView(
-                child: Container(
-                  color: Colors.white,
+                
+                child: Form(
+                  key: _formKey,
+                  autovalidate: _autoValidate,
                   child: Column(
                     children: [
                       Align(
@@ -164,10 +128,11 @@ class _CabinetPageRegistrationEmailState
                             child: Column(
                               children: [
                                 Container(
-                                  height: INPUT_HEIGHT,
-                                  child: TextField(
+                                  height: (checkName) ? inputHeight + 26 : inputHeight,
+                                  child: TextFormField(
                                     controller: _userName,
-                                    keyboardType: TextInputType.name,
+                                    keyboardType: TextInputType.text,
+                                    validator: validateName,
                                     onChanged: (string) {},
                                     decoration: InputDecoration(
                                       filled: true,
@@ -189,12 +154,13 @@ class _CabinetPageRegistrationEmailState
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: INPUT_SPACE),
+                                SizedBox(height: inputSpace),
                                 Container(
-                                  height: INPUT_HEIGHT,
-                                  child: TextField(
+                                  height: (checkEmail) ? inputHeight + 26 : inputHeight,
+                                  child: TextFormField(
                                     controller: _userEmail,
-                                    keyboardType: TextInputType.emailAddress,
+                                    keyboardType: TextInputType.text,
+                                    validator: validateEmail,
                                     onChanged: (string) {},
                                     decoration: InputDecoration(
                                       filled: true,
@@ -216,12 +182,13 @@ class _CabinetPageRegistrationEmailState
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: INPUT_SPACE),
+                                SizedBox(height: inputSpace),
                                 Container(
-                                  height: INPUT_HEIGHT,
+                                  height: (checkPassword) ? inputHeight + 22 : inputHeight,
                                   child: TextFormField(
                                     controller: _password,
                                     keyboardType: TextInputType.text,
+                                    validator: validatePassword,
                                     onChanged: (string) {},
                                     decoration: new InputDecoration(
                                       filled: true,
@@ -258,13 +225,14 @@ class _CabinetPageRegistrationEmailState
                                     obscureText: !_passwordVisible,
                                   ),
                                 ),
-                                SizedBox(height: INPUT_SPACE),
+                                SizedBox(height: inputSpace),
                                 Container(
                                   color: Colors.white,
-                                  height: INPUT_HEIGHT,
+                                  height: (checkComfirmPassword) ? inputHeight + 22 : inputHeight,
                                   child: TextFormField(
                                     controller: _comfirmPassword,
                                     keyboardType: TextInputType.text,
+                                    validator: validateConPass,
                                     onChanged: (string) {},
                                     decoration: new InputDecoration(
                                       hintText: "Confirm Passpord",
@@ -309,9 +277,9 @@ class _CabinetPageRegistrationEmailState
                             alignment: Alignment.centerLeft,
                             child: (checkEmail ||
                                     checkName ||
-                                    checkPasspord ||
-                                    checkPasspord ||
-                                    checkComfirmPasspord)
+                                    checkPassword ||
+                                    checkPassword ||
+                                    checkComfirmPassword)
                                 ? Text(
                                     "Данные не заполнены",
                                     style: TextStyle(color: Colors.red),
@@ -331,9 +299,7 @@ class _CabinetPageRegistrationEmailState
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                               color: Color.fromRGBO(0, 91, 254, 1),
-                              onPressed: () {
-                                onPress();
-                              },
+                              onPressed: _onPress,
                               child: Text(
                                 "Регистрация",
                                 style: TextStyle(
@@ -345,6 +311,8 @@ class _CabinetPageRegistrationEmailState
                     ],
                   ),
                 ),
+              
+              
               ),
               Positioned(
                 child: Padding(
@@ -353,8 +321,13 @@ class _CabinetPageRegistrationEmailState
                     alignment: FractionalOffset.bottomCenter,
                     child: InkWell(
                         onTap: () {
-                          Navigator.pop(context);
-                        },
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CabinetPageRegistration()),
+                      );
+                    },
                         child: Text(
                           "Вернуться на главный экран",
                           style: TextStyle(color: Colors.blue),
@@ -362,42 +335,123 @@ class _CabinetPageRegistrationEmailState
                   ),
                 ),
               )
+            
             ]);
           },
         ),
       ),
     );
   }
+  
 
-  Future<void> onPress() async {
-    if (_nameString == "") {
-      // || _passwordString == "" || _emailString == "" || _comfirmPasswordString == ""){
+    String validateName(String value) {
+    String patern = r'(^[a-zA-Z ]*$)';
+    RegExp regExp = RegExp(patern);
+    if (value.length == 0) {
       checkName = true;
-      print("ok nameString");
+      return "Имя обязательно";
+    } else if (!regExp.hasMatch(value)) {
+      checkName = true;
+      return "Имя должно быть от a-z и от A-Z";
     }
-    if (_passwordString == "") {
-      checkPasspord = true;
-      print("Ok passwordString");
-    }
-    if (_emailString == "") {
-      checkEmail = true;
-    }
-    if (_comfirmPasswordString == "") {
-      checkComfirmPasspord = true;
-    }
-    if (checkName || checkEmail || checkPasspord || checkComfirmPasspord) {
-      //  data not filled
-    } else {
-    cubit.signup(SignupRequest(
-        name: _nameString,
-        email: _emailString,
-        password: _passwordString,
-        passowrdConfirmation: _comfirmPasswordString));
-      }
-    onChanged();
+    checkName = false;
+    return null;
   }
 
+
+  String validateEmail(String email) {
+    if (email != null && email.length > 100) {
+      checkEmail = true;
+      return 'Электронная почта не может содержать более 100 символов';
+    }
+
+    if (email == null || !email.contains("@")) {
+      checkEmail = true;
+      return "Недействительный адрес электронной почты";
+    }
+    checkEmail = false;
+    return null;
+  }
+
+
+
+
+  String validatePassword(String value) {
+    if (value.length == 0) {
+      checkPassword = true;
+      return "Необходим пароль";
+    } else if (value.length < 6) {
+      checkPassword = true;
+      return "Пароль Должно быть больше 6";
+    }
+    checkPassword = false;
+    return null;
+  }
+
+
+  String validateConPass(String value) {
+    var password = _password.text;
+
+    if (value.length == 0) {
+      checkComfirmPassword = true;
+      return "Необходим пароль";
+    } else if (value != password) {
+      checkComfirmPassword = true;
+      return 'Пароль не совпадает';
+    }
+    checkComfirmPassword = false;
+    return null;
+  }
+
+
+
+
+  void _onPress() async {
+    var username = _userName.text;
+    var email = _userEmail.text;
+    var pass = _password.text;
+    var comPass = _comfirmPassword.text;
+    
+    
+    var param = new SignupRequest();
+        param.name = username;
+        param.email = email;
+        param.password = pass;
+        param.passowrdConfirmation = comPass;
+      
+      
+    if (_formKey.currentState.validate()) {
+      print("$username, $email, $pass, $comPass");
+      var res = await repo.signup(param);
+//    If all data are correct then save data to out variables
+      _formKey.currentState.save();
+
+      if (res != null) {
+        print(res.message);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return HomePage();
+            },
+          ),
+        );
+      }
+    } else {
+//    If all data are not valid then start auto validation.
+      
+      setState(() {
+        _autoValidate = true;
+      });
+      throw Exception("Не удалось авторизовать.");
+    }
+     
+
+    onChanged();
+  }
   void onChanged() {
     setState(() {});
   }
+
+
 }
