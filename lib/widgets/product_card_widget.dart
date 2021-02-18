@@ -49,7 +49,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProductPage(product: product),
+                  builder: (context) => ProductPage(productId: product.id),
                 ),
               )
             },

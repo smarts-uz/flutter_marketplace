@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace_service/models/product_detail_response.dart';
-import 'package:flutter_marketplace_service/models/products_response.dart';
 
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
 import 'package:flutter_marketplace_service/service/product/product_repository.dart';
@@ -15,10 +14,10 @@ import 'package:share/share.dart';
 class ProductPage extends StatefulWidget {
   ProductPage({
     Key key,
-    @required this.product,
+    @required this.productId,
   }) : super(key: key);
 
-  final ProductModel product;
+  final int productId;
 
   @override
   _ProductPageState createState() => _ProductPageState();
@@ -58,7 +57,7 @@ class _ProductPageState extends State<ProductPage>
   Widget build(BuildContext context) {
     return BlocProvider<ProductCubit>(
       create: (context) =>
-          ProductCubit(productRepository)..getById(widget.product.id),
+          ProductCubit(productRepository)..getById(widget.productId),
       child: Scaffold(
         backgroundColor: MyColors.white,
         appBar: _getAppBar(),
@@ -184,10 +183,11 @@ class _ProductPageState extends State<ProductPage>
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    (widget.product.baseDiscountedPrice >
-                            widget.product.basePrice)
-                        ? "—${calculatorPrice().ceilToDouble()}%"
-                        : "",
+                    "",
+                    // (product.baseDiscountedPrice >
+                    //         product.basePrice)
+                    //     ? "—${calculatorPrice().ceilToDouble()}%"
+                    //     : "",
                     style: TextStyle(
                       color: MyColors.white,
                       fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class _ProductPageState extends State<ProductPage>
           Container(
             padding: EdgeInsets.only(left: 18, right: 18, top: 2),
             width: double.infinity,
-            child: Text(widget.product.name),
+            child: Text(product.name),
           ),
           Container(
             width: double.infinity,
@@ -272,26 +272,28 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  (widget.product.baseDiscountedPrice >
-                          widget.product.basePrice)
-                      ? widget.product.baseDiscountedPrice.toString()
-                      : widget.product.basePrice.toString(),
-                  style: TextStyle(
-                    color: (widget.product.baseDiscountedPrice >
-                            widget.product.basePrice)
-                        ? MyColors.hibiscus
-                        : MyColors.thunder,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+                  "",
+                  // (product.baseDiscountedPrice >
+                  //         product.basePrice)
+                  //     ? product.baseDiscountedPrice.toString()
+                  //     : product.basePrice.toString(),
+                  // style: TextStyle(
+                  //   color: (product.baseDiscountedPrice >
+                  //           product.basePrice)
+                  //       ? MyColors.hibiscus
+                  //       : MyColors.thunder,
+                  //   fontWeight: FontWeight.bold,
+                  //   fontSize: 18,
+                  // ),
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    (widget.product.baseDiscountedPrice >
-                            widget.product.basePrice)
-                        ? widget.product.basePrice.toString()
-                        : "",
+                    // (product.baseDiscountedPrice >
+                    //         product.basePrice)
+                    //     ? product.basePrice.toString()
+                    //     : "",
+                    "",
                     style: TextStyle(
                       color: MyColors.thunder,
                       fontSize: 12,
@@ -346,7 +348,7 @@ class _ProductPageState extends State<ProductPage>
             width: double.infinity,
             padding: EdgeInsets.only(top: 10, bottom: 2, left: 18, right: 18),
             child: Text(
-              widget.product.unit,
+              product.unit,
               style: TextStyle(color: MyColors.stTropaz),
             ),
           ),
@@ -354,7 +356,7 @@ class _ProductPageState extends State<ProductPage>
             width: double.infinity,
             padding: EdgeInsets.only(right: 18, left: 18),
             child: Text(
-              widget.product.name,
+              product.name,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 color: MyColors.blackPearl,
@@ -708,10 +710,9 @@ class _ProductPageState extends State<ProductPage>
                 "В корзину",
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
-              Text((widget.product.baseDiscountedPrice >
-                      widget.product.basePrice)
-                  ? widget.product.baseDiscountedPrice.toString()
-                  : widget.product.basePrice.toString()),
+              // Text((product.baseDiscountedPrice > product.basePrice)
+              //     ? product.baseDiscountedPrice.toString()
+              //     : product.basePrice.toString()),
             ],
           ),
         ),
@@ -732,6 +733,7 @@ class _ProductPageState extends State<ProductPage>
   }
 
   double calculatorPrice() =>
-      (widget.product.basePrice / widget.product.baseDiscountedPrice * 100) -
+      // (product.basePrice / product.baseDiscountedPrice * 100) -
+      // 100;:
       100;
 }
