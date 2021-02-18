@@ -46,24 +46,42 @@ class _CatalogPageState extends State<CatalogPage> {
               ),
             );
           } else if (state is CategoryLoadedState) {
-            return Wrap(
-              alignment: WrapAlignment.spaceBetween,
+            // return Wrap(
+            //   alignment: WrapAlignment.spaceBetween,
+            //   children: List.generate(
+            //     3,
+            //     (index) => Container(
+            //       width: MediaQuery.of(context).size.width / 3,
+            //       padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
+            //       child: Shimmer.fromColors(
+            //         baseColor: MyColors.shimmerBaseColor,
+            //         highlightColor: MyColors.shimmerHighlightColor,
+            //         child: Container(height: 80, color: Colors.white),
+            //       ),
+            //     ),
+            //   ),
+            // );
+
+            return GridView.count(
+              primary: false,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              crossAxisCount: 3,
               children: List.generate(
                 state.list.data.length,
-                (index) => Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
-                  child: itemView(context, state, index),
-                ),
+                // (index) => Container(
+                //   child: Shimmer.fromColors(
+                //     baseColor: MyColors.shimmerBaseColor,
+                //     highlightColor: MyColors.shimmerHighlightColor,
+                //     child: Container(height: 80, color: Colors.white),
+                //   ),
+                // ),
+                (index) => itemView(context, state, index),
               ),
             );
           } else {
-            //      if (state is CategoryErrorState) {
-            //   return Container();
-            //   // final error = state.;
-            //   // String message = '${error.message}\nTap to Retry.';
-            //   // return Text(message);
-            // } else
             return Container();
           }
         },
@@ -71,34 +89,39 @@ class _CatalogPageState extends State<CatalogPage> {
     );
   }
 
-  Container itemView(BuildContext context, CategoryLoadedState state, index) {
+  itemView(BuildContext context, CategoryLoadedState state, index) {
     final category = state.list.data[index];
 
     return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 6),
-            height: 80,
-            width: double.infinity,
-            child: InkWell(
-              child: CacheImageWidget(
-                url: category.icon,
-                fit: BoxFit.cover,
+      child: InkWell(
+        onTap: () => {},
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 6),
+              width: MediaQuery.of(context).size.width / 6,
+              height: MediaQuery.of(context).size.width / 6,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: CacheImageWidget(
+                  url: category.icon,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 2),
-            width: double.infinity,
-            child: Text(
-              category.name ?? "",
-              style: TextStyle(fontSize: 10),
-              textAlign: TextAlign.center,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 2),
+              width: double.infinity,
+              child: Text(
+                category.name ?? "",
+                style: TextStyle(fontSize: 10),
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

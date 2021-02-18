@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_marketplace/pages/product_page.dart';
 import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/utils/debouncer.dart';
 import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 import 'package:flutter_marketplace_service/models/search_response_model.dart';
 import 'package:flutter_marketplace_service/service/search/cubit/search_cubit.dart';
 import 'package:flutter_marketplace_service/service/search/search_repository.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -16,11 +18,37 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  Color oldColor;
+
   final _debouncer = Debouncer(milliseconds: 500);
   final TextEditingController _textController = new TextEditingController();
   final searchRepository = SearchRepository();
 
   SearchCubit searchCubit;
+
+  @override
+  void initState() {
+    FlutterStatusbarcolor.getStatusBarColor().then((old) {
+      oldColor = old;
+      _changeSysBar(MyColors.white);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _changeSysBar(oldColor);
+    super.dispose();
+  }
+
+  void _changeSysBar(Color color) {
+    FlutterStatusbarcolor.setStatusBarColor(color).then(
+      (value) {
+        bool isWhite = useWhiteForeground(color);
+        FlutterStatusbarcolor.setStatusBarWhiteForeground(isWhite);
+      },
+    );
+  }
 
   void onTextChange(String text) {
     if (searchCubit != null) {
@@ -126,7 +154,16 @@ class _SearchPageState extends State<SearchPage> {
                     physics: BouncingScrollPhysics(),
                     itemCount: products.length,
                     itemBuilder: (context, index) => InkWell(
-                      onTap: () => {},
+                      onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProductPage(
+                              productId: products[index].id,
+                            ),
+                          ),
+                        ),
+                      },
                       child: Container(
                         padding: EdgeInsets.only(top: 8),
                         child: Column(
@@ -136,17 +173,18 @@ class _SearchPageState extends State<SearchPage> {
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 15),
                                   width: 80,
+                                  height: 50,
                                   child: CacheImageWidget(
-                                    url: products[index].thumbnailImg,
+                                    url: products[index].thumbnaileImage,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                                 Expanded(
                                   child: Text(
-                                    "Пазл",
+                                    products[index].name,
                                     style: TextStyle(color: MyColors.firefly),
                                     overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
+                                    maxLines: 2,
                                     softWrap: false,
                                   ),
                                 ),

@@ -19,7 +19,7 @@ class CacheImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultImg = 'assets/default-image.png';
-    print(url);
+
     if (url != null && url.isNotEmpty) {
       return CachedNetworkImage(
         height: height,

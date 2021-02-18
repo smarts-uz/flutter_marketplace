@@ -38,7 +38,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
       return res.replaceAll(',', " ");
     }
 
-    final bool isDiscount = product.discount > 0;
+    final bool isDiscount = product.discount != null && product.discount > 0;
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 9),

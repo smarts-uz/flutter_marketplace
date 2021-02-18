@@ -86,27 +86,29 @@ class _HomeLayoutState extends State<HomeLayout> {
           height: 42,
           child: Row(
             children: [
-              Container(
-                width: 40,
-                margin: EdgeInsets.only(left: 7, right: 8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () => {
-                    // Get.toNamed("/search")
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-                    child: Text(
-                      "anti virus".toUpperCase(),
-                      style: TextStyle(color: MyColors.white, fontSize: 9),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: false,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(width: 15),
+              // Container(
+              //   width: 40,
+              //   margin: EdgeInsets.only(left: 7, right: 8),
+              //   child: InkWell(
+              //     borderRadius: BorderRadius.circular(50),
+              //     onTap: () => {
+              //       // Get.toNamed("/search")
+              //     },
+              //     child: Padding(
+              //       padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+              //       child: Text(""),
+              //       // Text(
+              //       //   "anti virus".toUpperCase(),
+              //       //   style: TextStyle(color: MyColors.white, fontSize: 9),
+              //       //   overflow: TextOverflow.ellipsis,
+              //       //   maxLines: 2,
+              //       //   softWrap: false,
+              //       //   textAlign: TextAlign.center,
+              //       // ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: InkWell(
                   onTap: () => {Get.toNamed("/search")},
