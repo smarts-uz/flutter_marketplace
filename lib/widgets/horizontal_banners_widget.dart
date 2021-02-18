@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 
@@ -9,14 +9,15 @@ import 'package:flutter_marketplace_service/service/banner/cubit/banner_cubit.da
 
 import 'package:shimmer/shimmer.dart';
 
-class SquareBannersWidget extends StatefulWidget {
-  SquareBannersWidget({Key key}) : super(key: key);
+class HorizontalBannersWidget extends StatefulWidget {
+  HorizontalBannersWidget({Key key}) : super(key: key);
 
   @override
-  _SquareBannersWidgetState createState() => _SquareBannersWidgetState();
+  _HorizontalBannersWidgetState createState() =>
+      _HorizontalBannersWidgetState();
 }
 
-class _SquareBannersWidgetState extends State<SquareBannersWidget> {
+class _HorizontalBannersWidgetState extends State<HorizontalBannersWidget> {
   final bannersRepository = BannersRepository();
   int _currentBanner = 0;
 

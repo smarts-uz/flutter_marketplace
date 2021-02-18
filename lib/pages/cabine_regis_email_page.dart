@@ -95,7 +95,7 @@ class _CabinetPageRegistrationEmailState
                     children: [
                       Align(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: IconButton(
                             icon: Icon(Icons.close),
                             onPressed: () {
@@ -110,10 +110,10 @@ class _CabinetPageRegistrationEmailState
                       ),
                       Align(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                          padding: EdgeInsets.fromLTRB(20, 8, 20, 8),
                           child: Text(
-                              "Только для зарегистрированных пользователей"),
+                            "Только для зарегистрированных пользователей",
+                          ),
                         ),
                         alignment: Alignment.topLeft,
                       ),

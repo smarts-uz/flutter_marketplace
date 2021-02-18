@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace_service/config.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -19,16 +19,8 @@ class CacheImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultImg = 'assets/default-image.png';
-
-    if (url.isEmpty) {
-      return Container(
-        height: height,
-        child: Image.asset(
-          defaultImg,
-          fit: BoxFit.cover,
-        ),
-      );
-    } else {
+    print(url);
+    if (url != null && url.isNotEmpty) {
       return CachedNetworkImage(
         height: height,
         imageUrl: "${Config.filesUrl}$url",
@@ -49,6 +41,14 @@ class CacheImageWidget extends StatelessWidget {
           baseColor: MyColors.shimmerBaseColor,
           highlightColor: MyColors.shimmerHighlightColor,
           child: Container(color: Colors.white),
+        ),
+      );
+    } else {
+      return Container(
+        height: height,
+        child: Image.asset(
+          defaultImg,
+          fit: BoxFit.cover,
         ),
       );
     }

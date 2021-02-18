@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/pages/product_page.dart';
 import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 import 'package:flutter_marketplace_service/models/products_response.dart';
 
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ProductCardWidget extends StatefulWidget {
@@ -40,9 +39,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
     }
 
     final bool isDiscount = product.discount > 0;
-
-    final int discount =
-        isDiscount ? ((product.discount / product.basePrice) * 100).round() : 0;
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 9),
@@ -121,7 +117,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   child: Text(
-                                    "-$discount%",
+                                    "-${((product.discount / product.basePrice) * 100).round()}%",
                                     style: TextStyle(
                                       color: MyColors.white,
                                       fontWeight: FontWeight.bold,

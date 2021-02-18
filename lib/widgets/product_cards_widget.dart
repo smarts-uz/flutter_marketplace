@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/widgets/product_card_widget.dart';
 
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';

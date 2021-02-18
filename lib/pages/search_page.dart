@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
+import 'package:flutter_marketplace/utils/debouncer.dart';
+import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
+import 'package:flutter_marketplace_service/models/search_response_model.dart';
+import 'package:flutter_marketplace_service/service/search/cubit/search_cubit.dart';
+import 'package:flutter_marketplace_service/service/search/search_repository.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -9,145 +16,236 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  final _debouncer = Debouncer(milliseconds: 500);
+  final TextEditingController _textController = new TextEditingController();
+  final searchRepository = SearchRepository();
+
+  SearchCubit searchCubit;
+
+  void onTextChange(String text) {
+    if (searchCubit != null) {
+      if (text != null && text.isNotEmpty) {
+        _debouncer.run(() async {
+          searchCubit.search(text);
+        });
+      } else {
+        searchCubit.clear();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.white,
-      appBar: AppBar(
-        elevation: 5,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
+    return BlocProvider<SearchCubit>(
+      create: (context) => SearchCubit(searchRepository),
+      child: Scaffold(
         backgroundColor: MyColors.white,
-        title: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 5, right: 7),
-              child: InkWell(
-                onTap: () => {Navigator.pop(context)},
-                borderRadius: BorderRadius.circular(50),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Icon(Icons.arrow_back, color: Colors.black),
+        appBar: AppBar(
+          elevation: 5,
+          automaticallyImplyLeading: false,
+          titleSpacing: 0,
+          backgroundColor: MyColors.white,
+          title: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 5, right: 7),
+                child: InkWell(
+                  onTap: () => {Navigator.pop(context)},
+                  borderRadius: BorderRadius.circular(50),
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Icon(Icons.arrow_back, color: Colors.black),
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: Material(
-                borderRadius: BorderRadius.circular(5),
-                child: SizedBox(
-                  height: 42,
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      hintText: 'Искать...',
-                      isDense: true,
-                      contentPadding: EdgeInsets.only(top: 10),
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 25,
-                        color: Colors.black45,
-                      ),
-                      prefixIconConstraints: BoxConstraints(
-                        minWidth: 50,
-                        minHeight: 10,
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () => {
-                          // _controller.clear()
-                        },
-                        icon: Icon(
-                          Icons.clear,
+              Expanded(
+                child: Material(
+                  borderRadius: BorderRadius.circular(5),
+                  child: SizedBox(
+                    height: 42,
+                    child: TextFormField(
+                      onChanged: onTextChange,
+                      keyboardType: TextInputType.text,
+                      autofocus: true,
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        hintText: 'Искать...',
+                        isDense: true,
+                        contentPadding: EdgeInsets.only(top: 10),
+                        hintStyle: TextStyle(
+                          fontSize: 20,
                           color: Colors.black45,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        prefixIcon: IconButton(
+                          icon: Icon(Icons.search),
+                          iconSize: 25,
+                          color: Colors.black45,
+                          onPressed: () => onTextChange,
+                        ),
+                        prefixIconConstraints: BoxConstraints(
+                          minWidth: 50,
+                          minHeight: 10,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () => {_textController.clear()},
+                          icon: Icon(
+                            Icons.clear,
+                            color: Colors.black45,
+                          ),
+                        ),
+                        fillColor: Colors.white30,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide.none,
                         ),
                       ),
-                      fillColor: Colors.white30,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide.none,
-                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(width: 16)
-          ],
+              SizedBox(width: 16)
+            ],
+          ),
         ),
-      ),
-      body: Container(
-        child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          itemCount: 20,
-          itemBuilder: (context, index) => index == 0 || index == 5
-              ? Container(
-                  padding: EdgeInsets.only(
-                    left: 15,
-                    right: 15,
-                    top: 25,
-                    bottom: 15,
-                  ),
-                  child: Text(
-                    index == 0 ? "История" : "Популярные",
-                    style: TextStyle(
-                      color: MyColors.blueCharcoal,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                )
-              : InkWell(
-                  onTap: () => {},
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: Column(
-                      children: [
-                        Row(
+        body: BlocProvider<SearchCubit>(
+          create: (context) => SearchCubit(searchRepository),
+          child: BlocBuilder<SearchCubit, SearchState>(
+            builder: (context, state) {
+              searchCubit = BlocProvider.of<SearchCubit>(context);
+
+              if (state is SearchInitial) {
+                return Container();
+              } else if (state is SearchLoadedState) {
+                List<SearchedProduct> products = state.res.products;
+
+                return Container(
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(top: 10),
+                    physics: BouncingScrollPhysics(),
+                    itemCount: products.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () => {},
+                      child: Container(
+                        padding: EdgeInsets.only(top: 8),
+                        child: Column(
                           children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
-                              child: Icon(
-                                Icons.search,
-                                color: MyColors.regentGray,
-                                size: 28,
-                              ),
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 15),
+                                  width: 80,
+                                  child: CacheImageWidget(
+                                    url: products[index].thumbnailImg,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "Пазл",
+                                    style: TextStyle(color: MyColors.firefly),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: Icon(
+                                    Icons.chevron_right,
+                                    color: MyColors.regentGray,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: Text(
-                                "Пазл",
-                                style: TextStyle(color: MyColors.firefly),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                softWrap: false,
-                              ),
-                            ),
                             Container(
-                              padding: EdgeInsets.only(right: 10),
-                              child: Icon(
-                                Icons.chevron_right,
-                                color: MyColors.regentGray,
-                              ),
+                              padding: EdgeInsets.only(left: 53, top: 8),
+                              child: Divider(height: 0, color: MyColors.alto),
                             ),
                           ],
                         ),
-                        Container(
-                          padding: EdgeInsets.only(left: 53, top: 8),
-                          child: Divider(
-                            height: 0,
-                            color: MyColors.alto,
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
     );
   }
+
+  // Container getKeywords() {
+  //   return Container(
+  //     child: ListView.builder(
+  //       physics: BouncingScrollPhysics(),
+  //       itemCount: 20,
+  //       itemBuilder: (context, index) => index == 0 || index == 5
+  //           ? Container(
+  //               padding: EdgeInsets.only(
+  //                 left: 15,
+  //                 right: 15,
+  //                 top: 25,
+  //                 bottom: 15,
+  //               ),
+  //               child: Text(
+  //                 index == 0 ? "История" : "Популярные",
+  //                 style: TextStyle(
+  //                   color: MyColors.blueCharcoal,
+  //                   fontWeight: FontWeight.w700,
+  //                 ),
+  //               ),
+  //             )
+  //           : InkWell(
+  //               onTap: () => {},
+  //               child: Container(
+  //                 padding: EdgeInsets.symmetric(vertical: 5),
+  //                 child: Column(
+  //                   children: [
+  //                     Row(
+  //                       children: [
+  //                         Container(
+  //                           padding: EdgeInsets.symmetric(horizontal: 15),
+  //                           child: Icon(
+  //                             Icons.search,
+  //                             color: MyColors.regentGray,
+  //                             size: 28,
+  //                           ),
+  //                         ),
+  //                         Expanded(
+  //                           child: Text(
+  //                             "Пазл",
+  //                             style: TextStyle(color: MyColors.firefly),
+  //                             overflow: TextOverflow.ellipsis,
+  //                             maxLines: 1,
+  //                             softWrap: false,
+  //                           ),
+  //                         ),
+  //                         Container(
+  //                           padding: EdgeInsets.only(right: 10),
+  //                           child: Icon(
+  //                             Icons.chevron_right,
+  //                             color: MyColors.regentGray,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     Container(
+  //                       padding: EdgeInsets.only(left: 53, top: 8),
+  //                       child: Divider(
+  //                         height: 0,
+  //                         color: MyColors.alto,
+  //                       ),
+  //                     )
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //     ),
+  //   );
+  // }
 }

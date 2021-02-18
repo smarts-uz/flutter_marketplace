@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/extensions/hex_color.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:flutter_marketplace/widgets/cart_item_widget.dart';

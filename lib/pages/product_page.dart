@@ -2,8 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace_service/config.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
+import 'package:flutter_marketplace_service/models/product_detail_response.dart';
 import 'package:flutter_marketplace_service/models/products_response.dart';
 
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
@@ -56,10 +56,9 @@ class _ProductPageState extends State<ProductPage>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.product.id);
-
     return BlocProvider<ProductCubit>(
-      create: (context) => ProductCubit(productRepository)..getAll(2),
+      create: (context) =>
+          ProductCubit(productRepository)..getById(widget.product.id),
       child: Scaffold(
         backgroundColor: MyColors.white,
         appBar: _getAppBar(),
@@ -85,8 +84,8 @@ class _ProductPageState extends State<ProductPage>
                 ),
               ),
             );
-          } else if (state is ProductLoadedState) {
-            return _getBody();
+          } else if (state is ProductDetailLoadedState) {
+            return _getBody(state.response.data[0]);
           } else if (state is ProductErrorState) {
             return Center(
               child: Text("Error"),
@@ -141,7 +140,7 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-  Widget _getBody() {
+  Widget _getBody(ProductDetailModel product) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -185,7 +184,10 @@ class _ProductPageState extends State<ProductPage>
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    (widget.product.baseDiscountedPrice > widget.product.basePrice) ? "—${calculatorPrice().ceilToDouble()}%" : "",
+                    (widget.product.baseDiscountedPrice >
+                            widget.product.basePrice)
+                        ? "—${calculatorPrice().ceilToDouble()}%"
+                        : "",
                     style: TextStyle(
                       color: MyColors.white,
                       fontWeight: FontWeight.bold,
@@ -270,9 +272,15 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  (widget.product.baseDiscountedPrice > widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString(),
+                  (widget.product.baseDiscountedPrice >
+                          widget.product.basePrice)
+                      ? widget.product.baseDiscountedPrice.toString()
+                      : widget.product.basePrice.toString(),
                   style: TextStyle(
-                    color: (widget.product.baseDiscountedPrice > widget.product.basePrice) ? MyColors.hibiscus : MyColors.thunder,
+                    color: (widget.product.baseDiscountedPrice >
+                            widget.product.basePrice)
+                        ? MyColors.hibiscus
+                        : MyColors.thunder,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -280,7 +288,10 @@ class _ProductPageState extends State<ProductPage>
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    (widget.product.baseDiscountedPrice > widget.product.basePrice) ? widget.product.basePrice.toString() : "",
+                    (widget.product.baseDiscountedPrice >
+                            widget.product.basePrice)
+                        ? widget.product.basePrice.toString()
+                        : "",
                     style: TextStyle(
                       color: MyColors.thunder,
                       fontSize: 12,
@@ -697,9 +708,10 @@ class _ProductPageState extends State<ProductPage>
                 "В корзину",
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
-              Text(
-                (widget.product.baseDiscountedPrice > widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString()
-                ),
+              Text((widget.product.baseDiscountedPrice >
+                      widget.product.basePrice)
+                  ? widget.product.baseDiscountedPrice.toString()
+                  : widget.product.basePrice.toString()),
             ],
           ),
         ),
@@ -719,7 +731,7 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-
-double calculatorPrice() =>(widget.product.basePrice/widget.product.baseDiscountedPrice *100)-100;
-
+  double calculatorPrice() =>
+      (widget.product.basePrice / widget.product.baseDiscountedPrice * 100) -
+      100;
 }
