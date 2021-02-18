@@ -185,7 +185,7 @@ class _ProductPageState extends State<ProductPage>
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    (widget.product.baseDiscountedPrice > widget.product.basePrice) ? "—${calculatorPrice().ceilToDouble()}%" : "",
+                    (widget.product.baseDiscountedPrice < widget.product.basePrice) ? "—${calculatorPrice().ceilToDouble()}%" : "",
                     style: TextStyle(
                       color: MyColors.white,
                       fontWeight: FontWeight.bold,
@@ -270,9 +270,9 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  (widget.product.baseDiscountedPrice > widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString(),
+                  (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString(),
                   style: TextStyle(
-                    color: (widget.product.baseDiscountedPrice > widget.product.basePrice) ? MyColors.hibiscus : MyColors.thunder,
+                    color: (widget.product.baseDiscountedPrice < widget.product.basePrice) ? MyColors.hibiscus : MyColors.thunder,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -280,7 +280,7 @@ class _ProductPageState extends State<ProductPage>
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    (widget.product.baseDiscountedPrice > widget.product.basePrice) ? widget.product.basePrice.toString() : "",
+                    (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.basePrice.toString() : "",
                     style: TextStyle(
                       color: MyColors.thunder,
                       fontSize: 12,
@@ -698,7 +698,7 @@ class _ProductPageState extends State<ProductPage>
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
               Text(
-                (widget.product.baseDiscountedPrice > widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString()
+                (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString()
                 ),
             ],
           ),
