@@ -54,24 +54,24 @@ class _HomeLayoutState extends State<HomeLayout> {
     );
   }
 
-  _speechTotext() {
-    // print(_isAvailable.toString() + ' ' + _isListening.toString());
-    // if (_isListening)
-    //   _speechRecognition.stop().then(
-    //         (result) => setState(() {
-    //           _isListening = result;
-    //           resultText = "";
-    //         }),
-    //       );
-    // if (_isAvailable && !_isListening) {
-    //   _speechRecognition.listen(locale: "ru_RU").then((result) {
-    //     setState(() {
-    //       resultText = result;
-    //       print(resultText + " ok Google");
-    //     });
-    //   });
-    // } else {}
-  }
+  // _speechTotext() {
+  //   print(_isAvailable.toString() + ' ' + _isListening.toString());
+  //   if (_isListening)
+  //     _speechRecognition.stop().then(
+  //           (result) => setState(() {
+  //             _isListening = result;
+  //             resultText = "";
+  //           }),
+  //         );
+  //   if (_isAvailable && !_isListening) {
+  //     _speechRecognition.listen(locale: "ru_RU").then((result) {
+  //       setState(() {
+  //         resultText = result;
+  //         print(resultText + " ok Google");
+  //       });
+  //     });
+  //   } else {}
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           height: 42,
           child: Row(
             children: [
-              SizedBox(width: 15),
+              SizedBox(width: 16),
               // Container(
               //   width: 40,
               //   margin: EdgeInsets.only(left: 7, right: 8),
@@ -126,34 +126,34 @@ class _HomeLayoutState extends State<HomeLayout> {
                         ),
                         Expanded(
                           child: Text(
-                            resultText == "" ? "Искать..." : resultText,
+                            "Искать...",
                             style: TextStyle(color: Colors.black45),
                           ),
                         ),
-                        SizedBox(
-                          width: 35,
-                          child: IconButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: () => {
-                              _speechTotext(),
-                            },
-                            icon: Icon(
-                              Icons.mic_none_outlined,
-                              color: MyColors.bigStone,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 35,
-                          child: IconButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: () => {},
-                            icon: Icon(
-                              Icons.camera_alt_outlined,
-                              color: MyColors.bigStone,
-                            ),
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: 35,
+                        //   child: IconButton(
+                        //     padding: EdgeInsets.all(0),
+                        //     onPressed: () => {
+                        //       _speechTotext(),
+                        //     },
+                        //     icon: Icon(
+                        //       Icons.mic_none_outlined,
+                        //       color: MyColors.bigStone,
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   width: 35,
+                        //   child: IconButton(
+                        //     padding: EdgeInsets.all(0),
+                        //     onPressed: () => {},
+                        //     icon: Icon(
+                        //       Icons.camera_alt_outlined,
+                        //       color: MyColors.bigStone,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(width: 10)
                       ],
                     ),

@@ -30,54 +30,66 @@ class _CatalogPageState extends State<CatalogPage> {
       child: BlocBuilder<CategoryCubit, CategoryState>(
         builder: (context, state) {
           if (state is CategoryInitial || state is CategoryLoadingState) {
-            return Wrap(
-              alignment: WrapAlignment.spaceBetween,
+            return GridView.count(
+              primary: false,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              crossAxisCount: 3,
               children: List.generate(
                 3,
                 (index) => Container(
-                  width: MediaQuery.of(context).size.width / 3,
-                  padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
-                  child: Shimmer.fromColors(
-                    baseColor: MyColors.shimmerBaseColor,
-                    highlightColor: MyColors.shimmerHighlightColor,
-                    child: Container(height: 80, color: Colors.white),
+                  child: InkWell(
+                    onTap: () => {},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 6),
+                          width: MediaQuery.of(context).size.width / 6,
+                          height: MediaQuery.of(context).size.width / 6,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Shimmer.fromColors(
+                              baseColor: MyColors.shimmerBaseColor,
+                              highlightColor: MyColors.shimmerHighlightColor,
+                              child: Container(
+                                height: double.infinity,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          width: double.infinity,
+                          child: Shimmer.fromColors(
+                            baseColor: MyColors.shimmerBaseColor,
+                            highlightColor: MyColors.shimmerHighlightColor,
+                            child: Container(
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             );
           } else if (state is CategoryLoadedState) {
-            // return Wrap(
-            //   alignment: WrapAlignment.spaceBetween,
-            //   children: List.generate(
-            //     3,
-            //     (index) => Container(
-            //       width: MediaQuery.of(context).size.width / 3,
-            //       padding: EdgeInsets.symmetric(vertical: 9, horizontal: 10),
-            //       child: Shimmer.fromColors(
-            //         baseColor: MyColors.shimmerBaseColor,
-            //         highlightColor: MyColors.shimmerHighlightColor,
-            //         child: Container(height: 80, color: Colors.white),
-            //       ),
-            //     ),
-            //   ),
-            // );
-
             return GridView.count(
               primary: false,
               physics: BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               crossAxisSpacing: 15,
               mainAxisSpacing: 15,
               crossAxisCount: 3,
               children: List.generate(
                 state.list.data.length,
-                // (index) => Container(
-                //   child: Shimmer.fromColors(
-                //     baseColor: MyColors.shimmerBaseColor,
-                //     highlightColor: MyColors.shimmerHighlightColor,
-                //     child: Container(height: 80, color: Colors.white),
-                //   ),
-                // ),
                 (index) => itemView(context, state, index),
               ),
             );
