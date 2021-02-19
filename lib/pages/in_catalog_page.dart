@@ -1,11 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_marketplace/utils/colors.dart';
 
-import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
+import 'package:flutter_marketplace_service/models/category_response.dart';
 
 class InCatalogPage extends StatefulWidget {
-  InCatalogPage({Key key}) : super(key: key);
+  InCatalogPage({
+    Key key,
+    @required this.category,
+  }) : super(key: key);
+
+  final CategoryModel category;
 
   @override
   _InCatalogPageState createState() => _InCatalogPageState();
@@ -22,6 +28,8 @@ class _InCatalogPageState extends State<InCatalogPage> {
 
   @override
   Widget build(BuildContext context) {
+    final category = widget.category;
+
     return RefreshIndicator(
       key: _refreshIndicatorKey,
       onRefresh: _refresh,
@@ -39,7 +47,7 @@ class _InCatalogPageState extends State<InCatalogPage> {
                       Container(
                         width: double.infinity,
                         child: Text(
-                          "Товары в рассрочку",
+                          category.name,
                           style: TextStyle(
                             color: MyColors.blueCharcoal,
                             fontWeight: FontWeight.w800,
@@ -66,8 +74,7 @@ class _InCatalogPageState extends State<InCatalogPage> {
               )
             ],
           ),
-          Padding(padding: EdgeInsets.all(10)),
-          ShopBannersWidget(),
+
           _getProfitable("", isName: true),
           // ProductCardsWidget(
           //   title: "Скидки до 80%",

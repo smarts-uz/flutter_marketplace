@@ -203,11 +203,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                     child: CabinetPage()),
                 settings: settings,
               );
-            case '/in_catalog':
-              return MaterialPageRoute(
-                builder: (BuildContext context) => InCatalogPage(),
-                settings: settings,
-              );
+            // case '/in_catalog':
+            //   return MaterialPageRoute(
+            //     builder: (BuildContext context) => InCatalogPage(),
+            //     settings: settings,
+            //   );
             default:
               return null;
           }

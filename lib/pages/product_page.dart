@@ -202,7 +202,7 @@ class _ProductPageState extends State<ProductPage>
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                        "-${(100-(product.priceLower / product.priceHigher) * 100).round()}%",
+                      "-${(100 - (product.priceLower / product.priceHigher) * 100).round()}%",
                       style: TextStyle(
                         color: MyColors.white,
                         fontWeight: FontWeight.bold,
@@ -287,7 +287,8 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  (product.priceLower < product.priceHigher && product.priceLower !=0)
+                  (product.priceLower < product.priceHigher &&
+                          product.priceLower != 0)
                       ? product.priceLower.toString()
                       : product.priceHigher.toString(),
                   style: TextStyle(
@@ -301,7 +302,7 @@ class _ProductPageState extends State<ProductPage>
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    (product.priceLower !=0)
+                    (product.priceLower != 0)
                         ? product.priceHigher.toString()
                         : "",
                     style: TextStyle(

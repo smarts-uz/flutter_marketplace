@@ -39,6 +39,7 @@ dependencies:
   catcher: ^0.4.0
   intl: ^0.16.1
   shared_preferences: ^0.5.12+4
+  flutter_html: ^1.2.0
 
   flutter_marketplace_service:
     path: ../flutter_marketplace_service

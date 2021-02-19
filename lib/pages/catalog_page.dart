@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 import 'package:flutter_marketplace_service/service/category/category_api_provider.dart';
@@ -106,7 +107,16 @@ class _CatalogPageState extends State<CatalogPage> {
 
     return Container(
       child: InkWell(
-        onTap: () => {},
+        onTap: () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => InCatalogPage(
+                category: category,
+              ),
+            ),
+          ),
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
