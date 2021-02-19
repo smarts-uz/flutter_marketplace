@@ -1,15 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_marketplace/utils/colors.dart';
+import 'package:flutter_marketplace_service/config.dart';
 import 'package:flutter_marketplace_service/models/product_detail_response.dart';
-
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
 import 'package:flutter_marketplace_service/service/product/product_repository.dart';
+import 'package:share/share.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:share/share.dart';
 
 class ProductPage extends StatefulWidget {
   ProductPage({
@@ -27,13 +28,14 @@ class _ProductPageState extends State<ProductPage>
     with SingleTickerProviderStateMixin {
   final controller = PageController(viewportFraction: 1);
 
-  final productRepository = ProductRepository();
+  var productRepository = ProductRepository();
 
   bool isFavorite = false;
   int isSize = 0;
 
   TabController _tabController;
   int _tabIndex = 0;
+  Widget getFooter;
 
   @override
   void initState() {
@@ -93,7 +95,20 @@ class _ProductPageState extends State<ProductPage>
             return Container();
           }
         }),
-        bottomNavigationBar: _getFooter(),
+        bottomNavigationBar:
+            BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
+          if (state is ProductInitial || state is ProductLoadingState) {
+            return _getFooter(0);
+          } else if (state is ProductDetailLoadedState) {
+            return _getFooter(state.response.data[0].priceLower == 0
+                ? state.response.data[0].priceHigher
+                : state.response.data[0].priceLower);
+          } else if (state is ProductErrorState) {
+            return _getFooter(0);
+          } else {
+            return _getFooter(0);
+          }
+        }),
       ),
     );
   }
@@ -140,6 +155,7 @@ class _ProductPageState extends State<ProductPage>
   }
 
   Widget _getBody(ProductDetailModel product) {
+    print(product.id);
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -150,19 +166,21 @@ class _ProductPageState extends State<ProductPage>
               physics: BouncingScrollPhysics(),
               controller: controller,
               children: List.generate(
-                6,
-                (_) => Row(
+                product.photos.length,
+                (index) => Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          'assets/product.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: CachedNetworkImage(
+                              imageUrl: Config.filesUrl + product.photos[index],
+                              fit: BoxFit.cover,
+                            ),
+                          )),
                     ),
                   ],
                 ),
@@ -173,25 +191,26 @@ class _ProductPageState extends State<ProductPage>
             padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 12),
             child: Row(
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: MyColors.red,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Text(
-                    (widget.product.baseDiscountedPrice < widget.product.basePrice) ? "—${calculatorPrice().ceilToDouble()}%" : "",
-                    style: TextStyle(
-                      color: MyColors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.8,
-                      fontSize: 12,
+                if (product.priceLower != 0)
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: MyColors.red,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Text(
+                        "-${(100-(product.priceLower / product.priceHigher) * 100).round()}%",
+                      style: TextStyle(
+                        color: MyColors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.8,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
-                ),
                 Container(
                   margin: EdgeInsets.only(left: 15),
                   padding: EdgeInsets.symmetric(
@@ -217,7 +236,7 @@ class _ProductPageState extends State<ProductPage>
           ),
           SmoothPageIndicator(
             controller: controller,
-            count: 6,
+            count: product.photos.length,
             effect: SlideEffect(
               dotWidth: 10,
               dotHeight: 10,
@@ -268,9 +287,13 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString(),
+                  (product.priceLower < product.priceHigher && product.priceLower !=0)
+                      ? product.priceLower.toString()
+                      : product.priceHigher.toString(),
                   style: TextStyle(
-                    color: (widget.product.baseDiscountedPrice < widget.product.basePrice) ? MyColors.hibiscus : MyColors.thunder,
+                    color: (product.priceHigher > product.priceLower)
+                        ? MyColors.hibiscus
+                        : MyColors.thunder,
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -278,7 +301,9 @@ class _ProductPageState extends State<ProductPage>
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.basePrice.toString() : "",
+                    (product.priceLower !=0)
+                        ? product.priceHigher.toString()
+                        : "",
                     style: TextStyle(
                       color: MyColors.thunder,
                       fontSize: 12,
@@ -471,7 +496,7 @@ class _ProductPageState extends State<ProductPage>
                     padding: EdgeInsets.only(left: 10),
                     child: Text.rich(
                       TextSpan(
-                        text: "135 баллов (5%) при оплате c ",
+                        text: "750 баллов (5%) при оплате c ",
                         children: <TextSpan>[
                           TextSpan(
                             text: 'Ozon Card',
@@ -626,31 +651,42 @@ class _ProductPageState extends State<ProductPage>
           Container(
             padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
             child: [
-              Container(
-                child: RichText(
-                  // overflow: TextOverflow.ellipsis,
-                  // maxLines: 8,
-                  // softWrap: false,
-                  text: TextSpan(
-                    text:
-                        "Lorem Ipsum is simply dummy text of the printing and  has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-                    style: TextStyle(color: Colors.black, fontSize: 18),
-                    children: [
-                      TextSpan(
-                        text: ' Ещё',
-                        style: TextStyle(
-                          color: Colors.blueAccent,
-                          fontSize: 18,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            // navigate to desired screen
-                          },
-                      )
-                    ],
-                  ),
-                ),
+              // Container(
+              //   child: RichText(
+              //     // overflow: TextOverflow.ellipsis,
+              //     // maxLines: 8,
+              //     // softWrap: false,
+              //     text: TextSpan(
+              //       text:
+              //           "Lorem Ipsum is simply dummy text of the printing and  has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+              //       style: TextStyle(color: Colors.black, fontSize: 18),
+              //       children: [
+              //         TextSpan(
+              //           text: ' Ещё',
+              //           style: TextStyle(
+              //             color: Colors.blueAccent,
+              //             fontSize: 18,
+              //           ),
+              //           recognizer: TapGestureRecognizer()
+              //             ..onTap = () {
+              //               // navigate to desired screen
+              //             },
+              //         )
+              //       ],
+              //     ),
+              //   ),
+              // ),
+              Html(
+                data: """ <div> ${product.description} </div> """,
+                // style: {
+                //   "div": Style(
+                //     textStyle: TextStyle(
+                //       color: Colors.red,
+                //     ),
+                //   ),
+                // },
               ),
+
               Column(children: [Text('second tab')]),
             ][_tabIndex],
           ),
@@ -676,7 +712,7 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-  Widget _getFooter() {
+  Widget _getFooter(double price) {
     return Container(
       decoration: BoxDecoration(
         border: Border(top: BorderSide(color: MyColors.mischka, width: 1)),
@@ -695,8 +731,14 @@ class _ProductPageState extends State<ProductPage>
                 "В корзину",
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
-              Text(
-                (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString()
+              if (price != 0)
+                SizedBox(
+                  height: 10,
+                ),
+              if (price != 0)
+                Text(
+                  price.toString(),
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
             ],
           ),
@@ -717,8 +759,6 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-  double calculatorPrice() =>
-      // (product.basePrice / product.baseDiscountedPrice * 100) -
-      // 100;:
-      100;
+  double calculatorPrice(double priceLower, double priceHigher) =>
+      (priceLower / priceHigher * 100 * (-1));
 }
