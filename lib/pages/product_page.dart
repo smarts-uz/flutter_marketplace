@@ -59,12 +59,13 @@ class _ProductPageState extends State<ProductPage>
   Widget build(BuildContext context) {
     return BlocProvider<ProductCubit>(
       create: (context) =>
-          ProductCubit(productRepository)..getById(widget.productId),
+      ProductCubit(productRepository)
+        ..getById(widget.productId),
       child: Scaffold(
         backgroundColor: MyColors.white,
         appBar: _getAppBar(),
         body:
-            BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
+        BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
           if (state is ProductInitial || state is ProductLoadingState) {
             return Shimmer.fromColors(
               baseColor: MyColors.shimmerBaseColor,
@@ -78,10 +79,11 @@ class _ProductPageState extends State<ProductPage>
                 ),
                 items: List.generate(
                   3,
-                  (_) => Container(
-                    width: double.infinity,
-                    color: MyColors.white,
-                  ),
+                      (_) =>
+                      Container(
+                        width: double.infinity,
+                        color: MyColors.white,
+                      ),
                 ),
               ),
             );
@@ -96,7 +98,7 @@ class _ProductPageState extends State<ProductPage>
           }
         }),
         bottomNavigationBar:
-            BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
+        BlocBuilder<ProductCubit, ProductState>(builder: (context, state) {
           if (state is ProductInitial || state is ProductLoadingState) {
             return _getFooter(0);
           } else if (state is ProductDetailLoadedState) {
@@ -140,7 +142,7 @@ class _ProductPageState extends State<ProductPage>
             }),
             __getAppBarButton(
               isFavorite ? Icons.favorite : Icons.favorite_outline,
-              () {
+                  () {
                 setState(() {
                   isFavorite = !isFavorite;
                 });
@@ -167,23 +169,25 @@ class _ProductPageState extends State<ProductPage>
               controller: controller,
               children: List.generate(
                 product.photos.length,
-                (index) => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: CachedNetworkImage(
-                              imageUrl: Config.filesUrl + product.photos[index],
-                              fit: BoxFit.cover,
-                            ),
-                          )),
+                    (index) =>
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: CachedNetworkImage(
+                                  imageUrl: Config.filesUrl +
+                                      product.photos[index],
+                                  fit: BoxFit.cover,
+                                ),
+                              )),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
               ),
             ),
           ),
@@ -202,7 +206,9 @@ class _ProductPageState extends State<ProductPage>
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Text(
-                        "-${(100-(product.priceLower / product.priceHigher) * 100).round()}%",
+                      "-${(100 -
+                          (product.priceLower / product.priceHigher) * 100)
+                          .round()}%",
                       style: TextStyle(
                         color: MyColors.white,
                         fontWeight: FontWeight.bold,
@@ -211,26 +217,26 @@ class _ProductPageState extends State<ProductPage>
                       ),
                     ),
                   ),
-                Container(
-                  margin: EdgeInsets.only(left: 15),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: MyColors.royalPurple,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Text(
-                    "Часто покупаете?",
-                    style: TextStyle(
-                      color: MyColors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.8,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(left: 15),
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: 8,
+                //     vertical: 5,
+                //   ),
+                //   decoration: BoxDecoration(
+                //     color: MyColors.royalPurple,
+                //     borderRadius: BorderRadius.circular(5),
+                //   ),
+                //   child: Text(
+                //     "Часто покупаете?",
+                //     style: TextStyle(
+                //       color: MyColors.white,
+                //       fontWeight: FontWeight.bold,
+                //       letterSpacing: 0.8,
+                //       fontSize: 12,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -278,7 +284,7 @@ class _ProductPageState extends State<ProductPage>
           Container(
             padding: EdgeInsets.only(left: 18, right: 18, top: 2),
             width: double.infinity,
-            child: Text(product.name),
+            child: Text("TeamPro"),
           ),
           Container(
             width: double.infinity,
@@ -287,11 +293,12 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  (product.priceLower < product.priceHigher && product.priceLower !=0)
+                  (product.priceLower < product.priceHigher &&
+                      product.priceLower != 0)
                       ? product.priceLower.toString()
                       : product.priceHigher.toString(),
                   style: TextStyle(
-                    color: (product.priceHigher > product.priceLower)
+                    color: (product.priceHigher > product.priceLower && product.priceLower != 0)
                         ? MyColors.hibiscus
                         : MyColors.thunder,
                     fontWeight: FontWeight.bold,
@@ -301,7 +308,7 @@ class _ProductPageState extends State<ProductPage>
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    (product.priceLower !=0)
+                    (product.priceLower != 0)
                         ? product.priceHigher.toString()
                         : "",
                     style: TextStyle(
@@ -316,49 +323,50 @@ class _ProductPageState extends State<ProductPage>
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 8),
-            child: InkWell(
-              onTap: () => {},
-              child: Container(
-                padding: EdgeInsets.only(left: 18),
-                child: Column(
-                  children: [
-                    Divider(height: 5, color: MyColors.alto),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "Нашли дешевле?",
-                              style: TextStyle(color: MyColors.blueCharcoal),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              softWrap: false,
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(right: 10),
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: MyColors.tiara,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(height: 5, color: MyColors.alto),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(top: 8),
+          //   child: InkWell(
+          //     onTap: () => {},
+          //     child: Container(
+          //       padding: EdgeInsets.only(left: 18),
+          //       child: Column(
+          //         children: [
+          //           Divider(height: 5, color: MyColors.alto),
+          //           Container(
+          //             padding: EdgeInsets.symmetric(vertical: 10),
+          //             child: Row(
+          //               children: [
+          //                 Expanded(
+          //                   child: Text(
+          //                     "Нашли дешевле?",
+          //                     style: TextStyle(color: MyColors.blueCharcoal),
+          //                     overflow: TextOverflow.ellipsis,
+          //                     maxLines: 1,
+          //                     softWrap: false,
+          //                   ),
+          //                 ),
+          //                 Container(
+          //                   padding: EdgeInsets.only(right: 10),
+          //                   child: Icon(
+          //                     Icons.chevron_right,
+          //                     color: MyColors.tiara,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //           Divider(height: 5, color: MyColors.alto),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
           Container(
             width: double.infinity,
             padding: EdgeInsets.only(top: 10, bottom: 2, left: 18, right: 18),
             child: Text(
-              product.unit,
+              product.user.name,
               style: TextStyle(color: MyColors.stTropaz),
             ),
           ),
@@ -373,101 +381,107 @@ class _ProductPageState extends State<ProductPage>
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.only(right: 18, top: 20, left: 18),
-            child: Text("Размер подгузника"),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 15, bottom: 15),
-            height: 42,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              itemCount: 20,
-              itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.only(left: 18, right: index == 19 ? 18 : 0),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  onTap: () => {
-                    setState(() {
-                      isSize = index;
-                    })
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: isSize == index
-                            ? MyColors.toryBlue
-                            : MyColors.wildSand,
-                        width: 2,
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 13),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "${index + 1} месяц",
-                          style: TextStyle(
-                            color: MyColors.blackPearl,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () => {},
-            child: Container(
-              padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.notifications_outlined,
-                    color: MyColors.denim,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "Узнать о снижении цены",
-                      style: TextStyle(color: MyColors.blackPearl),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 5),
-          InkWell(
-            onTap: () => {},
-            child: Container(
-              padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.check_circle_outline,
-                    color: MyColors.blueCharcoal,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "В наличии",
-                      style: TextStyle(color: MyColors.blueCharcoal),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
+
+          // Container(
+          //   width: double.infinity,
+          //   padding: EdgeInsets.only(right: 18, top: 20, left: 18),
+          //   child: Text("Размер подгузника"),
+          // ),
+          // Container(
+          //   margin: EdgeInsets.only(top: 15, bottom: 15),
+          //   height: 42,
+          //   child: ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     physics: BouncingScrollPhysics(),
+          //     itemCount: 20,
+          //     itemBuilder: (context, index) => Container(
+          //       margin: EdgeInsets.only(left: 18, right: index == 19 ? 18 : 0),
+          //       child: InkWell(
+          //         borderRadius: BorderRadius.circular(8),
+          //         onTap: () => {
+          //           setState(() {
+          //             isSize = index;
+          //           })
+          //         },
+          //         child: Container(
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(8),
+          //             border: Border.all(
+          //               color: isSize == index
+          //                   ? MyColors.toryBlue
+          //                   : MyColors.wildSand,
+          //               width: 2,
+          //             ),
+          //           ),
+          //           padding: EdgeInsets.symmetric(horizontal: 13),
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Text(
+          //                 "${index + 1} месяц",
+          //                 style: TextStyle(
+          //                   color: MyColors.blackPearl,
+          //                 ),
+          //               )
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+
+          // InkWell(
+          //   onTap: () => {},
+          //   child: Container(
+          //     padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
+          //     child: Row(
+          //       children: [
+          //         Icon(
+          //           Icons.notifications_outlined,
+          //           color: MyColors.denim,
+          //         ),
+          //         Padding(
+          //           padding: EdgeInsets.only(left: 10),
+          //           child: Text(
+          //             "Узнать о снижении цены",
+          //             style: TextStyle(color: MyColors.blackPearl),
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // ),
+
+          //SizedBox(height: 5),
+
+          // InkWell(
+          //   onTap: () => {},
+          //   child: Container(
+          //     padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
+          //     child: Row(
+          //       children: [
+          //         Icon(
+          //           Icons.check_circle_outline,
+          //           color: MyColors.blueCharcoal,
+          //         ),
+          //         Padding(
+          //           padding: EdgeInsets.only(left: 10),
+          //           child: Text(
+          //             "В наличии",
+          //             style: TextStyle(color: MyColors.blueCharcoal),
+          //           ),
+          //         )
+          //       ],
+          //     ),
+          //   ),
+          // ),
+
           Container(
             padding: EdgeInsets.only(left: 50),
             child: Divider(height: 5, color: MyColors.alto),
           ),
+
           Container(
             padding: EdgeInsets.symmetric(horizontal: 18),
             width: double.infinity,
@@ -485,36 +499,36 @@ class _ProductPageState extends State<ProductPage>
               ),
             ),
           ),
-          InkWell(
-            onTap: () => {},
-            child: Container(
-              padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
-              child: Row(
-                children: [
-                  Icon(Icons.score_outlined),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text.rich(
-                      TextSpan(
-                        text: "750 баллов (5%) при оплате c ",
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Ozon Card',
-                            style: TextStyle(color: MyColors.chambray),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          // InkWell(
+          //   onTap: () => {},
+          //   child: Container(
+          //     padding: EdgeInsets.only(left: 18, top: 4, bottom: 4),
+          //     child: Row(
+          //       children: [
+          //         Icon(Icons.score_outlined),
+          //         Padding(
+          //           padding: EdgeInsets.only(left: 10),
+          //           child: Text.rich(
+          //             TextSpan(
+          //               text: "750 баллов (5%) при оплате c ",
+          //               children: <TextSpan>[
+          //                 TextSpan(
+          //                   text: 'Ozon Card',
+          //                   style: TextStyle(color: MyColors.chambray),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Container(
             padding: EdgeInsets.only(left: 18, right: 18, top: 18, bottom: 10),
             width: double.infinity,
             child: Text(
-              "Доставит OZON",
+              "Доставит TeamPro",
               style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),
             ),
           ),
@@ -581,7 +595,7 @@ class _ProductPageState extends State<ProductPage>
                       ),
                       Expanded(
                         child: Text(
-                          "Курьером, завтра, 7 января",
+                          "Курьером, завтра, 18 февраль",
                           style: TextStyle(color: MyColors.firefly),
                         ),
                       ),
@@ -616,7 +630,7 @@ class _ProductPageState extends State<ProductPage>
                       ),
                       Expanded(
                         child: Text(
-                          "Самовывоз, завтра, 7 января бесплато",
+                          "Самовывоз, завтра, 18 февраль бесплато",
                           style: TextStyle(color: MyColors.firefly),
                         ),
                       ),
@@ -687,7 +701,18 @@ class _ProductPageState extends State<ProductPage>
                 // },
               ),
 
-              Column(children: [Text('second tab')]),
+              Column(children: [
+                Html(
+                  data: """ <div> ${product.description} </div> """,
+                  // style: {
+                  //   "div": Style(
+                  //     textStyle: TextStyle(
+                  //       color: Colors.red,
+                  //     ),
+                  //   ),
+                  // },
+                ),
+              ]),
             ][_tabIndex],
           ),
           Padding(padding: EdgeInsets.only(top: 10)),
@@ -759,6 +784,4 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-  double calculatorPrice(double priceLower, double priceHigher) =>
-      (priceLower / priceHigher * 100 * (-1));
 }
