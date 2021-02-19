@@ -183,11 +183,7 @@ class _ProductPageState extends State<ProductPage>
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
-                    "",
-                    // (product.baseDiscountedPrice >
-                    //         product.basePrice)
-                    //     ? "—${calculatorPrice().ceilToDouble()}%"
-                    //     : "",
+                    (widget.product.baseDiscountedPrice < widget.product.basePrice) ? "—${calculatorPrice().ceilToDouble()}%" : "",
                     style: TextStyle(
                       color: MyColors.white,
                       fontWeight: FontWeight.bold,
@@ -272,28 +268,17 @@ class _ProductPageState extends State<ProductPage>
               crossAxisAlignment: WrapCrossAlignment.end,
               children: [
                 Text(
-                  "",
-                  // (product.baseDiscountedPrice >
-                  //         product.basePrice)
-                  //     ? product.baseDiscountedPrice.toString()
-                  //     : product.basePrice.toString(),
-                  // style: TextStyle(
-                  //   color: (product.baseDiscountedPrice >
-                  //           product.basePrice)
-                  //       ? MyColors.hibiscus
-                  //       : MyColors.thunder,
-                  //   fontWeight: FontWeight.bold,
-                  //   fontSize: 18,
-                  // ),
+                  (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString(),
+                  style: TextStyle(
+                    color: (widget.product.baseDiscountedPrice < widget.product.basePrice) ? MyColors.hibiscus : MyColors.thunder,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
                 Container(
                   padding: EdgeInsets.only(left: 3),
                   child: Text(
-                    // (product.baseDiscountedPrice >
-                    //         product.basePrice)
-                    //     ? product.basePrice.toString()
-                    //     : "",
-                    "",
+                    (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.basePrice.toString() : "",
                     style: TextStyle(
                       color: MyColors.thunder,
                       fontSize: 12,
@@ -710,9 +695,9 @@ class _ProductPageState extends State<ProductPage>
                 "В корзину",
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
-              // Text((product.baseDiscountedPrice > product.basePrice)
-              //     ? product.baseDiscountedPrice.toString()
-              //     : product.basePrice.toString()),
+              Text(
+                (widget.product.baseDiscountedPrice < widget.product.basePrice) ? widget.product.baseDiscountedPrice.toString() : widget.product.basePrice.toString()
+                ),
             ],
           ),
         ),
