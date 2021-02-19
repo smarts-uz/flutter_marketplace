@@ -2,9 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace/config/colors.dart';
-import 'package:flutter_marketplace_service/config.dart';
-import 'package:flutter_marketplace_service/models/products_response.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
+import 'package:flutter_marketplace_service/models/product_detail_response.dart';
 
 import 'package:flutter_marketplace_service/service/product/cubit/product_cubit.dart';
 import 'package:flutter_marketplace_service/service/product/product_repository.dart';
@@ -15,10 +14,10 @@ import 'package:share/share.dart';
 class ProductPage extends StatefulWidget {
   ProductPage({
     Key key,
-    @required this.product,
+    @required this.productId,
   }) : super(key: key);
 
-  final ProductModel product;
+  final int productId;
 
   @override
   _ProductPageState createState() => _ProductPageState();
@@ -56,10 +55,9 @@ class _ProductPageState extends State<ProductPage>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.product.id);
-
     return BlocProvider<ProductCubit>(
-      create: (context) => ProductCubit(productRepository)..getAll(2),
+      create: (context) =>
+          ProductCubit(productRepository)..getById(widget.productId),
       child: Scaffold(
         backgroundColor: MyColors.white,
         appBar: _getAppBar(),
@@ -85,8 +83,8 @@ class _ProductPageState extends State<ProductPage>
                 ),
               ),
             );
-          } else if (state is ProductLoadedState) {
-            return _getBody();
+          } else if (state is ProductDetailLoadedState) {
+            return _getBody(state.response.data[0]);
           } else if (state is ProductErrorState) {
             return Center(
               child: Text("Error"),
@@ -141,7 +139,7 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-  Widget _getBody() {
+  Widget _getBody(ProductDetailModel product) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -261,7 +259,7 @@ class _ProductPageState extends State<ProductPage>
           Container(
             padding: EdgeInsets.only(left: 18, right: 18, top: 2),
             width: double.infinity,
-            child: Text(widget.product.name),
+            child: Text(product.name),
           ),
           Container(
             width: double.infinity,
@@ -335,7 +333,7 @@ class _ProductPageState extends State<ProductPage>
             width: double.infinity,
             padding: EdgeInsets.only(top: 10, bottom: 2, left: 18, right: 18),
             child: Text(
-              widget.product.unit,
+              product.unit,
               style: TextStyle(color: MyColors.stTropaz),
             ),
           ),
@@ -343,7 +341,7 @@ class _ProductPageState extends State<ProductPage>
             width: double.infinity,
             padding: EdgeInsets.only(right: 18, left: 18),
             child: Text(
-              widget.product.name,
+              product.name,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 color: MyColors.blackPearl,
@@ -719,7 +717,8 @@ class _ProductPageState extends State<ProductPage>
     );
   }
 
-
-double calculatorPrice() =>(widget.product.basePrice/widget.product.baseDiscountedPrice *100)-100;
-
+  double calculatorPrice() =>
+      // (product.basePrice / product.baseDiscountedPrice * 100) -
+      // 100;:
+      100;
 }

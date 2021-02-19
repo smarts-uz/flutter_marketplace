@@ -1,11 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace/widgets/loading.dart';
-import 'package:flutter_marketplace_service/config.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
+import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
 import 'package:flutter_marketplace_service/service/category/category_api_provider.dart';
-import 'package:flutter_marketplace_service/service/category/bloc/category_bloc.dart';
+import 'package:flutter_marketplace_service/service/category/cubit/category_cubit.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CatalogPage extends StatefulWidget {
   CatalogPage({Key key}) : super(key: key);
@@ -15,20 +15,9 @@ class CatalogPage extends StatefulWidget {
 }
 
 class _CatalogPageState extends State<CatalogPage> {
-  final categoryRepository = CategoryProvider();
+  final categoryRepository = CategoryRepository();
 
   double kDefaultPaddin = 10;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _loadCategories();
-  }
-
-  _loadCategories() async {
-    BlocProvider.of<CategoryBloc>(context).add(CategoryEvent.fetchCategory);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,90 +25,115 @@ class _CatalogPageState extends State<CatalogPage> {
   }
 
   Widget _getCategory() {
-    return BlocBuilder<CategoryBloc, CategoryState>(
-      builder: (context, state) {
-        if (state is CategoryError) {
-          final error = state.error;
-          String message = '${error.message}\nTap to Retry.';
-          return Text(message);
-        }
-        if (state is CategoryLoading) {
-          return Loading();
-        }
-        if (state is CategoryLoaded) {
-          return GridView.count(
-            mainAxisSpacing: kDefaultPaddin,
-            crossAxisSpacing: kDefaultPaddin,
-            crossAxisCount: 3,
-            children: List.generate(state.data.length, (index) {
-              return itemView(context, state, index);
-            }),
-          );
-        } else {
-          return Container();
-        }
-      },
+    return BlocProvider<CategoryCubit>(
+      create: (context) => CategoryCubit(categoryRepository)..getAll(),
+      child: BlocBuilder<CategoryCubit, CategoryState>(
+        builder: (context, state) {
+          if (state is CategoryInitial || state is CategoryLoadingState) {
+            return GridView.count(
+              primary: false,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              crossAxisCount: 3,
+              children: List.generate(
+                3,
+                (index) => Container(
+                  child: InkWell(
+                    onTap: () => {},
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 6),
+                          width: MediaQuery.of(context).size.width / 6,
+                          height: MediaQuery.of(context).size.width / 6,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Shimmer.fromColors(
+                              baseColor: MyColors.shimmerBaseColor,
+                              highlightColor: MyColors.shimmerHighlightColor,
+                              child: Container(
+                                height: double.infinity,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          width: double.infinity,
+                          child: Shimmer.fromColors(
+                            baseColor: MyColors.shimmerBaseColor,
+                            highlightColor: MyColors.shimmerHighlightColor,
+                            child: Container(
+                              height: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } else if (state is CategoryLoadedState) {
+            return GridView.count(
+              primary: false,
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 15,
+              crossAxisCount: 3,
+              children: List.generate(
+                state.list.data.length,
+                (index) => itemView(context, state, index),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 
-  Container itemView(BuildContext context, CategoryLoaded state, index) {
+  itemView(BuildContext context, CategoryLoadedState state, index) {
+    final category = state.list.data[index];
+
     return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 6),
-            height: 80,
-            width: double.infinity,
-            child: InkWell(
-              child: state.data[index].icon != null
-                  ? CachedNetworkImage(
-                      imageUrl: "${Config.filesUrl}/${state.data[index].icon}",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      errorWidget: (context, url, error) => SizedBox(
-                        width: double.infinity,
-                        child: Image.asset(
-                          'assets/carousel.jpg',
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
-                    )
-                  : SizedBox(
-                      width: double.infinity,
-                      child: Image.asset(
-                        'assets/catalog.png',
-                        fit: BoxFit.fitWidth,
-                      ),
-                    ),
+      child: InkWell(
+        onTap: () => {},
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 6),
+              width: MediaQuery.of(context).size.width / 6,
+              height: MediaQuery.of(context).size.width / 6,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: CacheImageWidget(
+                  url: category.icon,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 2),
-            width: double.infinity,
-            child: state.data[index].name != null
-                ? Text(
-                    state.data[index].name,
-                    style: TextStyle(
-                      fontSize: 10,
-                    ),
-                    textAlign: TextAlign.center,
-                  )
-                : Text(
-                    "null",
-                    style: TextStyle(
-                      fontSize: 8,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 2),
+              width: double.infinity,
+              child: Text(
+                category.name ?? "",
+                style: TextStyle(fontSize: 10),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

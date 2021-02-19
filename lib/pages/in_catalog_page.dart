@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 
 import 'package:flutter_marketplace/widgets/shop_banners_widget.dart';
 

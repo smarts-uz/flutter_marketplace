@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 import 'package:flutter_marketplace/widgets/product_cards_widget.dart';
 

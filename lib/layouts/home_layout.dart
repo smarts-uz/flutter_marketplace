@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_marketplace/config/colors.dart';
+import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/pages/cabinet_page.dart';
 import 'package:flutter_marketplace/pages/cart_page.dart';
 import 'package:flutter_marketplace/pages/catalog_page.dart';
@@ -9,8 +9,6 @@ import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
-import 'package:flutter_marketplace_service/service/category/category_api_provider.dart';
-import 'package:flutter_marketplace_service/service/category/bloc/category_bloc.dart';
 import 'package:flutter_marketplace_service/service/wishlist/bloc/wishlist_bloc.dart';
 import 'package:flutter_marketplace_service/service/wishlist/wishlist_api_provider.dart';
 import 'package:get/get.dart';
@@ -56,24 +54,24 @@ class _HomeLayoutState extends State<HomeLayout> {
     );
   }
 
-  _speechTotext() {
-    // print(_isAvailable.toString() + ' ' + _isListening.toString());
-    // if (_isListening)
-    //   _speechRecognition.stop().then(
-    //         (result) => setState(() {
-    //           _isListening = result;
-    //           resultText = "";
-    //         }),
-    //       );
-    // if (_isAvailable && !_isListening) {
-    //   _speechRecognition.listen(locale: "ru_RU").then((result) {
-    //     setState(() {
-    //       resultText = result;
-    //       print(resultText + " ok Google");
-    //     });
-    //   });
-    // } else {}
-  }
+  // _speechTotext() {
+  //   print(_isAvailable.toString() + ' ' + _isListening.toString());
+  //   if (_isListening)
+  //     _speechRecognition.stop().then(
+  //           (result) => setState(() {
+  //             _isListening = result;
+  //             resultText = "";
+  //           }),
+  //         );
+  //   if (_isAvailable && !_isListening) {
+  //     _speechRecognition.listen(locale: "ru_RU").then((result) {
+  //       setState(() {
+  //         resultText = result;
+  //         print(resultText + " ok Google");
+  //       });
+  //     });
+  //   } else {}
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -88,27 +86,29 @@ class _HomeLayoutState extends State<HomeLayout> {
           height: 42,
           child: Row(
             children: [
-              Container(
-                width: 40,
-                margin: EdgeInsets.only(left: 7, right: 8),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50),
-                  onTap: () => {
-                    // Get.toNamed("/search")
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-                    child: Text(
-                      "anti virus".toUpperCase(),
-                      style: TextStyle(color: MyColors.white, fontSize: 9),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      softWrap: false,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ),
+              SizedBox(width: 16),
+              // Container(
+              //   width: 40,
+              //   margin: EdgeInsets.only(left: 7, right: 8),
+              //   child: InkWell(
+              //     borderRadius: BorderRadius.circular(50),
+              //     onTap: () => {
+              //       // Get.toNamed("/search")
+              //     },
+              //     child: Padding(
+              //       padding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+              //       child: Text(""),
+              //       // Text(
+              //       //   "anti virus".toUpperCase(),
+              //       //   style: TextStyle(color: MyColors.white, fontSize: 9),
+              //       //   overflow: TextOverflow.ellipsis,
+              //       //   maxLines: 2,
+              //       //   softWrap: false,
+              //       //   textAlign: TextAlign.center,
+              //       // ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: InkWell(
                   onTap: () => {Get.toNamed("/search")},
@@ -126,34 +126,34 @@ class _HomeLayoutState extends State<HomeLayout> {
                         ),
                         Expanded(
                           child: Text(
-                            resultText == "" ? "Искать..." : resultText,
+                            "Искать...",
                             style: TextStyle(color: Colors.black45),
                           ),
                         ),
-                        SizedBox(
-                          width: 35,
-                          child: IconButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: () => {
-                              _speechTotext(),
-                            },
-                            icon: Icon(
-                              Icons.mic_none_outlined,
-                              color: MyColors.bigStone,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 35,
-                          child: IconButton(
-                            padding: EdgeInsets.all(0),
-                            onPressed: () => {},
-                            icon: Icon(
-                              Icons.camera_alt_outlined,
-                              color: MyColors.bigStone,
-                            ),
-                          ),
-                        ),
+                        // SizedBox(
+                        //   width: 35,
+                        //   child: IconButton(
+                        //     padding: EdgeInsets.all(0),
+                        //     onPressed: () => {
+                        //       _speechTotext(),
+                        //     },
+                        //     icon: Icon(
+                        //       Icons.mic_none_outlined,
+                        //       color: MyColors.bigStone,
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   width: 35,
+                        //   child: IconButton(
+                        //     padding: EdgeInsets.all(0),
+                        //     onPressed: () => {},
+                        //     icon: Icon(
+                        //       Icons.camera_alt_outlined,
+                        //       color: MyColors.bigStone,
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(width: 10)
                       ],
                     ),
@@ -177,23 +177,22 @@ class _HomeLayoutState extends State<HomeLayout> {
               );
             case '/catalog':
               return MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    BlocProvider(
-                        create: (context) => CategoryBloc(categoryProvider: CategoryProvider()),
-                        child: CatalogPage()),
+                builder: (BuildContext context) => CatalogPage(),
                 settings: settings,
               );
             case '/cart':
               return MaterialPageRoute(
                 builder: (BuildContext context) => ChangeNotifierProvider(
-                    create: (context) => CartProvider(), child: CartPage()),
+                  create: (context) => CartProvider(),
+                  child: CartPage(),
+                ),
                 settings: settings,
               );
             case '/fovarite':
               return MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    BlocProvider(
-                      create: (context) => WishlistBloc(wishlistApiProvider: WishlistApiProvider()),
+                builder: (BuildContext context) => BlocProvider(
+                    create: (context) => WishlistBloc(
+                        wishlistApiProvider: WishlistApiProvider()),
                     child: FavoritePage()),
                 settings: settings,
               );
