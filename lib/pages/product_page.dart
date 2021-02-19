@@ -173,14 +173,15 @@ class _ProductPageState extends State<ProductPage>
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: CachedNetworkImage(
-                              imageUrl: Config.filesUrl + product.photos[index],
-                              fit: BoxFit.cover,
-                            ),
-                          )),
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: CachedNetworkImage(
+                            imageUrl: Config.filesUrl + product.photos[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -38,6 +38,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void dispose() {
     _changeSysBar(oldColor);
+    _textController.dispose();
+
     super.dispose();
   }
 

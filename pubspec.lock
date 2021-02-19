@@ -225,6 +225,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.10"
+  double_back_to_close:
+    dependency: "direct main"
+    description:
+      name: double_back_to_close
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2+mit"
   equatable:
     dependency: transitive
     description:
@@ -854,6 +861,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.12-nullsafety.5"
+  toast:
+    dependency: transitive
+    description:
+      name: toast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.5"
   typed_data:
     dependency: transitive
     description:

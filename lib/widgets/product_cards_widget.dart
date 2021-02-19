@@ -10,18 +10,20 @@ import 'package:shimmer/shimmer.dart';
 class ProductCardsWidget extends StatefulWidget {
   ProductCardsWidget({
     Key key,
-    @required this.title,
+    this.title,
     this.named = true,
     this.vertical = false,
     this.perCol = 3,
     @required this.type,
+    this.categoryId,
   }) : super(key: key);
 
   final String title;
   final bool named;
   final bool vertical;
-  final double perCol;
+  final int perCol;
   final String type;
+  final int categoryId;
 
   @override
   _ProductCardsWidgetState createState() => _ProductCardsWidgetState();
@@ -35,30 +37,48 @@ class _ProductCardsWidgetState extends State<ProductCardsWidget> {
     bool isBestSaller = widget.type == 'getOfBestSeller';
 
     return Column(children: [
-      Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-        child: Text(
-          widget.title,
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-            fontSize: 16,
-            color: MyColors.mirage,
-          ),
-        ),
-      ),
+      widget.title != null
+          ? Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w900,
+                  fontSize: 16,
+                  color: MyColors.mirage,
+                ),
+              ),
+            )
+          : Container(),
       BlocProvider<ProductCubit>(
         create: (context) => _initType(),
         child: BlocBuilder<ProductCubit, ProductState>(
           builder: (context, state) {
             if (state is ProductInitial || state is ProductLoadingState) {
-              return widget.vertical
-                  ? _getVerticalViewShimmer(isBestSaller)
-                  : _getHorizontalViewShimmer(isBestSaller);
+              if (widget.vertical) {
+                return _getVerticalViewShimmer(isBestSaller);
+              } else {
+                return _getHorizontalViewShimmer(isBestSaller);
+              }
             } else if (state is ProductLoadedState) {
-              return widget.vertical
-                  ? _getVerticalView(state, isBestSaller)
-                  : _getHorizontalView(state, isBestSaller);
+              if (state.list.data.length > 0) {
+                if (widget.vertical) {
+                  return _getVerticalView(state, isBestSaller);
+                } else {
+                  return _getHorizontalView(state, isBestSaller);
+                }
+              } else {
+                return Container(
+                  padding: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Нет данных..."),
+                    ],
+                  ),
+                );
+              }
             } else {
               return Container();
             }
@@ -129,16 +149,19 @@ class _ProductCardsWidgetState extends State<ProductCardsWidget> {
   }
 
   Widget _getHorizontalView(ProductLoadedState state, bool isBestSaller) {
-    return Wrap(
-      alignment: WrapAlignment.spaceBetween,
-      children: List.generate(
-        state.list.data.length,
-        (index) => Container(
-          width: MediaQuery.of(context).size.width / widget.perCol,
-          child: ProductCardWidget(
-            named: widget.named,
-            product: state.list.data[index],
-            isBestSaller: isBestSaller,
+    return Container(
+      width: double.infinity,
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        children: List.generate(
+          state.list.data.length,
+          (index) => Container(
+            width: MediaQuery.of(context).size.width / widget.perCol,
+            child: ProductCardWidget(
+              named: widget.named,
+              product: state.list.data[index],
+              isBestSaller: isBestSaller,
+            ),
           ),
         ),
       ),
@@ -146,15 +169,19 @@ class _ProductCardsWidgetState extends State<ProductCardsWidget> {
   }
 
   ProductCubit _initType() {
+    ProductCubit repo = ProductCubit(productRepository);
+
     switch (widget.type) {
       case 'getOfTodaysDeal':
-        return ProductCubit(productRepository)..getOfTodaysDeal();
+        return repo..getOfTodaysDeal();
       case 'getOfFeatured':
-        return ProductCubit(productRepository)..getOfFeatured();
+        return repo..getOfFeatured();
       case 'getOfBestSeller':
-        return ProductCubit(productRepository)..getOfBestSeller();
+        return repo..getOfBestSeller();
+      case 'getOfCategory':
+        return repo..getOfCategory(widget.categoryId, 1);
       default:
-        return ProductCubit(productRepository);
+        return repo;
     }
   }
 }

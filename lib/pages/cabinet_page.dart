@@ -99,10 +99,12 @@ class _CabinetPageState extends State<CabinetPage> {
                           color: MyColors.blue,
                           elevation: 0,
                           onPressed: () => {
-                            setState(() => {
-                                  //         isAuth = !isAuth,
-                                  myProvider.openRegistrationScreen(context),
-                                })
+                            setState(
+                              () => {
+                                //         isAuth = !isAuth,
+                                myProvider.openRegistrationScreen(context),
+                              },
+                            )
                           },
                           child: Text(
                             "Войти или зарегистрироватся",

@@ -6,7 +6,6 @@ import 'package:flutter_marketplace/pages/cart_page.dart';
 import 'package:flutter_marketplace/pages/catalog_page.dart';
 import 'package:flutter_marketplace/pages/favorite_page.dart';
 import 'package:flutter_marketplace/pages/home_page.dart';
-import 'package:flutter_marketplace/pages/in_catalog_page.dart';
 import 'package:flutter_marketplace/provider/cabinet_provider.dart';
 import 'package:flutter_marketplace/provider/cart_provider.dart';
 import 'package:flutter_marketplace_service/service/wishlist/bloc/wishlist_bloc.dart';

@@ -40,6 +40,7 @@ dependencies:
   intl: ^0.16.1
   shared_preferences: ^0.5.12+4
   flutter_html: ^1.2.0
+  double_back_to_close: ^1.0.2+mit
 
   flutter_marketplace_service:
     path: ../flutter_marketplace_service

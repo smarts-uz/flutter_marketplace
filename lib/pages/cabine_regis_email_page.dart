@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_marketplace/pages/home_page.dart';
 import 'package:flutter_marketplace/sharepreference/share_preference.dart';
+import 'package:flutter_marketplace_service/models/login_request.dart';
+import 'package:flutter_marketplace_service/models/login_response.dart';
 import 'package:flutter_marketplace_service/models/signup_request.dart';
 import 'package:flutter_marketplace_service/service/users/cubit/users_cubit.dart';
 import 'package:flutter_marketplace_service/service/users/users_repository.dart';
@@ -13,7 +15,9 @@ class CabinetPageRegistrationEmail extends StatefulWidget {
       MaterialPageRoute(builder: (context) => screen());
 
   static Widget screen() => BlocProvider(
-      create: (context) => UsersCubit(), child: CabinetPageRegistrationEmail());
+        create: (context) => UsersCubit(),
+        child: CabinetPageRegistrationEmail(),
+      );
 
   @override
   _CabinetPageRegistrationEmailState createState() =>
@@ -417,22 +421,33 @@ class _CabinetPageRegistrationEmailState
     if (_formKey.currentState.validate()) {
       print("$username, $email, $pass, $comPass");
       var res = await repo.signup(param);
-//    If all data are correct then save data to out variables
+
+      // If all data are correct then save data to out variables
       _formKey.currentState.save();
 
       if (res != null) {
         print(res.message);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return HomePage();
-            },
-          ),
+
+        LoginRequestModel login = LoginRequestModel(
+          email: email,
+          password: pass,
+          rememberMe: true,
         );
+
+        LoginResponseModel status = await repo.login(login);
+        if (status != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return HomePage();
+              },
+            ),
+          );
+        }
       }
     } else {
-//    If all data are not valid then start auto validation.
+      // If all data are not valid then start auto validation.
 
       setState(() {
         _autoValidate = true;

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_marketplace/pages/cabine_regis_email_page.dart';
+import 'package:flutter_marketplace/provider/user_provider.dart';
 import 'package:flutter_marketplace/utils/colors.dart';
 import 'package:flutter_marketplace/pages/product_page.dart';
 import 'package:flutter_marketplace/widgets/cache_image_widget.dart';
+import 'package:flutter_marketplace_service/models/login_response.dart';
 import 'package:flutter_marketplace_service/models/products_response.dart';
 
 import 'package:intl/intl.dart';
@@ -25,6 +28,29 @@ class ProductCardWidget extends StatefulWidget {
 class _ProductCardWidgetState extends State<ProductCardWidget> {
   bool _selected = false;
   bool _isFavorite = false;
+
+  bool isAuth;
+
+  UserProvider userProvider = UserProvider();
+
+  void getIsAuth() async {
+    final LoginResponseModel user = await userProvider.getUser();
+
+    setState(() {
+      isAuth = user != null;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getIsAuth();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +101,16 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                           right: 2,
                           child: InkWell(
                             onTap: () {
-                              setState(() {
-                                _isFavorite = !_isFavorite;
-                              });
+                              if (isAuth) {
+                                setState(() {
+                                  _isFavorite = !_isFavorite;
+                                });
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  CabinetPageRegistrationEmail.route(),
+                                );
+                              }
                             },
                             child: _isFavorite
                                 ? Icon(

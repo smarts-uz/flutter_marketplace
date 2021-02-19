@@ -3,6 +3,7 @@ import 'package:flutter_marketplace/layouts/home_layout.dart';
 import 'package:flutter_marketplace/pages/search_page.dart';
 import 'package:catcher/catcher.dart';
 import 'package:get/get.dart';
+import 'package:double_back_to_close/double_back_to_close.dart';
 
 void main() {
   CatcherOptions debugOptions = CatcherOptions(
@@ -41,10 +42,6 @@ class MyApp extends StatelessWidget {
       navigatorKey: Get.key,
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      routes: {
-        '/': (context) => HomeLayout(title: _title),
-        // '/product': (context) => ProductPage(),
-      },
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case "/search":
@@ -54,6 +51,10 @@ class MyApp extends StatelessWidget {
             return null;
         }
       },
+      home: DoubleBack(
+        message: "Нажмите еще раз, чтобы закрыть",
+        child: HomeLayout(title: _title),
+      ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
