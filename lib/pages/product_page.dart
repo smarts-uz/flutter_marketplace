@@ -171,7 +171,8 @@ class _ProductPageState extends State<ProductPage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.only(
+                          top: 20, bottom: 20, left: 5, right: 5),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Padding(
@@ -192,7 +193,8 @@ class _ProductPageState extends State<ProductPage>
             padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 12),
             child: Row(
               children: [
-                if (product.priceLower != 0)
+                if (product.priceLower != 0 &&
+                    product.priceHigher != product.priceLower)
                   Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: 8,
@@ -689,7 +691,18 @@ class _ProductPageState extends State<ProductPage>
                 // },
               ),
 
-              Column(children: [Text('second tab')]),
+              Column(children: [
+                Html(
+                  data: """ <div> ${product.description} </div> """,
+                  // style: {
+                  //   "div": Style(
+                  //     textStyle: TextStyle(
+                  //       color: Colors.red,
+                  //     ),
+                  //   ),
+                  // },
+                ),
+              ]),
             ][_tabIndex],
           ),
           Padding(padding: EdgeInsets.only(top: 10)),
@@ -726,8 +739,8 @@ class _ProductPageState extends State<ProductPage>
           color: MyColors.blue,
           textColor: MyColors.white,
           onPressed: () => {},
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "В корзину",
@@ -735,7 +748,7 @@ class _ProductPageState extends State<ProductPage>
               ),
               if (price != 0)
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
               if (price != 0)
                 Text(
